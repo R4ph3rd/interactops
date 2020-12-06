@@ -5,7 +5,7 @@ We use [Socket.io]() to communicate between users and OSC to communicate between
 [osc-js](https://github.com/adzialocha/osc-js).
 
 
-NB: Public folder hold a exemple of peer 2 peer connections with webRTC using a socket server to setup the connections. Maybe not really usefull for now, but at least, it holds example of how socket.io works.
+NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a socket server to setup the connections. Maybe not really usefull for now, but at least, it holds example of how socket.io works.
 
 ## Install project
 ```
