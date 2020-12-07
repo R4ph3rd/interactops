@@ -4,6 +4,7 @@ var http      =     require('http').Server(app);
 var io        =     require("socket.io")(http);
 var osc       =     require('node-osc');
 var oscServer = new osc.Server(12000, '127.0.0.1');
+const client = new osc.Client('127.0.0.1', 6648);
 
 // ========== Pages ========== //
 // Allows acess to all files inside 'public' folder.
@@ -29,20 +30,23 @@ app.get('/shast', function(req, res) {
 // ========== OSCSERVER ========== //
 /* Executed when a new message arrives */
 oscServer.on("message",function(msg, rinfo){
-  console.log("Message:");
-  console.log(msg[0] + ": " + msg[1]);
+  
   // io.emit will send a code (e.g. 'expLumin') that will be received by
   // all the pages with the parameters. You choose what to do on each necessary
   // HTML page. (See 'shast.html' code for more information).
-  if(msg[0].substring(0, 6) == '/lumin')
-    io.emit('expLumin',msg[0], msg[1]);
-  else if (msg[0].substring(0,4) == '/led')
-    io.emit('estadoLed', msg[0], msg[1]);
-  else if (msg[0].substring(0, 6) == '/shast'){
-    if(msg[0].substring(6, 12) == '/coord')
-      io.emit('novasCoordenadas', msg[0], msg[1], msg[2]);
-    else if(msg[0].substring(6, 11) == '/temp')
-      io.emit('novaTemperatura', msg[1]);
+  if(msg[0] == '/rotation_vector/r2'){
+    console.log("Message:");
+    console.log(msg[0] + ": " + msg[1]);
+
+    const message = new osc.Message('/r2');
+    message.append(msg[1]);
+    console.log(message)
+    client.send(message, (err) => {
+      if (err) {
+        console.error(new Error(err));
+      }
+      // client.close();
+    });
   }
 });
 
