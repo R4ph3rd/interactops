@@ -39,6 +39,17 @@
 			 </div>
 		 </div>
 	 </div>
+
+	 
 	 <script src="./scripts/index.js"></script>
+	 <script>
+		 var osc = new OSC();
+			osc.open(); // connect by default to ws://localhost:8080
+
+			document.getElementById('send').addEventListener('click', () => {
+				var message = new OSC.Message('/test/random', Math.random());
+				osc.send(message);
+			});
+	 </script>
  </body>
 </html>
