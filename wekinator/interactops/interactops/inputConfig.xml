@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<OSCInputGroup>
+  <oscMessage>/r2</oscMessage>
+  <numInputs>1</numInputs>
+  <groupName>Inputs</groupName>
+  <inputNames>
+    <string>r2-1</string>
+  </inputNames>
+</OSCInputGroup>

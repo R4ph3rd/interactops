@@ -5,13 +5,6 @@ const http = require("http").createServer(app)
 const io = require('socket.io')(http);
 const {join} = require("path");
 
-// OSC stuff
-const OSC = require('osc-js');
-const config = { udpClient: { port: 9000 } }
-const osc = new OSC({ plugin: new OSC.BridgePlugin(config) })
-osc.open();
-
-
 let activeSockets = [];
 
 let rooms = {
@@ -105,27 +98,4 @@ io.on("connection", socket => {
 
 	console.log("connection estblished by: "+socket.id);
 	console.log(activeSockets, rooms);
-})
-
-
-// osc stuff
-osc.on('/param/density', (message, rinfo) => {
-	console.log(message.args)
-	console.log(rinfo)
-})
-
-osc.on('/sync', message => {
-	console.log('cool')
-	console.log(message.args)
-})
-
-osc.on('/sync/*', message => {
-	console.log('cool')
-	console.log(message.args)
-})
-
-osc.on('open', () => {
-	const message = new OSC.Message('/test', 1.28, 'hello', 9000)
-	osc.send(message)
-	console.log(message, osc)
 })
