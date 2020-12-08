@@ -8101,7 +8101,7 @@
   <maxSliderValue>3707</maxSliderValue>
   <matchThreshold>5.0</matchThreshold>
   <recordingState>NOT_RECORDING</recordingState>
-  <runningState>NOT_RUNNING</runningState>
+  <runningState>RUNNING</runningState>
   <versionNumbers>
     <int>17</int>
     <int>16</int>
