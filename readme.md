@@ -26,9 +26,9 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
 ```java
     oscP5 = new OscP5(this,12000);
 ```
-3. Ensure that you're sending to the port 6648 of your localhost:
+3. Ensure that you're sending to the port 6448 of your localhost:
 ```java
-    myRemoteLocation = new NetAddress("127.0.1",6648);
+    myRemoteLocation = new NetAddress("127.0.1",6448);
 ```
 
 ## Run models on Wekinator
