@@ -20,7 +20,7 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
 4. Set OSC timing to 50ms.
 5. Ensure that your phone and your computer are on the same network and start recording.
 
-## Get data on laptop
+## Get data on laptop with Processing
 1. Open the Processing sketch : ``osc_phone_to_wekinator``.
 2. Ensure that you're listening the port 12000:
 ```java
@@ -31,26 +31,31 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
     myRemoteLocation = new NetAddress("127.0.1",6448);
 ```
 
+## Get data on laptop with Nodejs
+1. Go to the ``app/osc`` folder and install dependecies : ``` npm install```
+2. Ensure that you're listening ports 12000 (for mobile device), 12001 (for Wekinator), and sending on the 6448:
+```javascript
+    var oscServer = new osc.Server(12000, '127.0.0.1');
+    var wekinatorServer = new osc.Server(12001, '127.0.0.1');
+    const client = new osc.Client('127.0.0.1', 6448);
+```
+> We split mobile device & wekinator inputs to avoid overloading on the port (phone should send data each 50ms). 
+3. Run the server and open the gestures dashboard in your browser : ``localhost:3000``:
+```
+    node server.js
+```
+
 ## Run models on Wekinator
 1. Open the project in ``wekinator / interactops`` in Wekinator.
-2. Ensure that it is listening the port 6648 ( View > OSC receiver status > port & start listening)
-3. On the main window, if you're alreading sending data on the port, the pin OSC in should be green.
-4. If so, you can train new models (each line of the **gestures** array) : 
+2. Ensure that it is listening the port 6448 ( View > OSC receiver status > port & start listening)
+3. Ensure that it is sending messages on port 12001 (View > OSC outputs)
+4. On the main window, if you're alreading sending data on the port, the pin OSC in should be green.
+5. If so, you can train new models (each line of the **gestures** array) : 
     - click on ``+`` as near as possible of your gesture. The number of examples should increase of one on the right.
     - click on ``-`` to remove the last record
     - Around 15-20 trainings should be enough to start
     - Always train a blank model because Wekinator always compare all of the recorded models which one is the nearest one. This blank one will serve to get undesirables values
-5. When yours models are trained, you can ``Run`` your project and check that yours gestures are recognized.
-6. You can define the threshold match with the slider on the bottom side of the window to allow easy gesture recognition without getting too much noise.
+6. When yours models are trained, you can ``Run`` your project and check that yours gestures are recognized.
+7. You can define the threshold match with the slider on the bottom side of the window to allow easy gesture recognition without getting too much noise.
 
 > For further explanations of how Wekinator works, check their explanations : [Wekinator wiki](http://www.wekinator.org/detailed-instructions/). Check the **Time warping** section (for recording data variance in time).
-
-> When the node server will be fully working
-## Install project
-```
-npm install
-```
-## Run project
-```
-node index.js
-```
