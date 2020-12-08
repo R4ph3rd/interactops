@@ -38,8 +38,8 @@ oscServer.on("message",function(msg, rinfo){
   // all the pages with the parameters. You choose what to do on each necessary
   // HTML page. (See 'shast.html' code for more information).
   if(msg[0] == '/rotation_vector/r2'){
-    console.log("Message:");
-    console.log(msg[0] + ": " + msg[1]);
+    // console.log("Message:");
+    // console.log(msg[0] + ": " + msg[1]);
 
     // const message = new osc.Message('/r2');
     // message.append(msg[1]);
@@ -59,7 +59,18 @@ wekinatorServer.on('message', function(msg, info){
   console.log(msg)
   console.log('---------------------------')
 
-  const empty = msg.filter(x => x != ('Infinity' || path))[msg.filter(x => x != ('Infinity' || path)).length - 1];
+  
+  if(msg.length > 1){
+    const empty = msg.filter(x => x != ('Infinity' || path))[msg.filter(x => x != ('Infinity' || path)).length - 1];
+
+    io.emit('gestures-values', {
+      data: msg
+    })
+  } else {
+    io.emit('gesture-detected', {
+      data: msg[0]
+    })
+  }
 })
 
 // ========== SOCKET.IO ========== //
