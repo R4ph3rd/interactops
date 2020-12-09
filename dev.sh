@@ -1,2 +1,4 @@
 node ipadress.js
-node index.js
+
+cd app
+node server.js
