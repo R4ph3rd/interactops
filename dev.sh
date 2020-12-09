@@ -1,4 +1,4 @@
 node ipadress.js
 
 cd app
-node server.js
+npm run dev
