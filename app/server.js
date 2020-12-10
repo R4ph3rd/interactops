@@ -3,6 +3,7 @@ const express   = require("express");
 const http      = require('http').Server(app);
 const io        = require("socket.io")(http);
 const osc       = require('node-osc');
+const robot     = require("robotjs");
 
 // patterns & host declaration
 const path = '/wek/outputs';
@@ -16,5 +17,5 @@ const wekinatorSendHost = 6448;
 // Allows acess to all files inside 'public' folder.
 app.use(express.static(__dirname + "/public"));
 
-require('./osc/index.js')(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost);
+require('./osc/index.js')(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost, robot);
 require('./websocket/index.js')(io, http, dashboardHost);

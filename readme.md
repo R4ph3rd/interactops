@@ -32,17 +32,18 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
 ```
 
 ## Get data on laptop with Nodejs
-1. Go to the ``app/osc`` folder and install dependecies : ``` npm install```
+1. Go to the ``app`` folder and install dependecies : ``` npm install```
 2. Ensure that you're listening ports 12000 (for mobile device), 12001 (for Wekinator), and sending on the 6448:
 ```javascript
-    var oscServer = new osc.Server(12000, '127.0.0.1');
-    var wekinatorServer = new osc.Server(12001, '127.0.0.1');
-    const client = new osc.Client('127.0.0.1', 6448);
+    const dashboardHost = 3000;
+    const externalDevicesHost = 12000;
+    const wekinatorGetHost = 12001;
+    const wekinatorSendHost = 6448;
 ```
 > We split mobile device & wekinator inputs to avoid overloading on the port (phone should send data each 50ms). 
 3. Run the server and open the gestures dashboard in your browser : ``localhost:3000``:
 ```
-    node server.js
+    npm run dev
 ```
 
 ## Run models on Wekinator
@@ -59,3 +60,12 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
 7. You can define the threshold match with the slider on the bottom side of the window to allow easy gesture recognition without getting too much noise.
 
 > For further explanations of how Wekinator works, check their explanations : [Wekinator wiki](http://www.wekinator.org/detailed-instructions/). Check the **Time warping** section (for recording data variance in time).
+
+
+## Remote desktop control using Robot.js or nut.js
+
+> Robotjs & Nut-js need different setup according to your OS, please follow the instructions of the official documentations before start.
+
+Official documentations here : 
+- [Robots.js](https://github.com/octalmage/robotjs)
+- [Nut.js](https://github.com/nut-tree/nut.js)

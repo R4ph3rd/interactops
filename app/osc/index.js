@@ -1,4 +1,4 @@
-module.exports = function(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){
+module.exports = function(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost, robot){
 
 const oscServer = new osc.Server(externalDevicesHost, '127.0.0.1');
 const wekinatorServer = new osc.Server(wekinatorGetHost, '127.0.0.1');
@@ -32,7 +32,7 @@ wekinatorServer.on('message', function(msg, info){
   console.log('---------------------------')
 
   
-  if(msg.length > 1){
+  if(msg.length > 1 && msg[0] != ('next' || 'previous')){
     const empty = msg.filter(x => x != ('Infinity' || path))[msg.filter(x => x != ('Infinity' || path)).length - 1];
 
     io.emit('gestures-values', {

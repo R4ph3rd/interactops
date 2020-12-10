@@ -1,0 +1,1 @@
+{"version":3,"file":"image-reader.class.d.ts","sourceRoot":"","sources":["../../../../lib/provider/opencv/image-reader.class.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,KAAK,EAAE,MAAM,mBAAmB,CAAC;AAC1C,OAAO,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAC;AAErD,qBAAa,WAAY,YAAW,UAAU;IAC/B,IAAI,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,KAAK,CAAC;CAUhD"}

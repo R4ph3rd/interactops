@@ -1,0 +1,1 @@
+{"version":3,"file":"image-writer.class.d.ts","sourceRoot":"","sources":["../../../../lib/provider/opencv/image-writer.class.ts"],"names":[],"mappings":"AACA,OAAO,EAAC,KAAK,EAAC,MAAM,mBAAmB,CAAC;AACxC,OAAO,EAAC,QAAQ,EAAC,MAAM,uBAAuB,CAAC;AAG/C,qBAAa,WAAY,YAAW,QAAQ;IAC3B,KAAK,CAAC,IAAI,EAAE,KAAK,EAAE,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC;CAS/D"}
