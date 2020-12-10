@@ -62,10 +62,16 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
 > For further explanations of how Wekinator works, check their explanations : [Wekinator wiki](http://www.wekinator.org/detailed-instructions/). Check the **Time warping** section (for recording data variance in time).
 
 
-## Remote desktop control using Robot.js or nut.js
+## Remote desktop control using Nut.js
 
-> Robotjs & Nut-js need different setup according to your OS, please follow the instructions of the official documentations before start.
+> Nut-js need different setup according to your OS, please follow the instructions of the official documentation before start.
 
-Official documentations here : 
-- [Robots.js](https://github.com/octalmage/robotjs)
-- [Nut.js](https://github.com/nut-tree/nut.js)
+Official documentations here : [Nut.js](https://github.com/nut-tree/nut.js)
+
+A test example has been proved on Fedora 32 (Unix), holded in the folder ``desktop-control``.
+
+```
+cd desktop-control
+npm install
+node index.js
+```
