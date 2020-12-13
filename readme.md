@@ -83,4 +83,4 @@ node index.js
 
 
 ## Testing our prototype 
-The user test process is described [here](./user-tests/user-tests_script.md)
+The user test process is described [here](./user-tests/user-test_script.md)
