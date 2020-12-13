@@ -1,4 +1,4 @@
-module.exports = function(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost, robot){
+module.exports = function(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){
 
 const oscServer = new osc.Server(externalDevicesHost, '127.0.0.1');
 const wekinatorServer = new osc.Server(wekinatorGetHost, '127.0.0.1');
@@ -8,10 +8,10 @@ const client = new osc.Client('127.0.0.1', wekinatorSendHost);
 /* Executed when a new message arrives */
 oscServer.on("message",function(msg, rinfo){
 
-    console.log('Message:', msg)
+    // console.log('Message:', msg)
     if(msg[0] == '/rotation_vector/r2'){
-        // console.log("Message:");
-        // console.log(msg[0] + ": " + msg[1]);
+        console.log("Message:");
+        console.log(msg[0] + ": " + msg[1]);
 
         // const message = new osc.Message('/r2');
         // message.append(msg[1]);
