@@ -75,3 +75,12 @@ cd desktop-control
 npm install
 node index.js
 ```
+
+
+### Documentation of Nut.js
+
+- [Keys](https://nut-tree.github.io/nut.js/enums/key.html)
+
+
+## Testing our prototype 
+The user test process is described [here](./user-tests/user-tests_script.md)
