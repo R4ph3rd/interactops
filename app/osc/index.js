@@ -1,4 +1,6 @@
-module.exports = function(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){
+const { keyboard, Key, left, right, up, down } = require("@nut-tree/nut-js");
+
+module.exports = async function(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){
 
 const oscServer = new osc.Server(externalDevicesHost, '127.0.0.1');
 const wekinatorServer = new osc.Server(wekinatorGetHost, '127.0.0.1');
@@ -53,13 +55,9 @@ oscServer.on("message",function(msg, rinfo){
     }
 });
 
-wekinatorServer.on('message', function(msg, info){
-  // here I get an array where msg[0] == "/wek/outputs", and others are confidence value of each model
+wekinatorServer.on('message', async function(msg, info){
+  // here I get an array where msg[0] == "/sync", and others are confidence value of each model
   // We expect the following structure :
-  // msg[1] => throwing gesture
-  // msg[2] => getting gesture
-  // msg[3] => range sharing gesture
-  // msg[4] => empty model
   
   if(msg.length > 1){   
     const empty = msg.filter(x => x != ('Infinity' || path))[msg.filter(x => x != ('Infinity' || path)).length - 1];
@@ -71,10 +69,21 @@ wekinatorServer.on('message', function(msg, info){
     console.log('---------------------------')
     console.log(msg)
     console.log('---------------------------')
-    
+
     io.emit('gesture-detected', {
       data: msg[0]
     })
+
+    switch (msg[0]){
+      case '/swipe-right':
+        console.log('------------------------- swipe right! -------------------------');
+        await keyboard.type(Key.Right);
+        break;
+      case '/swipe-left':
+        await keyboard.type(Key.Left);
+        console.log('------------------------- swipe left! -------------------------');
+        break;
+    }
   }
 })
 }
