@@ -13,7 +13,7 @@ void setup(){
   String portName = Serial.list()[0]; // ma carte arduino est la troisième dans la liste imprimmée dans la console
   
   oscP5 = new OscP5(this,12000);
-  myRemoteLocation = new NetAddress("127.0.1",6648);
+  myRemoteLocation = new NetAddress("127.0.1",6448);
 }
 
 void draw(){

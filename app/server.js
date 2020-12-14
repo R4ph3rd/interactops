@@ -16,5 +16,5 @@ const wekinatorSendHost = 6448;
 // Allows acess to all files inside 'public' folder.
 app.use(express.static(__dirname + "/public"));
 
-require('./osc/index.js')(osc, externalDevicesHost, wekinatorGetHost, wekinatorSendHost);
+require('./osc/index.js')(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost);
 require('./websocket/index.js')(io, http, dashboardHost);

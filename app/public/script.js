@@ -5,23 +5,48 @@ let gestures = []
 let detectedGesture = '';
 
 socket.on('gestures-values', ({data}) => {
-    console.log('gesture values', data)
-    if (gestures.length == 0){
+    // console.log('gesture values', data)
+    /* if (gestures.length == 0){
         gestures = data.filter(x => typeof x == 'number')
-        console.log(gestures)
+        // console.log(gestures)
 
         createDashboard();
     }
-
+ */
 })
 
 socket.on('gesture-detected', ({data}) => {
     detectedGesture = data;
-    console.log('detected gesture' ,detectedGesture)
+    console.log('detected gesture' , detectedGesture)
 
-    turnOn();
+    if (data != 'none'){
+        if (!Object.keys(gestures).includes(data.split('/')[1])){
+            gestures[data.split('/')[1]] = 0;
+    
+            addGesture(data.split('/')[1]);
+        }
+    
+        turnOn(data);
+    }
 })
 
+
+const clear = () => {
+    gestures = []
+}
+
+
+const addGesture = (name) => {
+    let el = document.createElement('div');
+    el.classList.add('gesture');
+    el.id = name;
+    el.innerHTML = `
+        <h2>${name}</h2>
+        <div class="pin"></div>
+    `;
+
+    dashboard.appendChild(el);
+}
 
 const createDashboard = () => {
     let i = 1;
@@ -38,13 +63,19 @@ const createDashboard = () => {
     }
 }
 
-const turnOn = () => {
-    const i = detectedGesture.split('/output_')[1];
-    const gestureDom = dashboard.children[i];
-
+const turnOn = (gestureName) => {
     Array.from(dashboard.children).forEach(child => {
         child.classList.remove('active');
     })
 
-    gestureDom.classList.add('active');
+    if (gestureName){
+        let g = document.getElementById(gestureName.split('/')[1]);
+        g.classList.add('active')
+    }
+
+    if (!g){
+        const i = detectedGesture.split('/')[1];
+        const gestureDom = dashboard.children[i];
+        gestureDom.classList.add('active');
+    }
 }
