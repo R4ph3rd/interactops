@@ -83,6 +83,35 @@ wekinatorServer.on('message', async function(msg, info){
         await keyboard.type(Key.Left);
         console.log('------------------------- swipe left! -------------------------');
         break;
+      case '/share-throw':
+        io.emit('share-throw', {
+          data: 'data throw'
+        })
+        break;
+      case '/share-get':
+        io.emit('share-get', {
+          data: 'data get'
+        })
+        break;
+      case '/share-multi':
+        io.emit('share-multi', {
+          data: 'data multi'
+        })
+        break;
+      case '/share-access':
+        io.emit('share-access', {
+          data: 'data access'
+        })
+        break;
+      case '/share-screen':
+        io.emit('share-screen', {
+          data: 'data screen'
+        })
+        break;
+      case '/alert':
+        io.emit('alert', {
+          data: 'data alert'
+        })
     }
   }
 })

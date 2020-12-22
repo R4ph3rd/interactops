@@ -8,6 +8,8 @@ module.exports = function(io,http, host) {
   http.listen(host,function(){
     console.log("Listening on 3000");
   });
+
+  require('./sharing')(io);
 }
 
 // var app       =     require("express")();
