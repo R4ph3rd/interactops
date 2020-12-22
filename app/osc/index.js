@@ -1,4 +1,6 @@
 const { keyboard, Key, left, right, up, down } = require("@nut-tree/nut-js");
+const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/sharing");
+const filters = require('./filters');
 
 module.exports = async function(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){
 
@@ -12,7 +14,7 @@ let data = {};
 /* Executed when a new message arrives */
 oscServer.on("message",function(msg, rinfo){
 
-    // console.log('Message:', msg)
+    console.log('Message:', msg)
 
     if (msg[0] == '/sync'){
       data = {};
@@ -66,10 +68,6 @@ wekinatorServer.on('message', async function(msg, info){
       data: msg
     })
   } else {
-    console.log('---------------------------')
-    console.log(msg)
-    console.log('---------------------------')
-
     io.emit('gesture-detected', {
       data: msg[0]
     })
@@ -84,34 +82,26 @@ wekinatorServer.on('message', async function(msg, info){
         console.log('------------------------- swipe left! -------------------------');
         break;
       case '/share-throw':
-        io.emit('share-throw', {
-          data: 'data throw'
-        })
+        if (filters.phoneIsDown(data)){
+          shareThrow();
+        }
         break;
       case '/share-get':
-        io.emit('share-get', {
-          data: 'data get'
-        })
+        if (filters.phoneIsUp(data)){
+          shareGet();
+        }
         break;
       case '/share-multi':
-        io.emit('share-multi', {
-          data: 'data multi'
-        })
+        shareMulti();
         break;
       case '/share-access':
-        io.emit('share-access', {
-          data: 'data access'
-        })
+        shareAccess()
         break;
       case '/share-screen':
-        io.emit('share-screen', {
-          data: 'data screen'
-        })
+        shareScreen();
         break;
       case '/alert':
-        io.emit('alert', {
-          data: 'data alert'
-        })
+        shareAlert();
     }
   }
 })

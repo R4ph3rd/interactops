@@ -1,3 +1,5 @@
+const sharing = require('./sharing');
+
 module.exports = function(io,http, host) {
 /*  This is auto initiated event when Client connects to the server  */
   io.on('connection',function(socket){  
@@ -9,7 +11,7 @@ module.exports = function(io,http, host) {
     console.log("Listening on 3000");
   });
 
-  require('./sharing')(io);
+  sharing.setup(io);
 }
 
 // var app       =     require("express")();

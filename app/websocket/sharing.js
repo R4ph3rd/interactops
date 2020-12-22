@@ -85,11 +85,47 @@ const setup = (io) => {
 			// TODO : have to determine from data to whom we want to send it
 		})
 
-		socket.on('share-throw', )
-
 		console.log("connection estblished by: "+socket.id);
 		console.log(activeSockets, rooms);
 	})
 }
 
-module.exports = setup;
+
+const shareThrow = () => {
+	io.emit('share-throw', {
+		data: 'data throw'
+	})
+}
+
+const shareGet = () => {
+	io.emit('share-get', {
+		data: 'data get'
+	})
+}
+
+const shareMulti = () => {
+	io.emit('share-multi', {
+		data: 'data multi'
+	})
+}
+
+const shareAccess = () => {
+	io.emit('share-access', {
+		data: 'data access',
+		token: 'qlmdhqkjagajhz6UJGYfjhfdfhT576'
+	})
+}
+
+const shareScreen = () => {
+	io.emit('share-screen', {
+		data: 'data screen'
+	})
+}
+
+const shareAlert = () => {
+	io.emit('share-alert', {
+		data: 'data alert'
+	})
+}
+
+module.exports = {setup, shareThrow, shareGet, shareMulti, shareAccess, shareMulti, shareScreen, shareAlert};
