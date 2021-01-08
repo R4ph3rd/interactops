@@ -9,7 +9,7 @@ const {join} = require('path');
 
 // patterns & host declaration
 const path = '/wek/outputs';
-const dashboardHost = 3000;
+const dashboardHost = 3001;
 const externalDevicesHost = 12000;
 const wekinatorGetHost = 12001;
 const wekinatorSendHost = 6448;
@@ -21,6 +21,7 @@ app.use(express.static(__dirname + "/public"));
 
 require('./osc/index.js')(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost);
 require('./websocket/index.js')(io, http, dashboardHost);
+
 
 
 // nut-js setup

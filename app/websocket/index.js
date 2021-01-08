@@ -1,4 +1,5 @@
 const sharing = require('./sharing');
+const socket = require('socket.io-client')('https://interactops.herokuapp.com/'); // connect to socket network
 
 module.exports = function(io,http, host) {
 /*  This is auto initiated event when Client connects to the server  */
@@ -6,12 +7,20 @@ module.exports = function(io,http, host) {
     console.log("A user is connected");
   });
 
-  // Hosts the page on port 3000
+  // Hosts the page on port [host]
   http.listen(host, '0.0.0.0', function(){
-    console.log("Listening on 3000");
+    console.log("Listening on " + host);
   });
 
   sharing.setup(io);
+
+  socket.on('entered-in-room', () =>{
+    console.log('Connected to network :', data)
+  })
+  
+  socket.on('new-user-entered', () =>{
+    console.log('A new user is connected to network :', data)
+  })
 }
 
 // var app       =     require("express")();
