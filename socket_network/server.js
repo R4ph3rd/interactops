@@ -3,6 +3,12 @@ const app = express();
 const http = require("http").createServer(app)
 const io = require('socket.io')(http);
 
+app.use(express.static(__dirname + "/public"));
+http.listen(host, '0.0.0.0', function(){
+    console.log("Listening on " + host);
+});
+
+
 let rooms = {
     general: [],
     temp: {}
