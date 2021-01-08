@@ -8,5 +8,7 @@ git checkout socket_network
 #rm -r desktop-control
 
 # push to github
+git add *
+git commit -m 'update server'
 git push https://github.com/R4ph3rd/interactops.git socket_network
 git checkout master
