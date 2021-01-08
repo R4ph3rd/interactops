@@ -1,0 +1,13 @@
+# Phone companion for Interactops
+This app is needed to run Interactops. It will get data from your phone sensors such as accelerometer, gyroscope etc. 
+You will manage your socket connections from here, with your desktop companion and with the network.
+Some informations can be displayed here.
+
+## How it works
+By running this app on your PC, you will serve on one of your dektop's port your application for the phone. So you will connect to this by adding the correct port to the ip adress of your computer in the browser research bar on your phone : ``ip.adress.of.computer:port``.
+
+## Installation
+1. Install dependencies : ``npm run install``
+2. Run : ``npm run serve``
+3. You will see in your console the adress you have to join on your phone.
+4. Type it in your browser on your phone.

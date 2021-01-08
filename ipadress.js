@@ -19,3 +19,5 @@ for (const name of Object.keys(nets)) {
 }
 
 console.log(results);
+
+return results;
