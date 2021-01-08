@@ -92,12 +92,14 @@ const setup = (io) => {
 
 
 const shareThrow = () => {
+	// TODO : get data from clipboard and store it temporarly on server
 	io.emit('share-throw', {
 		data: 'data throw'
 	})
 }
 
 const shareGet = () => {
+	// TODO : ask data to the server (not to user)
 	io.emit('share-get', {
 		data: 'data get'
 	})
@@ -110,6 +112,7 @@ const shareMulti = () => {
 }
 
 const shareAccess = () => {
+	// TODO : generate token access
 	io.emit('share-access', {
 		data: 'data access',
 		token: 'qlmdhqkjagajhz6UJGYfjhfdfhT576'
@@ -117,6 +120,7 @@ const shareAccess = () => {
 }
 
 const shareScreen = () => {
+	// TODO : set a webrtc connexion
 	io.emit('share-screen', {
 		data: 'data screen'
 	})
