@@ -2,6 +2,7 @@ const express = require("express"); // useless for now, in case we want to displ
 const app = express();
 const http = require("http").createServer(app)
 const io = require('socket.io')(http);
+const host = 5500;
 
 app.use(express.static(__dirname + "/public"));
 http.listen(host, '0.0.0.0', function(){
