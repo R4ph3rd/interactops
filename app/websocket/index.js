@@ -7,7 +7,7 @@ module.exports = function(io,http, host) {
   });
 
   // Hosts the page on port 3000
-  http.listen(host,function(){
+  http.listen(host, '0.0.0.0', function(){
     console.log("Listening on 3000");
   });
 

@@ -11,3 +11,5 @@ By running this app on your PC, you will serve on one of your dektop's port your
 2. Run : ``npm run serve``
 3. You will see in your console the adress you have to join on your phone.
 4. Type it in your browser on your phone.
+
+NB: [medium article](https://medium.com/@getflourish/from-mobile-to-desktop-cross-device-communication-using-websockets-f9c48f669c8)

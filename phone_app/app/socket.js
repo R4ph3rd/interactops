@@ -1,3 +1,3 @@
-let servers = [];
+const socket = io();
 
-// TODO : make a search on
+socket.emit('companion-paired')

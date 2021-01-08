@@ -1,7 +1,6 @@
 const app       = require("express")();
 const express   = require("express");
 const http      = require('http').Server(app);
-const io        = require("socket.io")(http);
 const host = 3030;
 
 const { networkInterfaces } = require('os');
