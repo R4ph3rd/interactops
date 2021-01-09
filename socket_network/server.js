@@ -1,14 +1,11 @@
-'use strict';
-
 const express = require("express"); // useless for now, in case we want to display information about socket server
 const socketIO = require('socket.io');
 
-const host = process.env.PORT = 3000;
-const public = '/public/index.html';
+const host = 3000;
 
 const server = express()
-	.use((req, res) => res.sendFile(public, { root: __dirname }))
-	.listen(PORT, () => console.log(`Listening on ${host}`));
+	.use(express.static(__dirname + "/public"))
+	.listen(host, () => console.log(`Listening on ${host}`));
 const io = socketIO(server);
 
 // app.use(express.static(__dirname + "/public"));
