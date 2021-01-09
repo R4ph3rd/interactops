@@ -7,7 +7,10 @@ We use [Socket.io]() to communicate between users and OSC to communicate between
 
 NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a socket server to setup the connections. Maybe not really usefull for now, but at least, it holds example of how socket.io works.
 
-> Following instructions are temporary. Example with a nodejs server isn't working well for now (only receiving), I've reused a Processing example to work on gestures for getting messages from the phone and sending to Wekinator. I can send them then to the nodejs server, but the goal is also to get data from phone on the nodejs server.
+<details>
+  <summary>Previous working process - First iteration</summary>
+  
+  > Following instructions are temporary. Example with a nodejs server isn't working well for now (only receiving), I've reused a Processing example to work on gestures for getting messages from the phone and sending to Wekinator. I can send them then to the nodejs server, but the goal is also to get data from phone on the nodejs server.
 
 ## Get data from built-in sensors on Android phone
 1. Download oscHook on Android Store.
@@ -80,7 +83,22 @@ node index.js
 ### Documentation of Nut.js
 
 - [Keys](https://nut-tree.github.io/nut.js/enums/key.html)
+</details>
 
+## Install Interactops app (cross-plateform)
+1. Install app dependicies : 
+    ```
+    cd app
+    npm install
+    ```
+2. Run Interactops app
+    ```
+    npm run start
+    ```
+3. A url of the following format should be displayed in your console :
+``Try to connect to this url on your phone : http://192.168.1.XX:3030``.
+4. Open your browser (Chrome or Firefox preferred) on your mobile companion and type this url.
+5. The Interactops companion web-app shoud be enabled.
 
 ## Testing our prototype 
 The user test process is described [here](./user-tests/user-test_script.md)
