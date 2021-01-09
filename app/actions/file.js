@@ -10,7 +10,7 @@ module.exports = {
 
         console.log('copied to clipboard : ', await clipboard.paste());
 
-        networkActions(await clipboard.paste());
+        networkActions.send(await clipboard.paste());
     },
     download: async (data) => {
         if (typeof data == 'string'){
