@@ -100,6 +100,9 @@ node index.js
 4. Open your browser (Chrome or Firefox preferred) on your mobile companion and type this url.
 5. The Interactops companion web-app shoud be enabled.
 
+## Principle diagram
+![principle diagram](./vendors/img/principle_diagram.jpg)
+
 ## Testing our prototype 
 The user test process is described [here](./user-tests/user-test_script.md)
 

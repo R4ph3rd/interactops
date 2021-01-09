@@ -1,5 +1,5 @@
 const { keyboard, Key, left, right, up, down } = require("@nut-tree/nut-js");
-const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/sharing");
+const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/network");
 const filters = require('./filters');
 
 module.exports = async function(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){
