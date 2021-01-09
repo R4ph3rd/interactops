@@ -1,6 +1,6 @@
 # git add socket_network/*
 # git commit -m 'update socket server'
-git subtree split --P socket_network --b network
+git subtree split -P socket_network --b network
 
 #clear stuff
 git checkout socket_network
