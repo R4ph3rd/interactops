@@ -1,7 +1,7 @@
 const express = require("express"); // useless for now, in case we want to display information about socket server
 const socketIO = require('socket.io');
 
-const host = 3000;
+const host = process.env.PORT || 3000;
 
 const server = express()
 	.use(express.static(__dirname + "/public"))
