@@ -1,6 +1,6 @@
-git add socket_network/*
-git commit -m 'update socket server'
-git subtree split --prefix socket_network --branch socket_network
+# git add socket_network/*
+# git commit -m 'update socket server'
+git subtree split --P socket_network --b network
 
 #clear stuff
 git checkout socket_network
@@ -10,5 +10,5 @@ git checkout socket_network
 # push to github
 git add *
 git commit -m 'update server'
-git push https://github.com/R4ph3rd/interactops.git socket_network
+git push https://github.com/R4ph3rd/interactops.git network
 git checkout master
