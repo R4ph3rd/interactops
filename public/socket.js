@@ -14,5 +14,5 @@ socket.on('update-users-list', data => {
 
 socket.on('share-content', data => {
     console.log(data);
-    message.innerText = data;
+    message.innerText = data.data;
 })
