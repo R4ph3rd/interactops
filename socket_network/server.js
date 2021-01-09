@@ -8,13 +8,6 @@ const server = express()
 	.listen(host, () => console.log(`Listening on ${host}`));
 const io = socketIO(server);
 
-// app.use(express.static(__dirname + "/public"));
-// http.listen(host, '0.0.0.0', function(){
-//     console.log("Listening on " + host);
-// });
-
-
-
 
 let rooms = {
     general: [],
