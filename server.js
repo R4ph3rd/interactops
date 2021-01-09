@@ -1,15 +1,22 @@
 'use strict';
 
 const express = require("express"); // useless for now, in case we want to display information about socket server
-const app = express();
-const http = require("http").createServer(app)
-const io = require('socket.io')(http);
-const host = 3000;
+const socketIO = require('socket.io');
 
-app.use(express.static(__dirname + "/public"));
-http.listen(host, '0.0.0.0', function(){
-    console.log("Listening on " + host);
-});
+const host = process.env.PORT = 3000;
+const public = '/public/index.html';
+
+const server = express()
+	.use((req, res) => res.sendFile(public, { root: __dirname }))
+	.listen(PORT, () => console.log(`Listening on ${host}`));
+const io = socketIO(server);
+
+// app.use(express.static(__dirname + "/public"));
+// http.listen(host, '0.0.0.0', function(){
+//     console.log("Listening on " + host);
+// });
+
+
 
 
 let rooms = {
@@ -66,7 +73,7 @@ io.on("connection", socket => {
 			rooms[defaultRoom].findIndex(id => id == socket.id),
 			1
 		)
-		
+
 		io.emit('update-users-list', {
 			users : rooms[defaultRoom]
 		})
