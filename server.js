@@ -1,8 +1,10 @@
+'use strict';
+
 const express = require("express"); // useless for now, in case we want to display information about socket server
 const app = express();
 const http = require("http").createServer(app)
 const io = require('socket.io')(http);
-const host = 5500;
+const host = 3000;
 
 app.use(express.static(__dirname + "/public"));
 http.listen(host, '0.0.0.0', function(){
@@ -50,24 +52,24 @@ io.on("connection", socket => {
 				user: socket.id
 			})
 		}, 500)
+
+		io.emit('update-users-list', {
+			users : rooms[defaultRoom]
+		})
 	}
 
 	
 
 	socket.on('disconnect',() => {
 		console.log("bye bye 👋");
-		for (let room in rooms){
-			rooms[room].splice(
-				rooms[room].findIndex(id => id == socket.id),
-				1
-			)
-
-			socket.in(room).emit('user-leave', {
-				message: 'bye bye',
-				socketId: socket.id,
-				room: room
-			})
-		}
+		rooms[defaultRoom].splice(
+			rooms[defaultRoom].findIndex(id => id == socket.id),
+			1
+		)
+		
+		io.emit('update-users-list', {
+			users : rooms[defaultRoom]
+		})
     })
     
     // computer access sharing
