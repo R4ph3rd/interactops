@@ -16,11 +16,11 @@ module.exports = function(io,http, host) {
 
   sharing.setup(io);
 
-  socket.on('entered-in-room', () =>{
+  socket.on('entered-in-room', data => {
     console.log('Connected to network :', data)
   })
   
-  socket.on('new-user-entered', () =>{
+  socket.on('new-user-entered', data => {
     console.log('A new user is connected to network :', data)
   })
 }
