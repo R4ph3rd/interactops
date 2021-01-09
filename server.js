@@ -90,7 +90,9 @@ io.on("connection", socket => {
         setTimeout( () => {
             archived.push(rooms.temp);
             rooms.temp = {};
-        }, tempDelay)
+		}, tempDelay)
+		
+		io.emit('share-content', data);
     })
     
     socket.on('request-content', () => {
