@@ -102,3 +102,9 @@ node index.js
 
 ## Testing our prototype 
 The user test process is described [here](./user-tests/user-test_script.md)
+
+## Contents
+- This repository holds the Interactops desktop app and its mobile companion into the ``app`` folder.
+- The ``socket_network`` holds the Websocket server running on [Heroku](https://interactops.herokuapp.com). It is currently deployed on the ``network`` branch, managed for now with the ``updateSOcketServer`` script for git subtree commands. It might be maintained only through the ``network`` branch soon.
+- ``wekinator`` subrepo contains saves of the wekinator model you should load in it before using Interactops (use last version avalaible).
+- ``user-tests`` contains our user test process, as well as our interview materials.
