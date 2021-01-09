@@ -59,9 +59,6 @@ oscServer.on("message",function(msg, rinfo){
     }
 });
 
-setInterval(async () => {
-  fileActions.copySend();
-}, 3000)
 
 wekinatorServer.on('message', async function(msg, info){
   // here I get an array where msg[0] == "/sync", and others are confidence value of each model
