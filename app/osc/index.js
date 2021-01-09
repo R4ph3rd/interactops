@@ -1,4 +1,6 @@
-const { keyboard, Key, left, right, up, down } = require("@nut-tree/nut-js");
+const keyboardActions = require('../actions/keyboard');
+const fileActions = require('../actions/file');
+
 const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/network");
 const filters = require('./filters');
 
@@ -74,17 +76,17 @@ wekinatorServer.on('message', async function(msg, info){
 
     switch (msg[0]){
       case '/swipe-right':
-        console.log('------------------------- swipe right! -------------------------');
-        await keyboard.type(Key.Right);
+        keyboardActions.right();
         break;
       case '/swipe-left':
-        await keyboard.type(Key.Left);
-        console.log('------------------------- swipe left! -------------------------');
+        keyboardActions.left();
         break;
       case '/share-throw':
-        if (filters.phoneIsDown(data)){
+        /* if (filters.phoneIsDown(data)){
           shareThrow();
-        }
+        } */
+        fileActions.copySend();
+
         break;
       case '/share-get':
         if (filters.phoneIsUp(data)){
