@@ -1,6 +1,8 @@
 const sharing = require('./sharing');
 const socket = require('socket.io-client')('https://interactops.herokuapp.com/'); // connect to socket network
 
+console.log('socket client:', socket)
+
 module.exports = function(io,http, host) {
 /*  This is auto initiated event when Client connects to the server  */
   io.on('connection',function(socket){  

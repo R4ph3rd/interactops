@@ -41,9 +41,9 @@ NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a
     const wekinatorSendHost = 6448;
 ```
 > We split mobile device & wekinator inputs to avoid overloading on the port (phone should send data each 50ms). 
-3. Run the server and open the gestures dashboard in your browser : ``localhost:3000``:
+3. Run the desktop app and open the gestures dashboard in your browser : ``localhost:3000``:
 ```
-    npm run dev
+    npm run start
 ```
 
 ## Run models on Wekinator
