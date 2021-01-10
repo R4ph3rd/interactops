@@ -88,6 +88,7 @@ io.on("connection", socket => {
 		})
 
 		io.emit('update-users-list', {
+			leaving: socket.id,
 			users : rooms[defaultRoom]
 		})
     })
