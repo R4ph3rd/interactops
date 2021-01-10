@@ -38,11 +38,10 @@ io.on("connection", socket => {
 		socket.emit('entered-in-room', {
 			room: defaultRoom,
 			personalId: socket.id,
-			message: 'You"re entered into Interactops general room.',
-			users: rooms.general.filter(id => id != socket.id),
+			message: "You're entered into Interactops general room.",
 		})
 
-		io.in(defaultRoom).emit('new-user-entered', {
+		socket.in(defaultRoom).emit('new-user-entered', {
 			message : 'Hello @everyone !',
 			socketId: socket.id
 		})
@@ -55,7 +54,7 @@ io.on("connection", socket => {
 	socket.on('send-message', ({room, message}) => {
 		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
 		
-		io.on(room ? room : defaultRoom).emit('send-message', {
+		io.in(room ? room : defaultRoom).emit('send-message', {
 			message,
 			room,
 			socketId : socket.id,
@@ -86,9 +85,7 @@ io.on("connection", socket => {
         rooms.temp.author = socket.id;
         rooms.temp.requests = [];
 
-        setTimeout( () => {
-            rooms.temp = {};
-        }, tempDelay)
+        cleanTemp();
     })
 
     // content sharing
@@ -106,7 +103,9 @@ io.on("connection", socket => {
     })
     
     socket.on('request-content', () => {
-        socket.emit('share-content', {
+		rooms.temp.requests.push(socket.id);
+		
+        socket.emit('get-content', {
             data: rooms.temp.data,
             author: rooms.temp.author
         })
@@ -116,6 +115,15 @@ io.on("connection", socket => {
 	console.log(rooms);
 })
 
+///////////////////////////////
+
 setInterval(() => {
     archived = []
 }, archivesClearInterval);
+
+
+function cleanTemp(){
+	setTimeout( () => {
+		rooms.temp = {};
+	}, tempDelay);
+}
