@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactops Phone app</title>
-    <style>
-        *{
-            margin:0;
-            padding:0;
-        }
-
-        body{
-            max-width:100vw;
-            max-height:100vh;
-            overflow:hidden
-        }
-    </style>
+    <link rel="stylesheet" href="style_app.css">
 </head>
 <body>
+
+    <h1>Interactops companion app</h1>
+
+    <section id="desktop_automation">
+        <h2>Desktop automation</h2>
+        <div class="actions">
+            <button>Right</button>
+            <button>Left</button>
+            <button>Top</button>
+            <button>Down</button>
+        </div>
+    </section>
+    
+    <section id="data_sharing">
+        <h2>Data sharing</h2>
+        <div class="actions">
+            <button>Copy & send to one</button>
+            <button>Copy & send to many</button>
+            <button>Download</button>
+        </div>
+    </section>
+
+    <section id="collaboration">
+        <h2>Collaboration</h2>
+        <div class="actions">
+            <button>Share collaborator access <p class="pin">0</p></button>
+            <button>Share viewer access <p class="pin">0</p></button>
+            <button>Close access</button>
+        </div>
+    </section>
     
 </body>
 <script src="./lib/p5.min.js"></script>

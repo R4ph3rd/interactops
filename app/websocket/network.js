@@ -30,9 +30,9 @@ module.exports = function(){
 		console.log('User list is updated :'.magenta, data.users)
 	})
 	
-	socket.on('send-message', data => {
-		const str = data.socketId + ' says : '
-		console.log( str.magenta + data.message);
+	socket.on('send-message', ({socketId, message}) => {
+		const str = socketId ? socketId + ' says : ' : 'Server info : '
+		console.log( str.magenta + message);
 	})
 
 	socket.on('checked-connection', () => {
