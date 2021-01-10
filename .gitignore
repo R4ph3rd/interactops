@@ -1,3 +1,4 @@
 runWekinator.sh
 updateSockerServer.sh
 .env
+node_modules
