@@ -29,4 +29,8 @@ module.exports = function(){
 		const str = data.socketId + ' says : '
 		console.log( str.magenta + data.message);
 	})
+
+	socket.on('checked-connection', () => {
+		socket.emit('checked-connection')
+	})
 }
