@@ -23,7 +23,7 @@ const checkInterval = 60000; // every min
 const checkTimeout = checkInterval/2;
 
 io.on("connection", socket => {
-	const existingSocket = rooms[defaultRoom].find(
+	const existingSocket = Object.keys(rooms[defaultRoom]).find(
 		existingSocket => existingSocket === socket.id
 	);
 
@@ -75,10 +75,12 @@ io.on("connection", socket => {
 
 	socket.on('disconnect',() => {
 		console.log("bye bye 👋");
-		rooms[defaultRoom].splice(
+		/* rooms[defaultRoom].splice(
 			rooms[defaultRoom].findIndex(id => id == socket.id),
 			1
-		)
+		) */
+
+		delete rooms[defaultRoom][socket.id];
 		
 		io.emit('send-message', {
 			message: "I'm leaving. Bye bye !",

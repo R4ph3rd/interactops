@@ -9,12 +9,16 @@ numberOfUsers.innerText = users ;
 
 socket.on('update-users-list', data => {
     console.log(data);
-    numberOfUsers.innerText = data.users.length;
+    numberOfUsers.innerText = Object.keys(data.users).length;
 })
 
 socket.on('share-content', data => {
     console.log(data);
     message.innerText = data.data;
+})
+
+socket.on('check-connection', () => {
+    socket.emit('checked-connection')
 })
 
 socket.on('send-message', ({message, socketId}) => {
