@@ -42,7 +42,7 @@ io.on("connection", socket => {
 			users: rooms.general.filter(id => id != socket.id),
 		})
 
-		io.in(defaultRoom).broadcast('new-user-entered', {
+		io.in(defaultRoom).emit('new-user-entered', {
 			message : 'Hello @everyone !',
 			socketId: socket.id
 		})
