@@ -1,8 +1,10 @@
+const colors = require('colors');
+
 let companionIsConnected = false ;
 
 module.exports = function(io){
     io.on('connection', function(socket){  
-        console.log("Interactops Companion is connected");
+        console.log('  Interactops Companion is connected  '.bgGreen.black);
     
         if (!companionIsConnected){
           companionIsConnected = !companionIsConnected;
@@ -10,7 +12,7 @@ module.exports = function(io){
 
         // when user leave
 		socket.on('close-connection', () => {
-			console.log('Companion is disconnected.')
+			console.log('Companion is disconnected.'.red.bgWhite)
         })
         
         // when user leave

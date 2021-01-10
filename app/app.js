@@ -4,13 +4,15 @@ const http      = require('http').Server(app);
 const io        = require("socket.io")(http);
 const osc       = require('node-osc');
 
+const colors = require('colors');
+
 const { keyboard, Key, mouse, left, right, up, down, screen } = require("@nut-tree/nut-js");
 const {join}                = require('path'); 
 const { networkInterfaces } = require('os');
 
 // patterns & host declaration
 const path                = '/wek/outputs';
-const appPort           = process.env.PORT || 3000;
+const appPort           = process.env.PORT || 3001;
 const externalDevicesHost = 12000;
 const wekinatorGetHost    = 12001;
 const wekinatorSendHost   = 6448;
@@ -31,14 +33,17 @@ app.get('/companion', function (req, res) {
 
 // Hosts the page on port [appPort]
 http.listen(appPort, function(){
-    console.log("Open dashboard: http://localhost:" + appPort);
-    console.log(`Companion is served on : http://localhost:${appPort}/companion`);
+    const str = 'http://localhost:' + appPort;
+    console.log("Open dashboard: " + str.green);
+    console.log('Companion is served on :' + `http://localhost:${appPort}/companion`.green);
 });
 
-// phoneApp(http, phonePort);
-
 for (let adress in ip()){
-    console.log('Try to connect to this url on your phone : http://' + ip()[adress] + ':' + appPort + '/companion')
+    console.log('---------------------------------------------------------------------------------------------------------------------------------\n\n',)
+    console.log('Interactops'.rainbow.bold)
+    const str = '\nTry to connect to this url on your phone : ';
+    const str1 = 'http://' + ip()[adress] + ':' + appPort + '/companion';
+    console.log(str + str1.green)
 }
 
 require('./osc/index.js')(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost);
