@@ -38,24 +38,29 @@ io.on("connection", socket => {
 		socket.emit('entered-in-room', {
 			room: defaultRoom,
 			personalId: socket.id,
-			message: 'Hello @everyone !',
+			message: 'You"re entered into Interactops general room.',
 			users: rooms.general.filter(id => id != socket.id),
 		})
-	
-		setTimeout( () => {
-			socket.in(defaultRoom).emit('new-user-entered', {
-				room: defaultRoom,
-				message: 'Hi ' + socket.id,
-				user: socket.id
-			})
-		}, 500)
+
+		io.in(defaultRoom).broadcast('new-user-entered', {
+			message : 'Hello @everyone !',
+			socketId: socket.id
+		})
 
 		io.emit('update-users-list', {
 			users : rooms[defaultRoom]
 		})
 	}
 
-	
+	socket.on('send-message', ({room, message}) => {
+		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
+		
+		io.on(room ? room : defaultRoom).emit('send-message', {
+			message,
+			room,
+			socketId : socket.id,
+		})
+	})
 
 	socket.on('disconnect',() => {
 		console.log("bye bye 👋");
@@ -66,6 +71,11 @@ io.on("connection", socket => {
 
 		io.emit('update-users-list', {
 			users : rooms[defaultRoom]
+		})
+		
+		io.emit('send-message', {
+			message: "I'm leaving. Bye bye !",
+			socketId: socket.id
 		})
     })
     
