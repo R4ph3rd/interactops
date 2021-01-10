@@ -72,6 +72,15 @@ io.on("connection", socket => {
 			socketId : socket.id,
 		})
 	})
+	
+	socket.on('clear-connections', () => {
+		io.sockets.disconnect();
+		rooms[defaultRoom] = {};
+
+		io.emit('update-users-list', {
+			users : io.sockets.adapter.rooms.get('general')
+		})
+	})
 
 	socket.on('disconnect',() => {
 		console.log("bye bye 👋");

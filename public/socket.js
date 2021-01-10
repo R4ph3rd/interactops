@@ -40,3 +40,8 @@ socket.emit('new-user-entered', ({message, socketId}) => {
         })
     }, 500)
 })
+
+
+function clear(){
+    socket.emit('clear-connections');
+}
