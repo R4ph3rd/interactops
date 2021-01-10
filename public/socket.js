@@ -23,7 +23,12 @@ socket.on('check-connection', () => {
 
 socket.on('send-message', ({message, socketId}) => {
     console.log(socketId, message);
-    message.innerText = socketId + ' says : ' + data.message;
+
+    if (socketId){
+        message.innerText = socketId + ' says : ' + data.message;
+    } else {
+        message.innerText = 'Server info : ' + data.message;
+    }
 })
 
 socket.emit('new-user-entered', ({message, socketId}) => {

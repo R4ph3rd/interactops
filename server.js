@@ -96,12 +96,31 @@ io.on("connection", socket => {
     // computer access sharing
     // will share a token acess, either view or collaboration. This will be set by host
     socket.on('share-access', data => {
-        rooms.temp.data = data.token;
-        rooms.temp.author = socket.id;
+        rooms.temp.token = data.token;
+        rooms.temp.owner = socket.id;
         rooms.temp.requests = [];
 
-        cleanTemp();
+        clearTemp(3000);
     })
+	
+	socket.on('request-access', () => {		
+		if (rooms.temp.token){
+			socket.join(rooms.temp.author);
+
+			socket.emit('get-access', {
+				owner: rooms.temp.owner,
+				token: rooms.temp.token,
+			})
+
+			socket.emit('send-message', {
+				message: 'You joined another socket room. You are now allowed to collaborate with ' + rooms.temp.owner + ' on its desktop.'
+			})
+
+			socket.in(rooms.temp.owner).emit('send-message', {
+				message : 'A new collaborator is connected ! You share now the PC with ' + socket.id
+			})
+		}
+    });
 
     // content sharing
 	socket.on('share-content', data => {
@@ -137,8 +156,8 @@ setInterval(() => {
 }, archivesClearInterval);
 
 
-function cleanTemp(){
+function clearTemp(timeout){
 	setTimeout( () => {
 		rooms.temp = {};
-	}, tempDelay);
+	}, timeout || tempDelay);
 }
