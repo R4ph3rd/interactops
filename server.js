@@ -10,7 +10,7 @@ const io = socketIO(server);
 
 
 let rooms = {
-    general: [],
+    general: {},
     temp: {}
 };
 
@@ -18,7 +18,9 @@ let archived = []; // store shared content
 
 const defaultRoom = 'general';
 const tempDelay = 10000; //delay to store temporaly content shared by users
-const archivesClearInterval = 1000000000;
+const archivesClearInterval = 3600000; // every hour
+const checkInterval = 60000; // every min
+const checkTimeout = checkInterval/2;
 
 io.on("connection", socket => {
 	const existingSocket = rooms[defaultRoom].find(
@@ -27,12 +29,7 @@ io.on("connection", socket => {
 
 	if (!existingSocket) {
 
-		if (rooms[defaultRoom]){
-			rooms[defaultRoom].push(socket.id);
-		} else {
-			rooms[defaultRoom] = [socket.id];
-		}
-	
+		rooms[defaultRoom][socket.id] = true;
 		socket.join(defaultRoom);
 	
 		socket.emit('entered-in-room', {
@@ -49,7 +46,22 @@ io.on("connection", socket => {
 		io.emit('update-users-list', {
 			users : rooms[defaultRoom]
 		})
+
+		setInterval(() => {
+			socket.emit('check-connection');
+			rooms[defaultRoom][socket.id] = false ;
+
+			setTimeout(() => {
+				if (!rooms[defaultRoom][socket.id]){
+					socket.disconnect(true)
+				}
+			}, checkTimeout)
+		}, checkInterval)
 	}
+
+	socket.on('checked-connection', () => {
+		rooms[defaultRoom][socket.id] = true;
+	})
 
 	socket.on('send-message', ({room, message}) => {
 		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
