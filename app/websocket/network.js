@@ -20,6 +20,10 @@ module.exports = function(){
 		const str = data.socketId + ' says : '
 		console.log( str.magenta + data.message);
 	})
+
+	socket.on('update-user-list', data => {
+		console.log('User list is updated :'.magenta, data.users)
+	})
 	
 	socket.on('send-message', data => {
 		const str = data.socketId + ' says : '

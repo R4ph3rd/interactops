@@ -5,6 +5,7 @@ const io        = require("socket.io")(http);
 const osc       = require('node-osc');
 
 const colors = require('colors');
+var fp = require("find-free-port")
 
 const { keyboard, Key, mouse, left, right, up, down, screen } = require("@nut-tree/nut-js");
 const {join}                = require('path'); 
@@ -31,15 +32,17 @@ app.get('/companion', function (req, res) {
     res.sendFile(__dirname + '/phone_app/index.html');
 });
 
-// Hosts the page on port [appPort]
-http.listen(appPort, function(){
-    const str = 'http://localhost:' + appPort;
-    console.log("Open dashboard: " + str.green);
-    console.log('Companion is served on :' + `http://localhost:${appPort}/companion`.green);
+// Hosts the page on port [freePort]
+fp(appPort, function(err, freePort){
+    http.listen(freePort, function(){
+        const str = 'http://localhost:' + appPort;
+        console.log('Companion is served on :' + `http://localhost:${appPort}/companion`.green);
+        console.log("Open dashboard: " + str.green);
+    })
 });
 
 for (let adress in ip()){
-    console.log('---------------------------------------------------------------------------------------------------------------------------------\n\n',)
+    console.log('---------------------------------------------------------------------------------------------------------------------\n\n',)
     console.log('Interactops'.rainbow.bold)
     const str = '\nTry to connect to this url on your phone : ';
     const str1 = 'http://' + ip()[adress] + ':' + appPort + '/companion';
