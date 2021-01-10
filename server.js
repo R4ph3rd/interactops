@@ -67,14 +67,14 @@ io.on("connection", socket => {
 			rooms[defaultRoom].findIndex(id => id == socket.id),
 			1
 		)
-
-		io.emit('update-users-list', {
-			users : rooms[defaultRoom]
-		})
 		
 		io.emit('send-message', {
 			message: "I'm leaving. Bye bye !",
 			socketId: socket.id
+		})
+
+		io.emit('update-users-list', {
+			users : rooms[defaultRoom]
 		})
     })
     
