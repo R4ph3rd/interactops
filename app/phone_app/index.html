@@ -13,28 +13,28 @@
     <section id="desktop_automation">
         <h2>Desktop automation</h2>
         <div class="actions">
-            <button>Right</button>
-            <button>Left</button>
-            <button>Top</button>
-            <button>Down</button>
+            <button onclick="right()">Right</button>
+            <button onclick="left()">Left</button>
+            <button onclick="up()">Up</button>
+            <button onclick="down()">Down</button>
         </div>
     </section>
     
     <section id="data_sharing">
         <h2>Data sharing</h2>
         <div class="actions">
-            <button>Copy & send to one</button>
-            <button>Copy & send to many</button>
-            <button>Download</button>
+            <button onclick="copySend(false)">Copy & send to one</button>
+            <button onclick="copySend(true)">Copy & send to many</button>
+            <button onclick="download()">Download</button>
         </div>
     </section>
 
     <section id="collaboration">
         <h2>Collaboration</h2>
         <div class="actions">
-            <button>Share collaborator access <p class="pin">0</p></button>
-            <button>Share viewer access <p class="pin">0</p></button>
-            <button>Close access</button>
+            <button onclick="access(true)">Share collaborator access <p class="pin">0</p></button>
+            <button onclick="access(false)">Share viewer access <p class="pin">0</p></button>
+            <button onclick="closeAccess()">Close access</button>
         </div>
     </section>
     
@@ -42,5 +42,6 @@
 <script src="./lib/p5.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="socket.js"></script>
+<script src="fakeActions.js"></script>
 <script src="sketch.js"></script>
 </html>
