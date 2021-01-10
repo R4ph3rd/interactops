@@ -1,4 +1,4 @@
-const socket    = require('socket.io-client')('https://interactops.herokuapp.com/'); // connect to socket network
+const socket = require('./socket');
 const colors = require('colors');
 
 let mySocketId ;
@@ -6,6 +6,8 @@ let mySocketId ;
 module.exports = function(){
 	socket.on('entered-in-room', data => {
 		mySocketId = data.personalId;
+
+		console.log('incoming socket ', mySocketId)
 
 		console.log('\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
 		const str = 'Connected to network : ' + data.message;

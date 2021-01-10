@@ -1,8 +1,8 @@
 const companion = require('./companion');
-const network   = require('./network');
+const incomings = require('./incomings');
 
 module.exports = function(io) {
 /*  This is auto initiated event when Client connects to the server  */
-  network();
   companion(io);
+  incomings()
 }

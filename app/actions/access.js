@@ -19,21 +19,6 @@ function generateToken() {
 }
 
 module.exports = {
-    shareCollaboratorAccess: () => {
-        socket.emit('share-access', {
-            token: tokens.collaborator,
-        })
-    },
-    shareViewerAccess: () => {
-        socket.emit('share-access', {
-            token : tokens.viewer,
-        })
-    },
-    requestAccess: () => {
-        socket.emit('request-access', {
-            token : remoteToken,
-        })
-    },
     getAccess: (remoteToken, remoteSocket) => {
         remote.token = remoteToken; 
         remote.socket = remoteSocket; 
@@ -46,8 +31,6 @@ module.exports = {
         }
     },
     remoteAction: (action) => {
-        socket.to(remote.socket).emit('request-' + action, {
-            token: remoteToken
-        })
+        
     }
 }

@@ -1,7 +1,7 @@
 const keyboardActions = require('../actions/keyboard');
 const fileActions = require('../actions/file');
 
-const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/network");
+const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/sendings");
 const filters = require('./filters');
 
 module.exports = async function(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost){

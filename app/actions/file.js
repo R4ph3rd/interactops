@@ -1,5 +1,5 @@
 const { clipboard, keyboard, Key } = require("@nut-tree/nut-js");
-const networkActions = require('../websocket/actions')
+const sendings = require('../websocket/sendings')
 
 module.exports = {
     copySend: async () => {
@@ -10,7 +10,7 @@ module.exports = {
 
         console.log('copied to clipboard : ', await clipboard.paste());
 
-        networkActions.send(await clipboard.paste());
+        sendings.send(await clipboard.paste());
     },
     download: async (data) => {
         if (typeof data == 'string'){
