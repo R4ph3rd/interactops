@@ -21,7 +21,7 @@ module.exports = function(){
 		console.log( str.magenta + data.message);
 	})
 
-	socket.on('update-user-list', data => {
+	socket.on('update-users-list', data => {
 		console.log('User list is updated :'.magenta, data.users)
 	})
 	
