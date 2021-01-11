@@ -1,5 +1,6 @@
 const { clipboard, keyboard, Key } = require("@nut-tree/nut-js");
-const sendings = require('../websocket/sendings')
+const socketSendings = require('../websocket/sendings');
+const socket = require("../websocket/socket");
 
 module.exports = {
     copySend: async () => {
@@ -10,11 +11,15 @@ module.exports = {
 
         console.log('copied to clipboard : ', await clipboard.paste());
 
-        sendings.send(await clipboard.paste());
+        socketSendings.send(await clipboard.paste());
+    },
+    requestDownload: () => {
+        socketSendings.requestDownload();
     },
     download: async (data) => {
+        console.log('download', data)
         if (typeof data == 'string'){
-            await clipboard.copy(data);
+            // await clipboard.copy(data);
         }
         else if (typeof data == 'ReadableStream'){
             console.log('stream', data)

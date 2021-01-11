@@ -1,7 +1,7 @@
-const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} = require("../websocket/sendings");
 const filters = require('./filters');
-const keyboardActions = require('../actions/keyboard');
-const fileActions = require('../actions/file');
+const keyboardActions = require('./keyboard');
+const fileActions = require('./file');
+const accessActions = require('./access');
 
 module.exports = function (msg){
     switch (msg){
@@ -19,20 +19,19 @@ module.exports = function (msg){
   
             break;
         case '/share-get':
-            if (filters.phoneIsUp(data)){
-                shareGet();
-            }
+            fileActions.requestDownload();
             break;
         case '/share-multi':
-            shareMulti();
+            fileActions.copySend();
             break;
-        case '/share-access':
-            shareAccess()
+        case '/access-collaborator':
+            accessActions()
             break;
-        case '/share-screen':
-            shareScreen();
+        case '/access-viewer':
+            accessActions();
             break;
         case '/alert':
-            shareAlert();
+            // shareAlert();
+            console.warn('Alert !')
     }
 }
