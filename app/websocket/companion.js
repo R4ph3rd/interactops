@@ -5,7 +5,7 @@ const actions = require('../actions')
 let companionIsConnected = false ;
 
 module.exports = function(io){
-    io.on('connection', function(socket){  
+  io.on('connection', function(socket){ 
         console.log('  Interactops Companion is connected  '.bgGreen.black);
     
         if (!companionIsConnected){
