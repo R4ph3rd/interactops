@@ -36,6 +36,10 @@ module.exports = function(){
 		console.log( str.magenta + message);
 	})
 
+	socket.on('get-content', data => {
+		console.log('Get content :', data);
+	})
+
 	socket.on('checked-connection', () => {
 		socket.emit('checked-connection')
 	})

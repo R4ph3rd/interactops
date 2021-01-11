@@ -95,10 +95,16 @@ node index.js
     ```
     npm run start
     ```
-3. A url of the following format should be displayed in your console :
+3. An url of the following format should be displayed in your console :
 ``Try to connect to this url on your phone : http://192.168.1.XX:3030``.
 4. Open your browser (Chrome or Firefox preferred) on your mobile companion and type this url.
 5. The Interactops companion web-app shoud be enabled.
+
+### Enable gesture recognition using Wekinator
+1. Open [Wekinator](http://www.wekinator.org/) and load project file in ``wekinator / interactops / interactops-3`` in Wekinator.
+2. Check that Wekinator listens the same port as your app is sending (should be ``6448``). The ``OSC in`` pin should be green when it is fine.
+3. Hit ``Run`` button to enable gesture recognition. The ``OSC out`` pin should be green when messages are send.
+
 
 ## Principle diagram
 ![principle diagram](./vendors/img/principle_diagram.jpg)

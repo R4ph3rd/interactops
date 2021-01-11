@@ -25,10 +25,10 @@ module.exports = function (msg){
             fileActions.copySend();
             break;
         case '/access-collaborator':
-            accessActions()
+            // accessActions()
             break;
         case '/access-viewer':
-            accessActions();
+            // accessActions();
             break;
         case '/alert':
             // shareAlert();
