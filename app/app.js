@@ -14,8 +14,7 @@ const { networkInterfaces } = require('os');
 // patterns & host declaration
 const path                = '/wek/outputs';
 const appPort           = process.env.PORT || 3001;
-const externalDevicesHost = 12000;
-const wekinatorGetHost    = 12001;
+const wekinatorGetHost    = 12000;
 const wekinatorSendHost   = 6448;
 
 
@@ -49,7 +48,7 @@ for (let adress in ip()){
     console.log(str + str1.green)
 }
 
-require('./osc/index.js')(osc, io, externalDevicesHost, wekinatorGetHost, wekinatorSendHost);
+require('./osc/index.js')(wekinatorGetHost, wekinatorSendHost);
 require('./websocket/index.js')(io);
 
 
