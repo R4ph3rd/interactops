@@ -114,7 +114,7 @@ io.on("connection", socket => {
 	
 	socket.on('request-access', () => {		
 		if (rooms.temp.token){
-			socket.join(rooms.temp.author);
+			socket.join(rooms.temp.socketId);
 
 			socket.emit('get-access', {
 				owner: rooms.temp.owner,
@@ -133,24 +133,20 @@ io.on("connection", socket => {
 
     // content sharing
 	socket.on('share-content', data => {
-        rooms.temp.data = data.content;
-        rooms.temp.author = socket.id;
+        rooms.temp.socketId = socket.id;
         rooms.temp.requests = [];
 
         setTimeout( () => {
             archived.push(rooms.temp);
             rooms.temp = {};
 		}, tempDelay)
-		
-		io.emit('share-content', data);
     })
     
     socket.on('request-content', () => {
 		rooms.temp.requests.push(socket.id);
 		
-        socket.emit('get-content', {
-            data: rooms.temp.data,
-            author: rooms.temp.author
+        socket.to(rooms.temp.socketId).emit('request-download', {
+            requestSocket : socket.id
         })
     })
 
