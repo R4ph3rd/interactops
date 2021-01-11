@@ -10,11 +10,13 @@ numberOfUsers.innerText = users ;
 socket.emit('dashboard-connection');
 
 socket.on('share', data => {
+    console.log('share : ', data)
     message.innerText = data.socket + ' share ' + data.share + ' : ' + data.data;
 })
 
 socket.on('request', data => {
     message.innerText = data.socket + ' request ' + data.request;
+    console.log('request : ', data)
 })
 
 socket.on('update-users-list', data => {
