@@ -1,3 +1,5 @@
+const socketSendings = require('../websocket/sendings');
+
 const tokens = {
     viewer : generateToken(),
     collaborator : generateToken(),
@@ -19,7 +21,23 @@ function generateToken() {
 }
 
 module.exports = {
-    getAccess: (remoteToken, remoteSocket) => {
+    shareViewerAccess: () => {
+        socketSendings.shareAccess({token: tokens.viewer});
+    },
+    shareCollaboratorAccess: () => {
+        socketSendings.shareAccess({token: tokens.collaborator});
+    },
+    requestAccess: () => {
+        socketSendings.requestAccess();
+    },
+    requestAction: (action) => {
+        socketSendings.requestAction({
+            action,
+            remoteSocket: remote.socket,
+            remoteToken: remote.token
+        });
+    },
+    registerRemoteAccess: (remoteToken, remoteSocket) => {
         remote.token = remoteToken; 
         remote.socket = remoteSocket; 
     },
@@ -29,8 +47,5 @@ module.exports = {
         } else if (token == tokens.collaborator && collaboratorRights.includes(action)){
             return true;
         }
-    },
-    remoteAction: (action) => {
-        
     }
 }

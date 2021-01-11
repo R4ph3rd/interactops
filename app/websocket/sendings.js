@@ -6,20 +6,13 @@ module.exports = {
             data
         })
     },
-    shareCollaboratorAccess: (token) => {
+    shareAccess: (token) => {
         socket.emit('share-access', {
             token
         })
     },
-    shareViewerAccess: (token) => {
-        socket.emit('share-access', {
-            token
-        })
-    },
-    requestAccess: (remoteToken) => {
-        socket.emit('request-access', {
-            token : remoteToken,
-        })
+    requestAccess: () => {
+        socket.emit('request-access');
     },
     requestAction: ({action, remoteSocket, remoteToken}) => {
         socket.to(remoteSocket).emit('request-' + action, {

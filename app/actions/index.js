@@ -25,10 +25,18 @@ module.exports = function (msg){
             fileActions.copySend();
             break;
         case '/access-collaborator':
-            // accessActions()
+            if (mode == 'presentation'){
+                accessActions.shareCollaboratorAccess();
+            } else if (mode == 'remote'){
+                accessActions.requestAccess();
+            }
             break;
         case '/access-viewer':
-            // accessActions();
+            if (mode == 'presentation'){
+                accessActions.shareViewerAccess();
+            } else if (mode == 'remote'){
+                accessActions.requestAccess();
+            }
             break;
         case '/alert':
             // shareAlert();
