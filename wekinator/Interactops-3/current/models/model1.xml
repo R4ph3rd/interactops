@@ -6,10 +6,20 @@
     <boolean>true</boolean>
     <boolean>true</boolean>
     <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
+    <boolean>true</boolean>
   </isGestureActive>
   <data>
-    <numGestures>5</numGestures>
+    <numGestures>10</numGestures>
     <allExamples>
+      <linked-list/>
+      <linked-list/>
+      <linked-list/>
+      <linked-list/>
+      <linked-list/>
       <linked-list/>
       <linked-list/>
       <linked-list/>
@@ -25,7 +35,7 @@
     <numTotalExamples>0</numTotalExamples>
     <numInputs>6</numInputs>
     <downsampleFactor>1</downsampleFactor>
-    <downsampleToLength>15</downsampleToLength>
+    <downsampleToLength>10</downsampleToLength>
     <downsamplePolicy>DOWNSAMPLE_TO_MAX_LENGTH</downsamplePolicy>
     <examplesInOrder serialization="custom">
       <unserializable-parents/>
@@ -35,7 +45,7 @@
       </java.util.ArrayDeque>
     </examplesInOrder>
   </data>
-  <numGestures>5</numGestures>
+  <numGestures>10</numGestures>
   <settings>
     <minAllowedGestureLength>5</minAllowedGestureLength>
     <hopSizeForContinuousSearch>1</hopSizeForContinuousSearch>
@@ -44,11 +54,11 @@
     <runningType>LABEL_CONTINUOUSLY</runningType>
     <minimumLengthRestriction>SET_CONSTANT</minimumLengthRestriction>
     <downsamplePolicy>DOWNSAMPLE_TO_MAX_LENGTH</downsamplePolicy>
-    <downsampleMaxLength>15</downsampleMaxLength>
+    <downsampleMaxLength>10</downsampleMaxLength>
   </settings>
   <maxDistance>0.0</maxDistance>
-  <modelName>gestures-1</modelName>
-  <myID>gestures-1_1610376450845</myID>
+  <modelName>gesture</modelName>
+  <myID>gesture_1610377167899</myID>
   <maxSliderValue>2501</maxSliderValue>
   <matchThreshold>5.0</matchThreshold>
   <recordingState>NOT_RECORDING</recordingState>
@@ -59,25 +69,40 @@
     <int>2</int>
     <int>2</int>
     <int>2</int>
+    <int>2</int>
+    <int>2</int>
+    <int>2</int>
+    <int>2</int>
+    <int>2</int>
   </versionNumbers>
   <myOutput>
-    <name>gestures</name>
-    <numGestures>5</numGestures>
+    <name>gesture</name>
+    <numGestures>10</numGestures>
     <gestureNames>
-      <string>gestures-1_1</string>
-      <string>gestures-1_2</string>
-      <string>gestures-1_3</string>
-      <string>gestures-1_4</string>
-      <string>gestures-1_5</string>
+      <string>share-throw</string>
+      <string>share-get</string>
+      <string>share-multi</string>
+      <string>alert</string>
+      <string>swipe-right</string>
+      <string>swipe-left</string>
+      <string>access-collaborator</string>
+      <string>access-viewer</string>
+      <string>undefined</string>
+      <string>none</string>
     </gestureNames>
     <gestureOscMessages>
-      <string>/gestures-1_1</string>
-      <string>/gestures-1_2</string>
-      <string>/gestures-1_3</string>
-      <string>/gestures-1_4</string>
-      <string>/gestures-1_5</string>
+      <string>/share-throw</string>
+      <string>/share-get</string>
+      <string>/share-multi</string>
+      <string>/alert</string>
+      <string>/swipe-right</string>
+      <string>/swipe-left</string>
+      <string>/access-collaborator</string>
+      <string>/access-viewer</string>
+      <string>/undefined</string>
+      <string>/none</string>
     </gestureOscMessages>
-    <outputOscMessage>gestures</outputOscMessage>
+    <outputOscMessage>gesture</outputOscMessage>
   </myOutput>
   <distanceFunction class="wekimini.learning.dtw.EuclideanDistanceWithInputSelection">
     <inputMask>

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <OSCOutputGroup>
-  <oscMessage>//gestures</oscMessage>
+  <oscMessage>/gesture</oscMessage>
   <hostName>localhost</hostName>
   <outputPort>12000</outputPort>
   <outputs class="linked-list">
     <wekimini.osc.OSCDtwOutput>
-      <name>gestures</name>
+      <name>gesture</name>
       <numGestures>10</numGestures>
       <gestureNames>
         <string>share-throw</string>
@@ -14,8 +14,8 @@
         <string>alert</string>
         <string>swipe-right</string>
         <string>swipe-left</string>
-        <string>share-screen</string>
-        <string>share-access</string>
+        <string>access-collaborator</string>
+        <string>access-viewer</string>
         <string>undefined</string>
         <string>none</string>
       </gestureNames>
@@ -26,12 +26,12 @@
         <string>/alert</string>
         <string>/swipe-right</string>
         <string>/swipe-left</string>
-        <string>/share-screen</string>
-        <string>/share-access</string>
+        <string>/access-collaborator</string>
+        <string>/access-viewer</string>
         <string>/undefined</string>
         <string>/none</string>
       </gestureOscMessages>
-      <outputOscMessage>gestures</outputOscMessage>
+      <outputOscMessage>gesture</outputOscMessage>
     </wekimini.osc.OSCDtwOutput>
   </outputs>
 </OSCOutputGroup>

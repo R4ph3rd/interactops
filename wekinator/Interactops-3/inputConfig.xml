@@ -8,7 +8,7 @@
     <string>rotationY</string>
     <string>rotationZ</string>
     <string>accelerationX</string>
-    <string>accelarationY</string>
-    <string>accelarationZ</string>
+    <string>accelerationY</string>
+    <string>accelerationZ</string>
   </inputNames>
 </OSCInputGroup>
