@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactops Phone app</title>
+    <link rel="stylesheet" href="style_app.css">
+</head>
+<body>
+
+    <h1>Interactops companion app</h1>
+
+    <section id="data">
+        <h2>Dashboard/Debug Mode</h2>
+
+        <h3>Accelerometer</h3>
+        <p id="accel"></p>
+
+        <h3>Rotation</h3>
+        <p id="rot"></p>
+    </section>
+
+    <section id="desktop_automation">
+        <h2>Desktop automation</h2>
+        <div class="actions">
+            <button onclick="right()">Right</button>
+            <button onclick="left()">Left</button>
+            <button onclick="up()">Up</button>
+            <button onclick="down()">Down</button>
+        </div>
+    </section>
+    
+    <section id="data_sharing">
+        <h2>Data sharing</h2>
+        <div class="actions">
+            <button onclick="copySend(false)">Copy & send to one</button>
+            <button onclick="copySend(true)">Copy & send to many</button>
+            <button onclick="download()">Download</button>
+        </div>
+    </section>
+
+    <section id="collaboration">
+        <h2>Collaboration</h2>
+        <div class="actions">
+            <button onclick="access(true)">Share collaborator access <p class="pin">0</p></button>
+            <button onclick="access(false)">Share viewer access <p class="pin">0</p></button>
+            <button onclick="closeAccess()">Close access</button>
+        </div>
+    </section>
+    
+</body>
+<script src="./lib/p5.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="socket.js"></script>
+<script src="fakeActions.js"></script>
+<script src="sketch.js"></script>
+</html>
