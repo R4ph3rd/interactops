@@ -2,6 +2,8 @@ const acc = document.getElementById('accel');
 const rot = document.getElementById('rot');
 const fps = 30;
 
+// const dahsboard = document.querySelector('')
+
 function setup(){
     createCanvas(0, 0);
     frameRate(fps);
@@ -18,10 +20,12 @@ function draw() {
     acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
     rot.innerHTML = `<strong>X: </strong> ${rotationX} </br> <strong>Y: </strong>${rotationY} </br> <strong>Z: </strong> ${rotationZ}`
 
-    socket.emit('sensors-data', {
-      acceleration : [accelerationX, accelerationY, accelerationZ],
-      rotation: [rotationX, rotationY, rotationZ]
-    })
+    if(!document.URL.includes('dashboard')){
+      socket.emit('sensors-data', {
+        acceleration : [accelerationX, accelerationY, accelerationZ],
+        rotation: [rotationX, rotationY, rotationZ]
+      })
+    }
 }
 
 /* Acceleration and rotation test
