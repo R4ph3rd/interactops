@@ -1,4 +1,5 @@
 const colors = require('colors');
+const oscSend = require('../osc/send')
 
 let companionIsConnected = false ;
 
@@ -17,7 +18,8 @@ module.exports = function(io){
         
         // when user leave
 		socket.on('sensors-data', data => {
-            console.log('new datas :', data)
+      // console.log('new datas :', data)
+      oscSend(data);
 		})
         
     });

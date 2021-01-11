@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<OSCInputGroup>
+  <oscMessage>/companion-inputs</oscMessage>
+  <numInputs>6</numInputs>
+  <groupName>Inputs</groupName>
+  <inputNames>
+    <string>rotationX</string>
+    <string>rotationY</string>
+    <string>rotationZ</string>
+    <string>accelerationX</string>
+    <string>accelarationY</string>
+    <string>accelarationZ</string>
+  </inputNames>
+</OSCInputGroup>

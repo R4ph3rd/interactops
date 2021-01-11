@@ -12,10 +12,7 @@ const {join}                = require('path');
 const { networkInterfaces } = require('os');
 
 // patterns & host declaration
-const path                = '/wek/outputs';
 const appPort           = process.env.PORT || 3001;
-const wekinatorGetHost    = 12000;
-const wekinatorSendHost   = 6448;
 
 
 /////////////  PAGES   /////////////////
@@ -48,7 +45,7 @@ for (let adress in ip()){
     console.log(str + str1.green)
 }
 
-require('./osc/index.js')(wekinatorGetHost, wekinatorSendHost);
+require('./osc/recieve.js')();
 require('./websocket/index.js')(io);
 
 

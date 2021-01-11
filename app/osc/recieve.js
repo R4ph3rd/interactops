@@ -4,6 +4,7 @@ const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} 
 const filters = require('./filters');
 const keyboardActions = require('../actions/keyboard');
 const fileActions = require('../actions/file');
+const path                = '/wek/outputs';
 
 const wekGetPort = process.env.OSC_RECIEVE_PORT || 12000;
 
