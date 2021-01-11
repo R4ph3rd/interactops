@@ -15,16 +15,18 @@ module.exports = () => {
     // here I get an array where msg[0] == "/sync", and others are confidence value of each model
     // We expect the following structure :
     
-    if(msg.length > 1){   
+    if(msg.length < 2){   
+      console.log('wek message : ', msg)
       const empty = msg.filter(x => x != ('Infinity' || path))[msg.filter(x => x != ('Infinity' || path)).length - 1];
+
   
-      io.emit('gestures-values', {
-        data: msg
-      })
-    } else {
-      io.emit('gesture-detected', {
-        data: msg[0]
-      })
+    //   io.emit('gestures-values', {
+    //     data: msg
+    //   })
+    // } else {
+    //   io.emit('gesture-detected', {
+    //     data: msg[0]
+    //   })
   
       switch (msg[0]){
         case '/swipe-right':

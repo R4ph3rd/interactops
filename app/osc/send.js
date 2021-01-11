@@ -13,7 +13,7 @@ module.exports = function(data){
         message.append(data.acceleration[1]);
         message.append(data.acceleration[2]);
 
-        console.log('message', message)
+        // console.log('message', message)
         client.send(message);
     } else {
         console.warn('Data format exported from the companion is not correct. Please provide acceleration & rotation datas.')
