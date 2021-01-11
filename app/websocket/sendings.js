@@ -3,7 +3,9 @@ const socket = require('./socket');
 module.exports = function () {
     return {
         send: (data) => {
-            socket.emit('share-content')
+            socket.emit('share-content', {
+                data
+            })
         },
         shareCollaboratorAccess: (token) => {
             socket.emit('share-access', {
@@ -26,7 +28,7 @@ module.exports = function () {
             })
         },
         requestDownload: () => {
-            socket.emit('request-download')
+            socket.emit('request-content')
         }
     }
 }
