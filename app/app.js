@@ -2,17 +2,19 @@ const express   = require("express");
 const app       = express();
 const http      = require('http').Server(app);
 const io        = require("socket.io")(http);
-const osc       = require('node-osc');
 
 const colors = require('colors');
 var fp = require("find-free-port")
 
-const { keyboard, Key, mouse, left, right, up, down, screen } = require("@nut-tree/nut-js");
+const { keyboard, screen }  = require("@nut-tree/nut-js");
 const {join}                = require('path'); 
 const { networkInterfaces } = require('os');
 
 // patterns & host declaration
-const appPort           = process.env.PORT || 3001;
+const appPort           = process.env.APP_PORT || 3000;
+
+require('./osc/receive.js')();
+require('./websocket/index.js')(io);
 
 
 /////////////  PAGES   /////////////////
@@ -44,9 +46,6 @@ for (let adress in ip()){
     const str1 = 'http://' + ip()[adress] + ':' + appPort + '/companion';
     console.log(str + str1.green)
 }
-
-require('./osc/recieve.js')();
-require('./websocket/index.js')(io);
 
 
 // nut-js setup

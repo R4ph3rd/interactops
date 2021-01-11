@@ -7,8 +7,6 @@ module.exports = function(){
 	socket.on('entered-in-room', data => {
 		mySocketId = data.personalId;
 
-		console.log('incoming socket ', mySocketId)
-
 		console.log('\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
 		const str = 'Connected to network : ' + data.message;
 		console.log(str.magenta)
