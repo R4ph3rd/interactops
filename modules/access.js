@@ -1,7 +1,7 @@
 const mutations = require('../store/mutations');
-const store = require('../store');
+// const store = require('../store');
 
-module.exports = function(io, socket){
+module.exports = function(io, socket, store){
     // computer access sharing
     // will share a token acess, either view or collaboration. This will be set by host
     socket.on('share-access', data => {

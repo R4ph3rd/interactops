@@ -1,6 +1,6 @@
-const store = require('../store');
+// const store = require('../store');
 
-module.exports = function(io, socket){
+module.exports = function(io, socket, store){
     // content sharing
 	socket.on('share-content', ({data}) => {
 		store.rooms.temp.socketId = socket.id;

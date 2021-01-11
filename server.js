@@ -15,11 +15,13 @@ const server = express()
 
 const io = socketIO(server);
 
+const store = require('./store');
+
 io.on("connection", socket => {
 	
-	connection(io, socket);
-	content(io, socket);
-	access(io, socket);
+	connection(io, socket, store);
+	content(io, socket, store);
+	access(io, socket, store);
 
 	socket.on('send-message', ({room, message}) => {
 		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
