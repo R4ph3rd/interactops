@@ -14,7 +14,7 @@ module.exports = function(io, socket){
 	
 	socket.on('request-access', () => {		
 		if (store.rooms.temp.token){
-			socket.join(store.rooms.temp.socketId);
+			// socket.join(store.rooms.temp.socketId);
 
 			socket.emit('get-access', {
 				owner: store.rooms.temp.owner,

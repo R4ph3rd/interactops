@@ -1,4 +1,4 @@
-const store = require('../store')
+const store = require('../store');
 
 module.exports = function(io, socket){
     const existingSocket = Object.keys(store.rooms[store.defaultRoom]).find(

@@ -1,14 +1,16 @@
-module.exports = function(socket){
+const store = require('../store');
+
+module.exports = function(io, socket){
     // content sharing
 	socket.on('share-content', ({data}) => {
-		rooms.temp.socketId = socket.id;
-		rooms.temp.data = data
-        rooms.temp.requests = [];
+		store.rooms.temp.socketId = socket.id;
+		store.rooms.temp.data = data
+        store.rooms.temp.requests = [];
 
         setTimeout( () => {
-            archived.push(rooms.temp);
-            rooms.temp = {};
-		}, tempDelay)
+            store.archived.push(store.rooms.temp);
+            store.rooms.temp = {};
+		}, store.tempDelay)
 
 		io.in('dashboard').emit('share', {
 			socket: socket.id,
@@ -24,11 +26,11 @@ module.exports = function(socket){
 			request: 'content'
 		})
 
-		if (rooms.temp.data){
-			rooms.temp.requests.push(socket.id);
+		if (store.rooms.temp.data){
+			store.rooms.temp.requests.push(socket.id);
 		
 			socket.emit('get-content', {
-				content : rooms.temp.data
+				content : store.rooms.temp.data
 			})
 		}
     })
