@@ -32,6 +32,10 @@ module.exports = function(io, socket, store){
 			socket.emit('get-content', {
 				content : store.rooms.temp.data
 			})
+		} else {
+			socket.emit('send-message', {
+				message: 'The cache is empty.'
+			})
 		}
     })
 }
