@@ -132,8 +132,9 @@ io.on("connection", socket => {
     });
 
     // content sharing
-	socket.on('share-content', data => {
-        rooms.temp.socketId = socket.id;
+	socket.on('share-content', ({data}) => {
+		rooms.temp.socketId = socket.id;
+		rooms.temp.data = data
         rooms.temp.requests = [];
 
         setTimeout( () => {
@@ -143,11 +144,13 @@ io.on("connection", socket => {
     })
     
     socket.on('request-content', () => {
-		rooms.temp.requests.push(socket.id);
+		if (rooms.temp.data){
+			rooms.temp.requests.push(socket.id);
 		
-        socket.to(rooms.temp.socketId).emit('request-download', {
-            requestSocket : socket.id
-        })
+			socket.emit('get-content', {
+				content : rooms.temp.data
+			})
+		}
     })
 
 	console.log("connection estblished by: " + socket.id);
