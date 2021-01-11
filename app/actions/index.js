@@ -2,10 +2,9 @@ const { shareThrow, shareGet, shareMulti, shareAccess, shareScreen, shareAlert} 
 const filters = require('./filters');
 const keyboardActions = require('../actions/keyboard');
 const fileActions = require('../actions/file');
-const path                = '/wek/outputs';
 
 module.exports = function (msg){
-    switch (msg[0]){
+    switch (msg){
         case '/swipe-right':
             keyboardActions.right();
             break;

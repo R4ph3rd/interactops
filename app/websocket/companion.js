@@ -1,5 +1,6 @@
 const colors = require('colors');
-const oscSend = require('../osc/send')
+const oscSend = require('../osc/send');
+const actions = require('../actions')
 
 let companionIsConnected = false ;
 
@@ -14,13 +15,17 @@ module.exports = function(io){
         // when user leave
 		socket.on('close-connection', () => {
 			console.log('Companion is disconnected.'.red.bgWhite)
-        })
-        
-        // when user leave
+    })
+      
 		socket.on('sensors-data', data => {
       // console.log('new datas :', data)
       oscSend(data);
 		})
+    
+    socket.on('fake-action', action => {
+      actions(action);
+      console.log('fake action', action)
+		})
         
-    });
+  });
 }
