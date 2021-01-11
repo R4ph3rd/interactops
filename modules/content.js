@@ -35,7 +35,7 @@ module.exports = function(io, socket, store){
 			})
 		} else {
 			socket.emit('send-message', {
-				message: 'The cache is empty.'
+				message: 'The cache is empty.' + store.rooms
 			})
 		}
     })
