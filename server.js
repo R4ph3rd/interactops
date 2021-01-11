@@ -1,6 +1,12 @@
 const express = require("express"); // useless for now, in case we want to display information about socket server
 const socketIO = require('socket.io');
 
+// modules
+const store = require('./store');
+const content = require('./modules/content');
+const connection = require('./modules/connection');
+const access = require('./modules/access');
+
 const host = process.env.PORT || 3000;
 
 const server = express()
@@ -8,64 +14,13 @@ const server = express()
 	.listen(host, () => console.log(`Listening on ${host}`));
 const io = socketIO(server);
 
-
-let rooms = {
-    general: {},
-    temp: {}
-};
-
-let archived = []; // store shared content
-
 const defaultRoom = 'general';
-const tempDelay = 10000; //delay to store temporaly content shared by users
-const archivesClearInterval = 3600000; // every hour
-const checkInterval = 60000; // every min
-const checkTimeout = checkInterval/2;
 
 io.on("connection", socket => {
-	const existingSocket = Object.keys(rooms[defaultRoom]).find(
-		existingSocket => existingSocket === socket.id
-	);
-
-	if (!existingSocket) {
-
-		rooms[defaultRoom][socket.id] = true;
-		socket.join(defaultRoom);
 	
-		socket.emit('entered-in-room', {
-			room: defaultRoom,
-			personalId: socket.id,
-			message: "You're entered into Interactops general room.",
-		})
-
-		socket.in(defaultRoom).emit('new-user-entered', {
-			message : 'Hello @everyone !',
-			socketId: socket.id
-		})
-
-		io.emit('update-users-list', {
-			users : rooms[defaultRoom]
-		})
-
-		setInterval(() => {
-			socket.emit('check-connection');
-			rooms[defaultRoom][socket.id] = false ;
-
-			setTimeout(() => {
-				if (!rooms[defaultRoom][socket.id]){
-					socket.disconnect(true)
-				}
-			}, checkTimeout)
-		}, checkInterval)
-	}
-
-	socket.on('checked-connection', () => {
-		rooms[defaultRoom][socket.id] = true;
-	})
-
-	socket.on('dashboard-connection', () => {
-		socket.join('dashboard');
-	})
+	connection(io, socket);
+	content(io, socket);
+	access(io, socket);
 
 	socket.on('send-message', ({room, message}) => {
 		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
@@ -76,112 +31,8 @@ io.on("connection", socket => {
 			socketId : socket.id,
 		})
 	})
-	
-	socket.on('clear-connections', () => {
-		io.sockets.disconnect();
-		rooms[defaultRoom] = {};
-
-		io.emit('update-users-list', {
-			users : io.sockets.adapter.rooms.get('general')
-		})
-	})
-
-	socket.on('disconnect',() => {
-		console.log("bye bye 👋");
-		/* rooms[defaultRoom].splice(
-			rooms[defaultRoom].findIndex(id => id == socket.id),
-			1
-		) */
-
-		delete rooms[defaultRoom][socket.id];
-		
-		io.emit('send-message', {
-			message: "I'm leaving. Bye bye !",
-			socketId: socket.id
-		})
-
-		io.emit('update-users-list', {
-			leaving: socket.id,
-			users : rooms[defaultRoom]
-		})
-    })
-    
-    // computer access sharing
-    // will share a token acess, either view or collaboration. This will be set by host
-    socket.on('share-access', data => {
-        rooms.temp.token = data.token;
-        rooms.temp.owner = socket.id;
-        rooms.temp.requests = [];
-
-        clearTemp(3000);
-    })
-	
-	socket.on('request-access', () => {		
-		if (rooms.temp.token){
-			socket.join(rooms.temp.socketId);
-
-			socket.emit('get-access', {
-				owner: rooms.temp.owner,
-				token: rooms.temp.token,
-			})
-
-			socket.emit('send-message', {
-				message: 'You joined another socket room. You are now allowed to collaborate with ' + rooms.temp.owner + ' on its desktop.'
-			})
-
-			socket.in(rooms.temp.owner).emit('send-message', {
-				message : 'A new collaborator is connected ! You share now the PC with ' + socket.id
-			})
-		}
-    });
-
-    // content sharing
-	socket.on('share-content', ({data}) => {
-		rooms.temp.socketId = socket.id;
-		rooms.temp.data = data
-        rooms.temp.requests = [];
-
-        setTimeout( () => {
-            archived.push(rooms.temp);
-            rooms.temp = {};
-		}, tempDelay)
-
-		io.in('dashboard').emit('share', {
-			socket: socket.id,
-			share: 'content',
-			data
-		})
-    })
-    
-    socket.on('request-content', () => {
-
-		io.in('dashboard').emit('request', {
-			socket: socket.id,
-			request: 'content'
-		})
-
-		if (rooms.temp.data){
-			rooms.temp.requests.push(socket.id);
-		
-			socket.emit('get-content', {
-				content : rooms.temp.data
-			})
-		}
-    })
 
 	console.log("connection estblished by: " + socket.id);
 	console.log(rooms);
 })
 
-///////////////////////////////
-
-setInterval(() => {
-    archived = []
-}, archivesClearInterval);
-
-
-function clearTemp(timeout){
-	setTimeout( () => {
-		rooms.temp = {};
-	}, timeout || tempDelay);
-}
