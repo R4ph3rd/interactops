@@ -15,8 +15,6 @@ const server = express()
 
 const io = socketIO(server);
 
-const store = require('./store');
-
 io.on("connection", socket => {
 	
 	connection(io, socket, store);
