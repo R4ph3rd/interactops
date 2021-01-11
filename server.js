@@ -63,6 +63,10 @@ io.on("connection", socket => {
 		rooms[defaultRoom][socket.id] = true;
 	})
 
+	socket.on('dashboard-connection', () => {
+		socket.join('dashboard');
+	})
+
 	socket.on('send-message', ({room, message}) => {
 		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
 		
@@ -141,9 +145,21 @@ io.on("connection", socket => {
             archived.push(rooms.temp);
             rooms.temp = {};
 		}, tempDelay)
+
+		io.in('dashboard').emit('share', {
+			socket: socket.id,
+			share: 'content',
+			data
+		})
     })
     
     socket.on('request-content', () => {
+
+		io.in('dashboard').emit('request', {
+			socket: socket.id,
+			request: 'content'
+		})
+
 		if (rooms.temp.data){
 			rooms.temp.requests.push(socket.id);
 		
