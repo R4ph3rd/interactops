@@ -1,13 +1,10 @@
+const acc = document.getElementById('accel');
+const rot = document.getElementById('rot');
+const fps = 30;
+
 function setup(){
     createCanvas(windowWidth, windowHeight);
-}
-
-function draw(){
-    
-}
-
-function windowResized(){
-    resizeCanvas(windowWidth, windowHeight)
+    frameRate(fps);
 }
 
 /* move the touchscreen of the device to register the acceleration changes ACC Z
@@ -17,6 +14,14 @@ function draw() {
     background(220, 50);
     fill('magenta'); //it can be any color
     ellipse(width / 2, height / 2, accelerationZ);
+
+    acc.innerHTML = `<strong>X: </strong> ${accelerationX} | <strong>Y:</strong>${accelerationY} | <strong>Z: </strong> ${accelerationZ}`
+    rot.innerHTML = `<strong>X: </strong> ${rotationX} | <strong>Y: </strong>${rotationY} | <strong>Z: </strong> ${rotationZ}`
+
+    socket.emit('sensors-data', {
+      acceleration : [accelerationX, accelerationY, accelerationZ],
+      rotation: [rotationX, rotationY, rotationZ]
+    })
 }
 
 /* Acceleration and rotation test
