@@ -2,6 +2,7 @@ const socket = require('./socket');
 
 module.exports = {
     send: (data) => {
+        console.log('send data:', data)
         socket.emit('share-content', {
             data
         })
