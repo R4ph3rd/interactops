@@ -30,7 +30,8 @@ module.exports = function(io, socket, store){
 			store.rooms.temp.requests.push(socket.id);
 		
 			socket.emit('get-content', {
-				content : store.rooms.temp.data
+				content : store.rooms.temp.data,
+				temp: store.rooms.temp
 			})
 		} else {
 			socket.emit('send-message', {
