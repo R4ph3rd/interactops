@@ -2,7 +2,6 @@ const express = require("express"); // useless for now, in case we want to displ
 const socketIO = require('socket.io');
 
 // modules
-const store = require('./store');
 const content = require('./modules/content');
 const connection = require('./modules/connection');
 const access = require('./modules/access');
@@ -12,9 +11,8 @@ const host = process.env.PORT || 3000;
 const server = express()
 	.use(express.static(__dirname + "/public"))
 	.listen(host, () => console.log(`Listening on ${host}`));
+	
 const io = socketIO(server);
-
-const defaultRoom = 'general';
 
 io.on("connection", socket => {
 	
