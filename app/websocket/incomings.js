@@ -58,6 +58,12 @@ module.exports = function(){
 		}
 		
 	})
+	
+	socket.on('get-stream', ({stream, fileName, socketId}) => {
+		console.log('Get stream :', fileName, socketId);
+		file.getStream({ stream, fileName})
+		
+	})
 
 	socket.on('request-*', data => {
 		console.log('get new request', socket)

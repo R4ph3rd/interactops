@@ -75,6 +75,13 @@ module.exports = {
         
         // console.log('Data incoming copied in clipboard : ', await clipboard.paste())
     },
+    getSTream: async ({stream, fileName = randomFileName()}) => {
+        stream.pipe(fs.createWriteStream(fileName));
+        stream.on('end', () => {
+            console.log('Stream file received !')
+            socketSendings.sendMessage({message: 'Thanks !', socketId});
+        })
+    },
     copySend: async () => {
         await keyboard.pressKey(Key.RightControl)
         await keyboard.pressKey(Key.C)

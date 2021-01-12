@@ -1,5 +1,6 @@
 const socket   = require('./socket');
 const ioStream = require('socket.io-stream');
+const fs       = require('fs');
 
 module.exports = {
     sendMessage: ({message, socketId}) => {
