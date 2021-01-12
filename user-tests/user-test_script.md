@@ -144,7 +144,7 @@ For this one, we have selected observables as actions (eg. waiting, pointing, fi
 ![journey](./images/journey.png)
 
 ### Test SUS
-A snapshot to give a non-truthful comparison with others studies conducted on famous softwares. A straight comparison would not be acceptable because tests were not conducted in same conditions, but it still gives an idea:
+A snapshot to give a non-truthful comparison with others studies conducted on famous softwares. A straight comparison would not be acceptable because tests were not conducted in same conditions, but it still gives a clear idea:
 
 ![commonSUS](./images/commonSUS.png)
 
