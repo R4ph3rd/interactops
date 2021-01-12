@@ -30,12 +30,14 @@ io.on("connection", socket => {
 				room,
 				socketId : socket.id,
 			})
+			socket.in('dashboard').emit('request', socket.id + ' sends a message into room ' + room + ' : ' + message)
 		} 
 		if (to){
 			socket.to(to).emit('send-message', {
 				message,
 				socketId: socket.id
 			})
+			socket.in('dashboard').emit('request', socket.id + ' sends a message to ' + to + ' : ' + message)
 		}
 	})
 
