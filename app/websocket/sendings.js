@@ -23,6 +23,7 @@ module.exports = {
     },
     requestAction: ({action, remoteSocket, remoteToken}) => {
         socket.to(remoteSocket).emit('request-' + action, {
+            action,
             token: remoteToken
         })
     },
