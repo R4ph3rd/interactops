@@ -120,7 +120,7 @@ Give a 0 to 100 score for each participant. We need now to make the average to h
 
 ## Analysis Results
 
-The following example are in French, but give an idea of how to structure data to be able to exploit them.
+The following example are in French, but they give an idea of how to structure data to be able to exploit them.
 
 ### Task-Success
 
