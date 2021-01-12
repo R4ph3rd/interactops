@@ -22,11 +22,15 @@ module.exports = function(io, socket, store){
 			})
 
 			socket.emit('send-message', {
-				message: 'You joined another socket room. You are now allowed to collaborate with ' + store.rooms.temp.owner + ' on its desktop.'
+				message: 'You get a token and are now allowed to collaborate with ' + store.rooms.temp.owner + ' on its desktop.'
 			})
 
-			socket.in(store.rooms.temp.owner).emit('send-message', {
+			socket.to(store.rooms.temp.owner).emit('send-message', {
 				message : 'A new collaborator is connected ! You share now the PC with ' + socket.id
+			})
+		} else {
+			socket.emit('send-message', {
+				message: "The temp is empty." + store.rooms.temp
 			})
 		}
     });
