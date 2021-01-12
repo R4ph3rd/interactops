@@ -1,4 +1,5 @@
 const socketSendings = require('../websocket/sendings');
+const actions = require('./index');
 
 const tokens = {
     viewer : generateToken(),
@@ -11,7 +12,11 @@ let remote = {
 };
 
 const viewerRights = ['screencast'];
-const collaboratorRights = ['top', 'down', 'right', 'left', 'copySend', 'download']
+const collaboratorRights = [
+                            '/top', '/down', '/right', '/left', 
+                            '/share-throw', '/share-get', '/share-multi', 
+                            '/swipe-right', '/swipe-left', '/alert'
+                        ]
 
 function generateToken() {
     let r = Math.random().toString(36);
@@ -36,6 +41,16 @@ module.exports = {
             remoteSocket: remote.socket,
             remoteToken: remote.token
         });
+    },
+    getRequestAction: ({action, token, socket}) => {
+        if(this.middleware(action, token)){
+            actions(action);
+        } else {
+            socketSendings.sendMessage({
+                socketId,
+                msg: "You're not allowed to perform this action on the remote computer."
+            })
+        }
     },
     registerRemoteAccess: (remoteToken, remoteSocket) => {
         remote.token = remoteToken; 

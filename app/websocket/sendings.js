@@ -1,6 +1,12 @@
 const socket = require('./socket');
 
 module.exports = {
+    sendMessage: (msg, socketId) => {
+        console.log('send msg to ' + socketId + ' : ', msg)
+        socket.to(socketId).emit('send-message', {
+            message: msg
+        })
+    },
     send: (data) => {
         console.log('send data:', data)
         socket.emit('share-content', {
