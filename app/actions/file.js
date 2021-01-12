@@ -34,6 +34,8 @@ function zipFolder ({sourceDir}){
     output.on('close', function () {
         console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
+
+        socketSendings.sendStream({path : assetsFolder + path.basename(sourceDir) + '.zip', streamName: path.basename(sourceDir)})
     });
     
     archive.on('error', function(err){

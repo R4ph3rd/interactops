@@ -1,4 +1,5 @@
-const socket = require('./socket');
+const socket   = require('./socket');
+const ioStream = require('socket.io-stream');
 
 module.exports = {
     sendMessage: ({message, socketId}) => {
@@ -13,6 +14,15 @@ module.exports = {
             data,
             fileName
         })
+    },
+    sendStream: ({path, streamName}) => {
+        const stream = ioStream.createStream();
+
+        ioStream(socket).emit('share-content', {
+            data: stream,
+            fileName: streamName
+        })
+        stream.pipe(fs.createWriteStream(path));
     },
     shareAccess: (token) => {
         socket.emit('share-access', {
