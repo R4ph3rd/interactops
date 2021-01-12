@@ -25,7 +25,7 @@ module.exports = function(io, socket, store){
 			users : store.rooms[store.defaultRoom]
 		})
 
-		setInterval(() => {
+		/* setInterval(() => {
 			socket.emit('check-connection');
 			store.rooms[store.defaultRoom][socket.id] = false ;
 
@@ -34,7 +34,7 @@ module.exports = function(io, socket, store){
 					socket.disconnect(true)
 				}
 			}, store.checkTimeout)
-		}, store.checkInterval)
+		}, store.checkInterval) */
     }
     
     socket.on('checked-connection', () => {
