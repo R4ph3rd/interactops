@@ -21,14 +21,22 @@ io.on("connection", socket => {
 	content(io, socket, store);
 	access(io, socket, store);
 
-	socket.on('send-message', ({room, message}) => {
+	socket.on('send-message', ({room, message, to}) => {
 		console.log(`New message arrived from ${socket.id} in ${room} : ${message}`);
 		
-		io.in(room ? room : defaultRoom).emit('send-message', {
-			message,
-			room,
-			socketId : socket.id,
-		})
+		if (room){
+			io.in(room ? room : defaultRoom).emit('send-message', {
+				message,
+				room,
+				socketId : socket.id,
+			})
+		} 
+		if (to){
+			socket.to(to).emit('send-message', {
+				message,
+				socketId: socket.id
+			})
+		}
 	})
 
 	console.log("connection estblished by: " + socket.id);
