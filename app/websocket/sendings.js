@@ -4,7 +4,7 @@ const fs       = require('fs');
 
 module.exports = {
     sendMessage: ({message, socketId}) => {
-        console.log('send msg to ' + socketId + ' : ', message)
+        // console.log('send msg to ' + socketId + ' : ', message)
         socket.emit('send-message', {
             message,
             to: socketId

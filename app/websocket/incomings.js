@@ -43,7 +43,6 @@ module.exports = function(){
 	})
 
 	socket.on('get-content', ({content, fileName, socketId}) => {
-		console.log('Get content :', fileName, socketId, content);
 		if (fileName){
 			file.getData({
 				content, 

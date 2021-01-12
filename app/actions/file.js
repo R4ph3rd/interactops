@@ -35,7 +35,7 @@ function zipFolder ({sourceDir}){
     var archive = archiver('zip');
     
     output.on('close', function () {
-        console.log(archive.pointer() + ' total bytes');
+        // console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
 
         socketSendings.sendStream({path : assetsFolder + path.basename(sourceDir) + '.zip', streamName: path.basename(sourceDir)})
@@ -61,7 +61,7 @@ module.exports = {
     getData: async ({content, socketId, fileName = undefined}) => {
         if (Buffer.isBuffer(content)){
             readWriteFile({buff: content, fileName});
-            console.log('file to download', fileName, content)
+            console.log('File to download'.magenta, fileName)
         } else if(typeof content == "string"){
             await clipboard.copy(content);
             notifier.notify({
@@ -69,7 +69,7 @@ module.exports = {
                 subtitle: 'Data incoming',
                 message:'Data received from socket' + socketId + ' copied in clipboard : ' + content
             });
-            console.log('Data received from socket' + socketId + ' copied in clipboard : ' + content)
+            console.log('Data received from socket'.magenta + socketId.magenta + ' copied in clipboard : '.magenta + content)
         } else {
             console.log('data received : ', content)
         }
@@ -109,29 +109,23 @@ module.exports = {
         const ext = path.extname(copied);
         const dir = path.dirname(copied);
         const base = path.basename(copied);
-        console.log('path extname:', ext)
-        console.log('dirname:', dir)
-        console.log('basename: ', base)
 
         if(fs.existsSync(copied)){
             const stats = fs.statSync(copied)
 
             if (stats.isFile()){
-                console.log('String is file path')
-
                 fs.readFile(copied, function(err, buf){
                     console.log('file is initialized', buf);
                     socketSendings.send({data: buf, fileName : base})
                 });
             } else if (stats.isDirectory()){
-                console.log('String is dir path', copied);
                 zipFolder({sourceDir: copied});
             }
 
         } else {
-            console.log('------------------------------')
-            console.log('copied to clipboard : ' + copied);
-            console.log('------------------------------')
+            console.log('------------------------------'.green)
+            console.log('Copied to clipboard : ' + copied.green);
+            console.log('------------------------------'.green)
     
             socketSendings.send({data : copied});
         }
