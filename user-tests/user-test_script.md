@@ -95,7 +95,6 @@ Each of the individual gestures from each tester was monitored and saved, and th
     
     - For sharing in a correct way, the participants should have firstly loaded the information or the video, or whatever media they wanted to share with the people. After selecting these media, now select one piece of it to share your screen. For the part of the receivers (audience or close people), they just need to have their device unlocked and in a horizontal way (the sender also has to hold his phone this way, but after sharing screen, the sender can have the phone hold vertically), to accept the screen sharing, if it is not hold this way, it won't  receive the shared-screen, this is a method to accept it. 
  
-
 ## Part 4
 
 > After testing all the gestures given to the testers, we asked them to complete a survey and also to compare now their own movements for each gestures to the ones given by the team. 
