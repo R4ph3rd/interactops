@@ -47,6 +47,7 @@ Then, the test will switch on qualitatives questions in order to be explicit usi
 
 > How would you imagine the following gestures ?
 Different set of gestures are easily explained to the testers. For example:
+
  - Sharing Gesture with your phone
  - Go to the next slide
  - Unlock your computer
