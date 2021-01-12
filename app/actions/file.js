@@ -29,7 +29,7 @@ module.exports = {
     getData: async ({content, socketId, fileName = undefined}) => {
         if (Buffer.isBuffer(content)){
             readWriteFile({buff: content, fileName});
-        }else if(typeof content == "string"){
+        } else if(typeof content == "string"){
             await clipboard.copy(content);
             notifier.notify({
                 title:'Interactops',

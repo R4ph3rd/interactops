@@ -17,8 +17,12 @@ function draw() {
     fill('magenta'); //it can be any color
     ellipse(width / 2, height / 2, accelerationZ);
 
-    acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
-    rot.innerHTML = `<strong>X: </strong> ${rotationX} </br> <strong>Y: </strong>${rotationY} </br> <strong>Z: </strong> ${rotationZ}`
+    if  (acc){
+      acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
+    }
+    if (rot){
+      rot.innerHTML = `<strong>X: </strong> ${rotationX} </br> <strong>Y: </strong>${rotationY} </br> <strong>Z: </strong> ${rotationZ}`
+    }
 
     if(!document.URL.includes('dashboard')){
       socket.emit('sensors-data', {
