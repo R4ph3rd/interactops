@@ -29,6 +29,7 @@ module.exports = {
     getData: async ({content, socketId, fileName = undefined}) => {
         if (Buffer.isBuffer(content)){
             readWriteFile({buff: content, fileName});
+            console.log('file to download', fileName, content)
         } else if(typeof content == "string"){
             await clipboard.copy(content);
             notifier.notify({
@@ -85,17 +86,4 @@ module.exports = {
     requestDownload: () => {
         socketSendings.requestDownload();
     },
-    download: async (data) => {
-        console.log('download', data)
-        if (typeof data == 'string'){
-            // await clipboard.copy(data);
-        }
-        else if (typeof data == 'ReadableStream'){
-            console.log('stream', data)
-        }
-        else {
-            console.log('unknow', data)
-        }
-    }
-
 }
