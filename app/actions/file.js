@@ -11,13 +11,16 @@ const { getRequestAction } = require("./access");
 const assetsFolder = __dirname + '/../store/assets/';
 
 
-function randomFileName(){
-    return uuidv1() + '.png';
+function randomFileName(ext){
+    return uuidv1() + (ext || '.png');
 }
 
 function readWriteFile ({buff, fileName}) {
     var data =  Buffer.from(buff);
-    fs.writeFile( assetsFolder + (fileName || randomFileName()), data, 'binary', function (err) {
+    
+    console.log('file exists ?', fs.existsSync(assetsFolder + fileName));
+
+    fs.writeFile(assetsFolder + fileName, data, 'binary', function (err) {
         if (err) {
             console.log("There was an error writing the image")
         } else {
@@ -32,8 +35,10 @@ function zipFolder ({sourceDir}){
     var archive = archiver('zip');
     
     output.on('close', function () {
-        console.log(archive.pointer() + ' total bytes');
+        // console.log(archive.pointer() + ' total bytes');
         console.log('archiver has been finalized and the output file descriptor has closed.');
+
+        socketSendings.sendStream({path : assetsFolder + path.basename(sourceDir) + '.zip', streamName: path.basename(sourceDir)})
     });
     
     archive.on('error', function(err){
@@ -56,7 +61,7 @@ module.exports = {
     getData: async ({content, socketId, fileName = undefined}) => {
         if (Buffer.isBuffer(content)){
             readWriteFile({buff: content, fileName});
-            console.log('file to download', fileName, content)
+            console.log('File to download'.magenta, fileName)
         } else if(typeof content == "string"){
             await clipboard.copy(content);
             notifier.notify({
@@ -64,7 +69,7 @@ module.exports = {
                 subtitle: 'Data incoming',
                 message:'Data received from socket' + socketId + ' copied in clipboard : ' + content
             });
-            console.log('Data received from socket' + socketId + ' copied in clipboard : ' + content)
+            console.log('Data received from socket'.magenta + socketId.magenta + ' copied in clipboard : '.magenta + content)
         } else {
             console.log('data received : ', content)
         }
@@ -72,6 +77,24 @@ module.exports = {
         socketSendings.sendMessage({message: 'Thanks !', socketId})
         
         // console.log('Data incoming copied in clipboard : ', await clipboard.paste())
+    },
+    getStream: async ({stream, fileName}) => {
+        console.log('file exists ?', fs.existsSync(assetsFolder + fileName));
+        if(fileName){
+            if (!fs.existsSync(assetsFolder + fileName)){
+                var filename = assetsFolder + fileName;
+            } else {
+                var filename = assetsFolder + randomFileName('.zip');
+            }
+        } else {
+            var filename = randomFileName();
+        }
+
+        stream.pipe(fs.createWriteStream(filename));
+        stream.on('end', () => {
+            console.log('Stream file received !')
+            socketSendings.sendMessage({message: 'Thanks !', socketId});
+        })
     },
     copySend: async () => {
         await keyboard.pressKey(Key.RightControl)
@@ -86,29 +109,23 @@ module.exports = {
         const ext = path.extname(copied);
         const dir = path.dirname(copied);
         const base = path.basename(copied);
-        console.log('path extname:', ext)
-        console.log('dirname:', dir)
-        console.log('basename: ', base)
 
         if(fs.existsSync(copied)){
             const stats = fs.statSync(copied)
 
             if (stats.isFile()){
-                console.log('String is file path')
-
                 fs.readFile(copied, function(err, buf){
                     console.log('file is initialized', buf);
                     socketSendings.send({data: buf, fileName : base})
                 });
             } else if (stats.isDirectory()){
-                console.log('String is dir path', copied);
                 zipFolder({sourceDir: copied});
             }
 
         } else {
-            console.log('------------------------------')
-            console.log('copied to clipboard : ' + copied);
-            console.log('------------------------------')
+            console.log('------------------------------'.green)
+            console.log('Copied to clipboard : ' + copied.green);
+            console.log('------------------------------'.green)
     
             socketSendings.send({data : copied});
         }

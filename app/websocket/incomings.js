@@ -43,7 +43,6 @@ module.exports = function(){
 	})
 
 	socket.on('get-content', ({content, fileName, socketId}) => {
-		console.log('Get content :', fileName, socketId, content);
 		if (fileName){
 			file.getData({
 				content, 
@@ -56,6 +55,12 @@ module.exports = function(){
 				socketId
 			});
 		}
+		
+	})
+	
+	socket.on('get-stream', ({stream, fileName, socketId}) => {
+		console.log('Get stream :', fileName, socketId);
+		file.getStream({ stream, fileName})
 		
 	})
 
