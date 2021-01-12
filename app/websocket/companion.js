@@ -40,13 +40,11 @@ module.exports = function(io){
     
 
     socket.on('request-screencast', async () => {
-      const screenshot = await screen.capture(__dirname + './store/data/screenshot.png');
+      const screenshot = await screen.capture(`${__dirname}/../store/assets/screenshot.png`);
       console.log('screenshot for companion : ')
       console.log(screenshot)
 
       fs.readFile(__dirname + '/../screenshot.png', function(err, buf){
-        // it's possible to embed binary data
-        // within arbitrarily-complex objects
         socket.emit('update-screencast', { image: true, buffer: buf });
         console.log('image file is initialized', buf);
       });

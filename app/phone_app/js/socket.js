@@ -28,5 +28,11 @@ if(screencast){
     screencast.addEventListener('click', () => {
         socket.emit('request-screencast');
         console.log('request screencast');
+
     })
+
+    screencast.onload = () => {
+        console.log('image loaded');
+        socket.emit('request-screencast');
+    }
 }

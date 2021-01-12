@@ -52,7 +52,7 @@ for (let adress in ip()){
 try{
     keyboard.config.autoDelayMs = 150;
 
-    screen.config.ressourceDirectory = join(__dirname, 'assets');
+    screen.config.ressourceDirectory = join(__dirname, './store/assets');
     screen.config.autoHighlight = true;
     screen.config.highlightDuration = 1000;
 
