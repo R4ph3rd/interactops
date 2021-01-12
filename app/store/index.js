@@ -19,6 +19,6 @@ module.exports = {
     },
     remote : {
         token: null,
-        socket: ''
+        socket: null
     }
 }

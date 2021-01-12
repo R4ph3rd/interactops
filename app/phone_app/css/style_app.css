@@ -119,3 +119,13 @@ video{
     width:100%;
     height:100%;
 }
+
+
+#screencast{
+    width:100%;
+    height:80vh;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: grey;
+}

@@ -1,8 +1,9 @@
 # Interactops
 Using your phone as remote controller for your desktop to enable flexible cross-devices and human-to-human interactions.
 This project use [Wekinator](http://www.wekinator.org/) to determine gestures from data stream sended by mobile devices.
-We use [Socket.io]() to communicate between users and OSC to communicate between ours mobile device to Wekinator (working on the synchronised computer).
+We use [Socket.io]() to communicate between users and OSC to communicate between our app to Wekinator (working on the synchronised computer).
 [node-osc](https://github.com/MylesBorins/node-osc).
+[Nut.js](https://github.com/nut-tree/nut.js) is used for desktop automation.
 
 
 NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a socket server to setup the connections. Maybe not really usefull for now, but at least, it holds example of how socket.io works.
