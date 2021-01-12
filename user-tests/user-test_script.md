@@ -66,20 +66,34 @@ Each of the individual gestures from each tester was monitored and saved, and th
 > After the testers make their own gestures following their own imagination and what would fit best according to their ideals, the team now gives them a set of orders to follow for each of the gestures mentioned.
 
  - Sharing Gesture with your phone: One person in front of the other doing an upwards movement with your phone in hand to share a file in this case, and the receiver has to do the same or opposite movement, as he/she is receiving the file.
+    - For sharing, before that the participants have to follow a list of tasks:
+        1. Open a document type text.
+        2. Copy and share it with the person in front of you.
+        3. The person receiving the document has to register the data in their own documents.
+        4. After this, the sharing has been completed. 
  
  - Go to the next slide: As your phone is connected to the computer, do a movement with your arm moving to the right if you want to go the previous slide; do the counter movement, move your arm to the left if you want to go to the next slide. Obviously, everything with the phone in your hand.
+    - Before changing slides, the participant must follow these steps:
+        1. Sync your device with the computer
+        2. Get the slides or the program with it
+        3. Once you have them loaded, the participant should move his arm to the right or to the left to go on to the next or to the previous slide.
 
- - Unlock your computer: Do a set of default movements to unlock the computer in front of you, as this should not require more than to 4 to 5 movements, they were given different figures so they can replicate them with their arm movement while having the phone. 
+ - Unlock your computer: Do a set of default movements to unlock the computer in front of you, as this should not require more than to 4 to 5 movements, they were given different figures so they can replicate them with their arm movement while having the phone.
+ A computer was provided to each participant, and each of the computers had different set of movements to unlock it.
+
    The set of movements were the following:
    - Triangle
    - Square
    - Circle
    - An 'X'
    - A Circle and then an 'X' crossing the circle.
+    After doing these movements in the adequate way, the computer should be unlocked.
 
  - Share your screen with other people (close distance): Turn your phone sideways (the ones the screen has been shared have to do the same movement too), then  the phone will detect the phones that are turned in this way because they are not looking in the normal direction a smartphone is hold (that is looking upfront). This movement by the sharer and the one been shared is also a confirmation, if you do not want to be shared-screen just do not hold your phone horizontally looking into X direction and being in a close distance to the screen-sharer.
 
  - Share your screen to an audience (medium-long distance): Turn your phone sideways and do a movement from left to right or from right to left, trying to include the whole room with this movement. As for the ones receiving this shared-screen, you just need to turn your smartphone sideways/horizontally. After a brief moment, the sharing will commence to the ones that have their phones hold in the "correct" way.
+    
+    - For sharing in a correct way, the participants should have firstly loaded the information or the video, or whatever media they wanted to share with the people. After selecting these media, now select one piece of it to share your screen. For the part of the receivers (audience or close people), they just need to have their device unlocked and in a horizontal way (the sender also has to hold his phone this way, but after sharing screen, the sender can have the phone hold vertically), to accept the screen sharing, if it is not hold this way, it won't  receive the shared-screen, this is a method to accept it. 
  
 
 ## Part 4
