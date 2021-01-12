@@ -11,13 +11,16 @@ const { getRequestAction } = require("./access");
 const assetsFolder = __dirname + '/../store/assets/';
 
 
-function randomFileName(){
-    return uuidv1() + '.png';
+function randomFileName(ext){
+    return uuidv1() + (ext || '.png');
 }
 
 function readWriteFile ({buff, fileName}) {
     var data =  Buffer.from(buff);
-    fs.writeFile( assetsFolder + (fileName || randomFileName()), data, 'binary', function (err) {
+    
+    console.log('file exists ?', fs.existsSync(assetsFolder + fileName));
+
+    fs.writeFile(fileName, data, 'binary', function (err) {
         if (err) {
             console.log("There was an error writing the image")
         } else {
@@ -75,8 +78,19 @@ module.exports = {
         
         // console.log('Data incoming copied in clipboard : ', await clipboard.paste())
     },
-    getSTream: async ({stream, fileName = randomFileName()}) => {
-        stream.pipe(fs.createWriteStream(fileName));
+    getStream: async ({stream, fileName}) => {
+        console.log('file exists ?', fs.existsSync(assetsFolder + fileName));
+        if(fileName){
+            if (!fs.existsSync(assetsFolder + fileName)){
+                var filename = assetsFolder + fileName;
+            } else {
+                var filename = assetsFolder + randomFileName('.zip');
+            }
+        } else {
+            var filename = randomFileName();
+        }
+
+        stream.pipe(fs.createWriteStream(filename));
         stream.on('end', () => {
             console.log('Stream file received !')
             socketSendings.sendMessage({message: 'Thanks !', socketId});

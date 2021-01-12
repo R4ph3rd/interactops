@@ -2,6 +2,8 @@ const socket   = require('./socket');
 const ioStream = require('socket.io-stream');
 const fs       = require('fs');
 
+const stream = ioStream.createStream();
+
 module.exports = {
     sendMessage: ({message, socketId}) => {
         console.log('send msg to ' + socketId + ' : ', message)
@@ -17,8 +19,6 @@ module.exports = {
         })
     },
     sendStream: ({path, streamName}) => {
-        const stream = ioStream.createStream();
-
         ioStream(socket).emit('share-content', {
             data: stream,
             fileName: streamName
