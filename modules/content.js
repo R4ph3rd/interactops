@@ -5,6 +5,7 @@ const ioStream = require('socket.io-stream');
 module.exports = function(io, socket, store){
     // content sharing
 	socket.on('share-content', ({data, fileName, stream}) => {
+		store.rooms.temp = {};
 		store.rooms.temp.socketId = socket.id;
 		store.rooms.temp.requests = [];
 
@@ -52,8 +53,12 @@ module.exports = function(io, socket, store){
 					socketId: store.rooms.temp.socketId
 				})
 
-				io.in('dashboard').emit('info', {
+				socket.in('dashboard').emit('info', {
 					message: socket.id + ' request stream'
+				})
+
+				socket.emit('send-message', {
+					message: ' Stream is sending to you.'
 				})
 
 			} else if (store.rooms.temp.fileName){
@@ -63,10 +68,26 @@ module.exports = function(io, socket, store){
 					socketId: store.rooms.temp.socketId
 				})
 
+				socket.emit('send-message', {
+					message: ' Shared file is sending to you.'
+				})
+
+				socket.in('dashboard').emit('info', {
+					message: socket.id + ' request file'
+				})
+
 			} else {
 				socket.emit('get-content', {
 					content : store.rooms.temp.data,
 					socketId: store.rooms.temp.socketId
+				})
+
+				socket.emit('send-message', {
+					message: ' Shared content is sending to you.'
+				})
+
+				socket.in('dashboard').emit('info', {
+					message: socket.id + ' request content'
 				})
 			}
 		} else {
