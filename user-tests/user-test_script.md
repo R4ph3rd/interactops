@@ -128,6 +128,7 @@ The following example are in French, but they give an idea of how to structure d
 
 ### Time Spent
 Blue was a normal duration for the asked task, green a task performed quickly and a red means that the tasks takes longer than expected.
+
 Here the first user was our reference user for the time we considered that every of him performed tasks took a normal time.
 
 ![time spent](./images/time_spent.png)
@@ -143,10 +144,10 @@ For this one, we have selected observables as actions (eg. waiting, pointing, fi
 ![journey](./images/journey.png)
 
 ### Test SUS
-A snapshot to give a non-truthful comparison with others studies conducted on famous softwares. A straight comparison would not be acceptable because tests were not conducted in same conditions, but it still gives an idea :
+A snapshot to give a non-truthful comparison with others studies conducted on famous softwares. A straight comparison would not be acceptable because tests were not conducted in same conditions, but it still gives an idea:
 
 ![commonSUS](./images/commonSUS.png)
 
 ### Words cloud
 
-Highlight some interesting sentences and keywords pronounced during the interview (jouney or questions), or from the sentences to fill. The sentences to fill aims to define a semantic field from users on the experience, given prototype, possibilities they imagine and how they feel confident when using it.
+Highlighting some interesting sentences and keywords pronounced during the interview (jouney or questions), or from the sentences to fill. The sentences to fill aims to define a semantic field from users on the experience, given prototype, possibilities they imagine and how they feel confident when using it.

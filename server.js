@@ -14,7 +14,7 @@ let rooms = {
     temp: {}
 };
 
-let archived = []; // store shared content
+let archived = []; // store shared content in the webapp
 
 const defaultRoom = 'general';
 const tempDelay = 10000; //delay to store temporaly content shared by users
