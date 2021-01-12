@@ -106,7 +106,7 @@ Give a 0 to 100 score for each participant. We need now to make the average to h
 
 ## Analysis Results
 
-The following example are in french, but give an idea of how to structure data to be able to exploit them.
+The following example are in French, but give an idea of how to structure data to be able to exploit them.
 
 ### Task-Success
 
@@ -119,12 +119,12 @@ Here the first user was our reference user for the time we considered that every
 ![time spent](./images/time_spent.png)
 
 ### Attempts
-The following graph was counting the clic on a web product. We can adapt it to the attemps made for the needed task.
+The following graph was counting the clics on a web product. We can adapt it to the attemps made for the needed task.
 
 ![clics](./images/clics.png)
 
 ### Journey Analysis
-For this one, we have selected observables as actions (eg. waiting, pointing, filling an input, navigating...), vocal behavior (eg. asking, explanations, remarks) and the navigation status (optimal navigation, other one, reflexion times) to highlight the difficulties in the process, common steps where users have troubles with.
+For this one, we have selected observables as actions (eg. waiting, pointing, filling an input, navigating...), vocal behavior (eg. asking, explanations, remarks) and the navigation status (optimal navigation, reflexion times) to highlight the difficulties in the process, common steps where users have troubles with.
 
 ![journey](./images/journey.png)
 
