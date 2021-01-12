@@ -26,6 +26,10 @@ module.exports = function(io){
       actions(action);
       console.log('fake action', action)
 		})
+    
+    socket.on('set-mode', mode => {
+      console.log('New interactops mode : ', mode.green)
+		})
         
   });
 }

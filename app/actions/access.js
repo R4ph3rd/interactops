@@ -1,36 +1,14 @@
 const socketSendings = require('../websocket/sendings');
 const actions = require('./index');
 
-const tokens = {
-    viewer : generateToken(),
-    collaborator : generateToken(),
-}
-
-let remote = {
-    token: null,
-    socket: ''
-};
-
-const viewerRights = ['screencast'];
-const collaboratorRights = [
-                            '/top', '/down', '/right', '/left', 
-                            '/share-throw', '/share-get', '/share-multi', 
-                            '/swipe-right', '/swipe-left', '/alert'
-                        ]
-
-function generateToken() {
-    let r = Math.random().toString(36);
-    console.log("New token generated : ", r);
-
-    return r;
-}
+const store = require('./store');
 
 module.exports = {
     shareViewerAccess: () => {
-        socketSendings.shareAccess({token: tokens.viewer});
+        socketSendings.shareAccess({token: store.tokens.viewer});
     },
     shareCollaboratorAccess: () => {
-        socketSendings.shareAccess({token: tokens.collaborator});
+        socketSendings.shareAccess({token: store.tokens.collaborator});
     },
     requestAccess: () => {
         socketSendings.requestAccess();
@@ -38,8 +16,8 @@ module.exports = {
     requestAction: (action) => {
         socketSendings.requestAction({
             action,
-            remoteSocket: remote.socket,
-            remoteToken: remote.token
+            remoteSocket: store.remote.socket,
+            remoteToken: store.remote.token
         });
     },
     getRequestAction: ({action, token, socket}) => {
@@ -53,13 +31,13 @@ module.exports = {
         }
     },
     registerRemoteAccess: (remoteToken, remoteSocket) => {
-        remote.token = remoteToken; 
-        remote.socket = remoteSocket; 
+        store.remote.token = remoteToken; 
+        store.remote.socket = remoteSocket; 
     },
     middleware(action, token){
-        if (token == tokens.viewer && viewerRights.includes(action)){
+        if (token == store.tokens.viewer && store.viewerRights.includes(action)){
             return true;
-        } else if (token == tokens.collaborator && collaboratorRights.includes(action)){
+        } else if (token == store.tokens.collaborator && store.collaboratorRights.includes(action)){
             return true;
         }
     }

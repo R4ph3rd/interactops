@@ -2,6 +2,7 @@ const filters = require('./filters');
 const keyboardActions = require('./keyboard');
 const fileActions = require('./file');
 const accessActions = require('./access');
+const store = require('./store')
 
 module.exports = function (msg){
     switch (msg){
@@ -32,10 +33,12 @@ module.exports = function (msg){
             }
             break;
         case '/access-viewer':
-            if (mode == 'presentation'){
+            if (store.mode == 'presentation'){
                 accessActions.shareViewerAccess();
-            } else if (mode == 'remote'){
+            } else if (store.mode == 'remote'){
                 accessActions.requestAccess();
+            } else if (store.mode == 'debug' || null){
+                
             }
             break;
         case '/alert':
