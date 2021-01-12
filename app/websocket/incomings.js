@@ -38,6 +38,7 @@ module.exports = function(){
 
 	socket.on('get-content', data => {
 		console.log('Get content :', data);
+		file.getData({content: data.content, socketId: data.temp.socketId});
 	})
 
 	socket.on('checked-connection', () => {

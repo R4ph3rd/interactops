@@ -1,8 +1,19 @@
 const { clipboard, keyboard, Key } = require("@nut-tree/nut-js");
 const socketSendings = require('../websocket/sendings');
 const socket = require("../websocket/socket");
+const notifier = require('node-notifier');
 
 module.exports = {
+    getData: async ({content, socketId}) => {
+        await clipboard.copy(content);
+        notifier.notify({
+            title:'Interactops',
+            subtitle: 'Data incoming',
+			message:'Data received from socket' + socketId + ' copied in clipboard : ' + content
+        });
+        
+        // console.log('Data incoming copied in clipboard : ', await clipboard.paste())
+    },
     copySend: async () => {
         await keyboard.pressKey(Key.RightControl)
         await keyboard.pressKey(Key.C)
