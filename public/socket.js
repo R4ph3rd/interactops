@@ -26,7 +26,7 @@ socket.on('update-users-list', data => {
 
 socket.on('share-content', data => {
     console.log(data);
-    message.innerText = data.data;
+    message.innerText = data;
 })
 
 socket.on('check-connection', () => {
@@ -37,9 +37,9 @@ socket.on('send-message', ({message, socketId}) => {
     console.log(socketId, message);
 
     if (socketId){
-        message.innerText = socketId + ' says : ' + data.message;
+        message.innerText = socketId + ' says : ' + message;
     } else {
-        message.innerText = 'Server info : ' + data.message;
+        message.innerText = 'Server info : ' + message;
     }
 })
 
