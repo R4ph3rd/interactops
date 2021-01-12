@@ -1,7 +1,7 @@
-# Test protocole
-This protocole aim to mesure differents parameters, objectives and subjectives to define the potential of usability by new users.
-First, it will mesure the efficiency and reliability of our prototype for remote desktop control.
-And then, the test will switch on qualitatives questions in order to explicit by words, feelings, how our prototype is embeeded in normal behaviors.
+# Test Protocole
+This protocole aim to measure different parameters, objectives and sub-objectives to define the potential of usability by new users.
+First, it will measure the efficiency and reliability of our prototype for remote desktop control.
+Then, the test will switch on qualitatives questions in order to be explicit using words, feelings,about how our prototype is embedded in normal behaviors.
 
 ## Objectives (Return On Investment)
 > What's ROI ? See the [Interaction Design Foundation's article](https://www.interaction-design.org/literature/topics/return-on-investment)
@@ -18,22 +18,23 @@ And then, the test will switch on qualitatives questions in order to explicit by
 
 ## Introduction
 
-> This is a first survey to fix your possible experiences with some remote desktop controllers. Feel free to add any other informations if you think it has importance.
+> This is a first survey to fix your possible experiences with some remote desktop controllers.
 
-1. Name, Firstname
-2. Work field
+1. Surname, Name
+2. Work Field
 3. Do you keep your phone close to you when you work on your computer ?
 4. Have you already experienced some gestures with your phone ? Enabling a feature without intreacting with the screen ?
-5. Have you already used a presentation controller ? (Kinda a TV command for PC)
-6. Did you use any phone companion for your OS ? (eg. KDE Connect for Linux or Phone Assistant on Windows or a MacOS specific).
-7. If so, which features are embeeded ? What do you miss in your use ?
+5. How much do you interact with you phone when using your computer? 
+6. Have you already used a presentation controller ? (Kinda a TV command for PC)
+7. Did you use any phone companion for your OS ? (eg. KDE Connect for Linux or Phone Assistant on Windows or a MacOS specific).
+8. If so, which features were embedded ? What did you miss when using them ?
 
 
-## User scenario
+## User Scenario
 
-> The scenario is splited in X parts. Before starting each part of the usability test, I'll ask how you would imagine some kind of interactions. I'd like you answer as naturally as possible, every ideas that come up in order that you will compare them with the ones you will meet during this part of the scenario.
+> The scenario is splitted in X parts. Before starting each part of the usability test, you would be asked how would you imagine some kind of interactions. I  Please answer as naturally as possible, any ideas that come up from your experience, will be compared with the ones you exposed to you during this part of the scenario.
 
-> We'll start usability tests. For this, we'll follow a scripted narration to make you discover step by step the prototype and you'll have to face differents situations to performs actions which can be general or specific to the given context. Please make sure to verbalize as much as possible your thoughts, to describe even something that could appear useless to you or saying loud that you're looking for how to achieve the asked task.
+> Usuability Tests will be starting. For this, a scripted narration will be followed to make you discover step by step the prototype, so you will have to face differents situations to perform actions which can be general or specific to the given context. Please, make sure to verbalize and explain as much as possible your thoughts, to describe even something that could appear useless to you or saying at loud that how to do the asked task.
 
 ### Ideal Scenario
 
@@ -45,13 +46,47 @@ And then, the test will switch on qualitatives questions in order to explicit by
 ### Part 1
 
 > How would you imagine the following gestures ?
+Different set of gestures are easily explained to the testers. For example:
+ - Sharing Gesture with your phone
+ - Go to the next slide
+ - Unlock your computer
+ - Share your screen with other people
+ - Share your screen to an audience
 
 
 ### Part 2
 
+> The testers give their feedback and different opinions on what would be the best gesture for each of the ones exposed above.
+Taking that feedback, we then give them all a phone so they can try their own gesture for each of the ones proposed from the part of the team.
+Each of the individual gestures from each tester was monitored and saved, and then the testers were asked to do a little explanation of their own gestures.
+
 
 ### Part 3
 
+> After the testers make their own gestures following their own imagination and what would fit best according to their ideals, the team now gives them a set of orders to follow for each of the gestures mentioned.
+
+ - Sharing Gesture with your phone: One person in front of the other doing an upwards movement with your phone in hand to share a file in this case, and the receiver has to do the same or opposite movement, as he/she is receiving the file.
+ 
+ - Go to the next slide: As your phone is connected to the computer, do a movement with your arm moving to the right if you want to go the previous slide; do the counter movement, move your arm to the left if you want to go to the next slide. Obviously, everything with the phone in your hand.
+
+ - Unlock your computer: Do a set of default movements to unlock the computer in front of you, as this should not require more than to 4 to 5 movements, they were given different figures so they can replicate them with their arm movement while having the phone. 
+   The set of movements were the following:
+   - Triangle
+   - Square
+   - Circle
+   - An 'X'
+   - A Circle and then an 'X' crossing the circle.
+
+ - Share your screen with other people (close distance): Turn your phone sideways (the ones the screen has been shared have to do the same movement too), then  the phone will detect the phones that are turned in this way because they are not looking in the normal direction a smartphone is hold (that is looking upfront). This movement by the sharer and the one been shared is also a confirmation, if you do not want to be shared-screen just do not hold your phone horizontally looking into X direction and being in a close distance to the screen-sharer.
+
+ - Share your screen to an audience (medium-long distance): Turn your phone sideways and do a movement from left to right or from right to left, trying to include the whole room with this movement. As for the ones receiving this shared-screen, you just need to turn your smartphone sideways/horizontally. After a brief moment, the sharing will commence to the ones that have their phones hold in the "correct" way.
+ 
+
+## Part 4
+
+> After testing all the gestures given to the testers, we asked them to complete a survey and also to compare now their own movements for each gestures to the ones given by the team. 
+
+The team and the participants have a discussion comparing which is the most suitable movement and if they (the participants) would change anything in the gestures proposed by the team, also adding a voting system between which one is the best gesture between the ones done by the participants and the ones given by the team. Following this voting process, the team takes this information and tries to improve, if possible, the already made gestures.
 
 ##  Debriefing
 
@@ -69,15 +104,15 @@ Give a 0 to 100 score for each participant. We need now to make the average to h
 
 
 
-## Results analysis
+## Analysis Results
 
 The following example are in french, but give an idea of how to structure data to be able to exploit them.
 
-### Task-success
+### Task-Success
 
 ![task success](./images/task_success.png)
 
-### Time spent
+### Time Spent
 Blue was a normal duration for the asked task, green a task performed quickly and a red means that the tasks takes longer than expected.
 Here the first user was our reference user for the time we considered that every of him performed tasks took a normal time.
 
@@ -88,16 +123,16 @@ The following graph was counting the clic on a web product. We can adapt it to t
 
 ![clics](./images/clics.png)
 
-### Journey analysis
-For this one, we select observables as actions (eg. waiting, pointing, filling an input, navigating...), vocal behavior (eg. asking, explanations, remarks) and the navigation status (optimal navigation, other one, reflexion times) to highlight the difficulties in the process, common steps where users has troubles with.
+### Journey Analysis
+For this one, we have selected observables as actions (eg. waiting, pointing, filling an input, navigating...), vocal behavior (eg. asking, explanations, remarks) and the navigation status (optimal navigation, other one, reflexion times) to highlight the difficulties in the process, common steps where users have troubles with.
 
 ![journey](./images/journey.png)
 
 ### Test SUS
-A snapshot to give a non-truthful comparison with others studies conducted on famous softwares. A straight comparison wouldn't be acceptable because tests weren't conducted in same conditions, but it still give an idea :
+A snapshot to give a non-truthful comparison with others studies conducted on famous softwares. A straight comparison would not be acceptable because tests were not conducted in same conditions, but it still gives an idea :
 
 ![commonSUS](./images/commonSUS.png)
 
 ### Words cloud
 
-Highlight some interesting sentences and keyword pronounced during the interview (jouney or questions), or from the sentences to fill. The sentences to fill aims to define a semantic field from users on the experience, given prototype, possibilities they imagine and how they feel confident when using it.
+Highlight some interesting sentences and keywords pronounced during the interview (jouney or questions), or from the sentences to fill. The sentences to fill aims to define a semantic field from users on the experience, given prototype, possibilities they imagine and how they feel confident when using it.
