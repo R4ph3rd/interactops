@@ -42,13 +42,21 @@ module.exports = function(){
 		console.log( str.magenta + message);
 	})
 
-	socket.on('get-content', data => {
-		console.log('Get content :', data);
-		file.getData({
-			content: data.content, 
-			fileName: data.fileName, 
-			socketId: data.temp.socketId
-		});
+	socket.on('get-content', ({content, fileName, socketId}) => {
+		console.log('Get content :', fileName, socketId, content);
+		if (fileName){
+			file.getData({
+				content, 
+				fileName, 
+				socketId
+			});
+		} else {
+			file.getData({
+				content, 
+				socketId
+			});
+		}
+		
 	})
 
 	socket.on('request-*', data => {
