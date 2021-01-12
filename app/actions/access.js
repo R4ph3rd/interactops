@@ -26,7 +26,7 @@ module.exports = {
         } else {
             socketSendings.sendMessage({
                 socketId,
-                msg: "You're not allowed to perform this action on the remote computer."
+                message: "You're not allowed to perform this action on the remote computer."
             })
         }
     },

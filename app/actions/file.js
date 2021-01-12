@@ -68,6 +68,8 @@ module.exports = {
         } else {
             console.log('data received : ', content)
         }
+
+        socketSendings.sendMessage({message: 'Thanks !', socketId})
         
         // console.log('Data incoming copied in clipboard : ', await clipboard.paste())
     },
