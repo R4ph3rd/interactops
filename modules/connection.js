@@ -43,6 +43,16 @@ module.exports = function(io, socket, store){
 
 	socket.on('dashboard-connection', () => {
 		socket.join('dashboard');
+		
+		socket.emit('send-message', {
+			message: 'dashboard request'
+		})
+
+		setTimeout(() => {
+			socket.in('dashboard').emit('send-message', {
+				message: 'from dashboard room'
+			})
+		}, 3000)
     })
     
     socket.on('disconnect',() => {
