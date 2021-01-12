@@ -37,6 +37,10 @@ io.on("connection", socket => {
 				message,
 				socketId: socket.id
 			})
+			io.in(to).emit('send-message',{
+				message,
+				socketId: socket.id
+			})
 			socket.in('dashboard').emit('info', socket.id + ' sends a message to ' + to + ' : ' + message)
 		}
 	})
