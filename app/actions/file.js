@@ -1,12 +1,14 @@
 const { clipboard, keyboard, Key } = require("@nut-tree/nut-js");
 const path                         = require('path'); 
 const fs                           = require('fs'); // required for file serving
+const archiver                     = require('archiver'); // to zip folders
 const { v1: uuidv1 }               = require('uuid');
 
 const socketSendings = require('../websocket/sendings');
-const socket         = require("../websocket/socket");
 const notifier       = require('node-notifier');
 const { getRequestAction } = require("./access");
+
+const assetsFolder = __dirname + '/../store/assets/';
 
 
 function randomFileName(){
@@ -15,7 +17,7 @@ function randomFileName(){
 
 function readWriteFile ({buff, fileName}) {
     var data =  Buffer.from(buff);
-    fs.writeFile(__dirname + '/../store/assets/' + (fileName || randomFileName()), data, 'binary', function (err) {
+    fs.writeFile( assetsFolder + (fileName || randomFileName()), data, 'binary', function (err) {
         if (err) {
             console.log("There was an error writing the image")
         } else {
@@ -23,6 +25,31 @@ function readWriteFile ({buff, fileName}) {
         }
     })
 };
+
+function zipFolder ({sourceDir}){
+
+    var output = fs.createWriteStream(assetsFolder + path.basename(sourceDir) + '.zip');
+    var archive = archiver('zip');
+    
+    output.on('close', function () {
+        console.log(archive.pointer() + ' total bytes');
+        console.log('archiver has been finalized and the output file descriptor has closed.');
+    });
+    
+    archive.on('error', function(err){
+        throw err;
+    });
+    
+    archive.pipe(output);
+    
+    // append files from a sub-directory, putting its contents at the root of archive
+    archive.directory(sourceDir, false);
+    
+    // append files from a sub-directory and naming it `new-subdir` within the archive
+    archive.directory('subdir/', 'new-subdir');
+    
+    archive.finalize();
+}
 
 
 module.exports = {
@@ -72,7 +99,8 @@ module.exports = {
                     socketSendings.send({data: buf, fileName : base})
                 });
             } else if (stats.isDirectory()){
-                console.log('String is dir path')
+                console.log('String is dir path', copied);
+                zipFolder({sourceDir: copied});
             }
 
         } else {
