@@ -19,6 +19,11 @@ socket.on('request', data => {
     console.log('request : ', data)
 })
 
+socket.on('info', info => {
+    message.innerText = info;
+    console.log('info : ', info)
+})
+
 socket.on('update-users-list', data => {
     console.log(data);
     numberOfUsers.innerText = Object.keys(data.users).length;
