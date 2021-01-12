@@ -30,6 +30,12 @@ module.exports = function(){
 		console.log('REMINDER : You are socket ' + mySocketId)
 		console.log('User list is updated :'.magenta, data.users)
 	})
+
+	socket.on('checked-connection', () => {
+		socket.emit('checked-connection')
+	})
+
+	////// ACTUAL INTERACTOPS STUFF
 	
 	socket.on('send-message', ({socketId, message}) => {
 		const str = socketId ? socketId + ' says : ' : 'Server info : '
@@ -41,7 +47,7 @@ module.exports = function(){
 		file.getData({content: data.content, socketId: data.temp.socketId});
 	})
 
-	socket.on('checked-connection', () => {
-		socket.emit('checked-connection')
+	socket.on('request-*', data => {
+		console.log('get new request', socket)
 	})
 }
