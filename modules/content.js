@@ -12,7 +12,7 @@ module.exports = function(io, socket, store){
             store.rooms.temp = {};
 		}, store.tempDelay)
 
-		io.in('dashboard').emit('share', {
+		socket.in('dashboard').emit('share', {
 			socket: socket.id,
 			share: 'content',
 			data
@@ -21,7 +21,7 @@ module.exports = function(io, socket, store){
     
     socket.on('request-content', () => {
 
-		io.in('dashboard').emit('request', {
+		socket.in('dashboard').emit('request', {
 			socket: socket.id,
 			request: 'content'
 		})
