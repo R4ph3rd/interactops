@@ -1,7 +1,7 @@
 const socketSendings = require('../websocket/sendings');
 const actions = require('./index');
 
-const store = require('./store');
+const store = require('../store');
 
 module.exports = {
     shareViewerAccess: () => {

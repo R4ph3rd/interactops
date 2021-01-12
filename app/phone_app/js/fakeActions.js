@@ -47,6 +47,10 @@ function access(type){
     }
 }
 
+function requestAccess(){
+    socket.emit('fake-action', '/request-access')
+}
+
 function closeAccess(){
     console.log('Close access')
 }

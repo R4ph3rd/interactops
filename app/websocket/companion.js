@@ -1,6 +1,7 @@
 const colors = require('colors');
 const oscSend = require('../osc/send');
 const actions = require('../actions')
+const mutations = require('../store/mutations')
 
 let companionIsConnected = false ;
 
@@ -16,6 +17,8 @@ module.exports = function(io){
 		socket.on('close-connection', () => {
 			console.log('Companion is disconnected.'.red.bgWhite)
     })
+
+    socket.emit('request-mode');
       
 		socket.on('sensors-data', data => {
       // console.log('new datas :', data)
@@ -28,7 +31,8 @@ module.exports = function(io){
 		})
     
     socket.on('set-mode', mode => {
-      console.log('New interactops mode : ', mode.green)
+      console.log('New interactops mode : ', mode.green);
+      mutations.setMode(mode);
 		})
         
   });
