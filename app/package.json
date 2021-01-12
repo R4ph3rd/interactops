@@ -14,7 +14,8 @@
     "node-notifier": "^9.0.0",
     "node-osc": "^5.2.1",
     "socket.io": "^3.0.1",
-    "socket.io-client": "^3.0.5"
+    "socket.io-client": "^3.0.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

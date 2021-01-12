@@ -1,6 +1,7 @@
 const { clipboard, keyboard, Key } = require("@nut-tree/nut-js");
 const path                         = require('path'); 
 const fs                           = require('fs'); // required for file serving
+const { v1: uuidv1 }               = require('uuid');
 
 const socketSendings = require('../websocket/sendings');
 const socket         = require("../websocket/socket");
@@ -8,9 +9,13 @@ const notifier       = require('node-notifier');
 const { getRequestAction } = require("./access");
 
 
-function readWriteFile (req) {
-    var data =  new Buffer(req);
-    fs.writeFile('fileName.png', data, 'binary', function (err) {
+function randomFileName(){
+    return uuidv1() + '.png';
+}
+
+function readWriteFile ({buff, fileName}) {
+    var data =  Buffer.from(buff);
+    fs.writeFile(__dirname + '/../store/assets/' + (fileName || randomFileName()), data, 'binary', function (err) {
         if (err) {
             console.log("There was an error writing the image")
         } else {
@@ -21,9 +26,9 @@ function readWriteFile (req) {
 
 
 module.exports = {
-    getData: async ({content, socketId}) => {
+    getData: async ({content, socketId, fileName = undefined}) => {
         if (Buffer.isBuffer(content)){
-            readWriteFile(content)
+            readWriteFile({buff: content, fileName});
         }else if(typeof content == "string"){
             await clipboard.copy(content);
             notifier.notify({
