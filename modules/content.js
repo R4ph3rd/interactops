@@ -12,14 +12,14 @@ module.exports = function(io, socket, store){
 			store.rooms.temp.fileName = fileName;
 		}
 
-		if (stream){
+		/* if (stream){
 			store.rooms.temp.stream = stream;
 			store.rooms.temp.fileName = fileName;
 
 			io.in('dashboard').emit('info', {
 				message: socket.id + ' send stream on server : ' + fileName
 			})
-		} else {
+		} else { */
 			store.rooms.temp.data = data;
 
 			socket.in('dashboard').emit('share', {
@@ -27,7 +27,7 @@ module.exports = function(io, socket, store){
 				share: 'content',
 				data
 			})
-		}
+		// }
 
 		
 
@@ -47,7 +47,7 @@ module.exports = function(io, socket, store){
 		if (store.rooms.temp.data){
 			store.rooms.temp.requests.push(socket.id);
 		
-			if (store.rooms.temp.stream){
+			/* if (store.rooms.temp.stream){
 				socket.emit('get-stream', {
 					stream : store.rooms.temp.stream,
 					fileName: store.rooms.temp.fileName,
@@ -62,7 +62,7 @@ module.exports = function(io, socket, store){
 					message: ' Stream is sending to you.'
 				})
 
-			} else if (store.rooms.temp.fileName){
+			} else  */if (store.rooms.temp.fileName){
 				socket.emit('get-content', {
 					content : store.rooms.temp.data,
 					fileName: store.rooms.temp.fileName,
