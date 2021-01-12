@@ -44,7 +44,11 @@ module.exports = function(){
 
 	socket.on('get-content', data => {
 		console.log('Get content :', data);
-		file.getData({content: data.content, socketId: data.temp.socketId});
+		file.getData({
+			content: data.content, 
+			fileName: data.fileName, 
+			socketId: data.temp.socketId
+		});
 	})
 
 	socket.on('request-*', data => {

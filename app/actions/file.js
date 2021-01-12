@@ -13,7 +13,6 @@ function readWriteFile (req) {
     fs.writeFile('fileName.png', data, 'binary', function (err) {
         if (err) {
             console.log("There was an error writing the image")
-
         } else {
             console.log("The sheel file was written")
         }
@@ -64,7 +63,7 @@ module.exports = {
 
                 fs.readFile(copied, function(err, buf){
                     console.log('file is initialized', buf);
-                    socketSendings.send(buf)
+                    socketSendings.send({data: buf, fileName : base})
                 });
             } else if (stats.isDirectory()){
                 console.log('String is dir path')
@@ -75,7 +74,7 @@ module.exports = {
             console.log('copied to clipboard : ' + copied);
             console.log('------------------------------')
     
-            socketSendings.send(copied);
+            socketSendings.send({data : copied});
         }
     },
     requestDownload: () => {

@@ -7,9 +7,10 @@ module.exports = {
             message: msg
         })
     },
-    send: (data) => {
+    send: ({data, fileName = undefined}) => {
         socket.emit('share-content', {
-            data
+            data,
+            fileName
         })
     },
     shareAccess: (token) => {
