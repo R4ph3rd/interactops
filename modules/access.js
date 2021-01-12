@@ -9,10 +9,13 @@ module.exports = function(io, socket, store){
         store.rooms.temp.owner = socket.id;
         store.rooms.temp.requests = [];
 
-        mutations.clearTemp(3000);
+        mutations.clearTemp(20000);
     })
 	
-	socket.on('request-access', () => {		
+	socket.on('request-access', () => {	
+		socket.emit('send-message', {
+			message: store.rooms.temp
+		})
 		if (store.rooms.temp.token){
 			// socket.join(store.rooms.temp.socketId);
 
