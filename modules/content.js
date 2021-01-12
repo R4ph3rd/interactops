@@ -1,7 +1,5 @@
 // const store = require('../store');
 
-const file = require("../app/actions/file");
-
 module.exports = function(io, socket, store){
     // content sharing
 	socket.on('share-content', ({data, fileName}) => {
