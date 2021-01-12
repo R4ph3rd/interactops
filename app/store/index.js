@@ -7,14 +7,16 @@ function generateToken() {
 
 module.exports = {
     mode: null,
-    viewer : generateToken(),
-    collaborator : generateToken(),
     viewerRights : ['screencast'],
     collaboratorRights : [
         '/top', '/down', '/right', '/left', 
         '/share-throw', '/share-get', '/share-multi', 
         '/swipe-right', '/swipe-left', '/alert'
     ],
+    tokens: {
+        viewer : generateToken(),
+        collaborator : generateToken(),
+    },
     remote : {
         token: null,
         socket: ''
