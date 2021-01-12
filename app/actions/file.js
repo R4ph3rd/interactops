@@ -20,7 +20,7 @@ function readWriteFile ({buff, fileName}) {
     
     console.log('file exists ?', fs.existsSync(assetsFolder + fileName));
 
-    fs.writeFile(fileName, data, 'binary', function (err) {
+    fs.writeFile(assetsFolder + fileName, data, 'binary', function (err) {
         if (err) {
             console.log("There was an error writing the image")
         } else {

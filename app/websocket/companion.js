@@ -7,6 +7,7 @@ const actions = require('../actions')
 const mutations = require('../store/mutations')
 
 let companionIsConnected = false ;
+let antiBounce = false;
 
 module.exports = function(io){
   io.on('connection', function(socket){ 
@@ -29,8 +30,15 @@ module.exports = function(io){
 		})
     
     socket.on('fake-action', action => {
-      actions(action);
-      console.log('fake action', action)
+      if (!antiBounce){
+        antiBounce = !antiBounce;
+        actions(action);
+        console.log('fake action', action)
+
+        setTimeout(() => {
+          antiBounce = !antiBounce;
+        }, 100)
+      }
 		})
     
     socket.on('set-mode', mode => {
