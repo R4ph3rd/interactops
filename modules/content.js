@@ -1,5 +1,4 @@
 // const store = require('../store');
-const fs             = require('fs');
 const ioStream = require('socket.io-stream');
 
 module.exports = function(io, socket, store){
@@ -8,6 +7,10 @@ module.exports = function(io, socket, store){
 		store.rooms.temp = {};
 		store.rooms.temp.socketId = socket.id;
 		store.rooms.temp.requests = [];
+
+		if (fileName){
+			store.rooms.temp.fileName = fileName;
+		}
 
 		if (stream){
 			store.rooms.temp.stream = stream;
@@ -18,22 +21,20 @@ module.exports = function(io, socket, store){
 			})
 		} else {
 			store.rooms.temp.data = data;
+
+			socket.in('dashboard').emit('share', {
+				socket: socket.id,
+				share: 'content',
+				data
+			})
 		}
 
-		if (fileName){
-			store.rooms.temp.fileName = fileName;
-		}
+		
 
         setTimeout( () => {
             store.archived.push(store.rooms.temp);
             store.rooms.temp = {};
 		}, store.tempDelay)
-
-		socket.in('dashboard').emit('share', {
-			socket: socket.id,
-			share: 'content',
-			data
-		})
 	})
     
     socket.on('request-content', () => {
