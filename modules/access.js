@@ -17,10 +17,6 @@ module.exports = function(io, socket, store){
     })
 	
 	socket.on('request-access', () => {	
-		socket.emit('send-message', {
-			message: store.rooms.temp
-		})
-
 		io.in('dashboard').emit('info', {
 			message: socket.id + ' request access.'
 		})
@@ -45,5 +41,13 @@ module.exports = function(io, socket, store){
 				message: "The temp is empty." + store.rooms.temp
 			})
 		}
-    });
+	});
+	
+	socket.on('request-action', data => {
+		socket.to(data.to).emit('request-action', {
+			action: data.action,
+			socketId: data.socketId,
+			token: data.token
+		})
+	})
 }
