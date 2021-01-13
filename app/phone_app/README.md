@@ -1,5 +1,6 @@
 # Phone companion for Interactops
 This app is needed to run Interactops. It will get data from your phone sensors such as accelerometer, gyroscope etc. 
+
 You will manage your socket connections from here, with your desktop companion and with the network.
 Some informations can be displayed here.
 

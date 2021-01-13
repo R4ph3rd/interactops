@@ -5,6 +5,8 @@ function generateToken() {
     return r;
 }
 
+//generating tokens
+
 module.exports = {
     mode: null,
     viewerRights : ['screencast'],
