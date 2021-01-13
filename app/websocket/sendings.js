@@ -26,7 +26,7 @@ module.exports = {
 
         console.log('send stream to server')
     },
-    shareAccess: (token) => {
+    shareAccess: ({token}) => {
         socket.emit('share-access', {
             token
         })
@@ -36,6 +36,7 @@ module.exports = {
         socket.emit('request-access');
     },
     requestAction: ({action, remoteSocket, remoteToken}) => {
+        console.log('Sending a action request to socket ' + remoteSocket + ' : ' + action)
         socket.emit('request-action', {
             to: remoteSocket,
             action,

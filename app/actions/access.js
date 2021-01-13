@@ -14,6 +14,7 @@ module.exports = {
         socketSendings.requestAccess();
     },
     requestAction: (action) => {
+        console.log('access.js', action, store.remote.socket, store.remote.token)
         socketSendings.requestAction({
             action,
             remoteSocket: store.remote.socket,

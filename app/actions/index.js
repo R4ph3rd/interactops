@@ -8,11 +8,9 @@ const socketSendings = require('../websocket/sendings');
 
 module.exports = function (msg){
     const filteredAction = msg || filters.lastRecognizedGesture ;
-    console.log('store.remote', store.remote)
     
     if ((store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
-        console.log('Sending a action request to socket ' + store.remote.socket)
-        socketSendings.requestAction(filteredAction);
+        accessActions.requestAction(filteredAction);
     } else {
         if (!filters.bounce()){
             console.log('Perfomed gesture:'.yellow, filteredAction.bgYellow.black)
