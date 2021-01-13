@@ -10,7 +10,6 @@ const mutations = require('../store/mutations')
 
 let companionIsConnected = false ;
 let antiBounce = false;
-let lastGestureRecognized = undefined;
 
 module.exports = function(io){
   io.on('connection', function(socket){ 
@@ -57,8 +56,7 @@ module.exports = function(io){
       if (!antiBounce){
         antiBounce = !antiBounce;
         actions(action);
-        lastGestureRecognized = action;
-        console.log('recognized gesture : ', action)
+        console.log('Fake gesture : '.green, action)
         
         setTimeout(() => {
           antiBounce = !antiBounce;
@@ -81,6 +79,10 @@ module.exports = function(io){
         socket.emit('update-screencast', { image: true, buffer: buf });
         console.log('image file is initialized', buf);
       });
+    })
+
+    socket.on('disconnect', () => {
+      console.log('-- Companion is disconnected --'.black.bgGreen)
     })
         
   });

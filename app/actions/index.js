@@ -1,3 +1,4 @@
+const colors = require('colors');
 const filters = require('./filters');
 const keyboardActions = require('./keyboard');
 const fileActions = require('./file');
@@ -6,9 +7,10 @@ const store = require('../store');
 const socketSendings = require('../websocket/sendings');
 
 module.exports = function (msg){
-    const filteredAction = filters.lastRecognizedGesture || msg;
-
-    if (store.mode == 'remote' && store.remote.token != null && store.remote.socket != null){
+    const filteredAction = msg || filters.lastRecognizedGesture ;
+    
+    if ((store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
+        console.log('Sending a action request to socket ' + store.remote.socket)
         socketSendings.requestAction(filteredAction);
     } else {
         if (!filters.bounce()){
@@ -48,7 +50,7 @@ module.exports = function (msg){
                     }
                     break;
                 case '/request-access':
-                    if (store.mode == 'dashboard'){
+                    if (store.mode == ('dashboard' || 'remote')){
                         accessActions.requestAccess();
                     }
                     break;

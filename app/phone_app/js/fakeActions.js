@@ -22,7 +22,7 @@ function down(){
 //////////////// DATA SHARING /////////////////
 
 function copySend(type){
-    if (!type){
+    if (type){
         console.log('copy send to many!');
         socket.emit('fake-action', '/share-throw');
     } else {

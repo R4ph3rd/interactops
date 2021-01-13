@@ -32,6 +32,7 @@ module.exports = {
         })
     },
     requestAccess: () => {
+        console.log('Request access token');
         socket.emit('request-access');
     },
     requestAction: ({action, remoteSocket, remoteToken}) => {
