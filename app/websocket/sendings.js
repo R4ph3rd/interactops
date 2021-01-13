@@ -36,7 +36,8 @@ module.exports = {
         socket.emit('request-access');
     },
     requestAction: ({action, remoteSocket, remoteToken}) => {
-        socket.to(remoteSocket).emit('request-' + action, {
+        socket.emit('request-' + action, {
+            to: remoteSocket,
             action,
             token: remoteToken
         })

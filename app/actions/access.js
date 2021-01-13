@@ -30,7 +30,7 @@ module.exports = {
             })
         }
     },
-    registerRemoteAccess: (remoteToken, remoteSocket) => {
+    registerRemoteAccess: ({remoteToken, remoteSocket}) => {
         store.remote.token = remoteToken; 
         store.remote.socket = remoteSocket; 
     },

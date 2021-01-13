@@ -55,11 +55,15 @@ function draw() {
 // }
 
 function touchStarted(){
-  socket.emit('start-sending-data');
+  if (!document.URL.includes('dashboard')){
+    socket.emit('start-sending-data');
+  }
 }
 
 function touchEnded(){
-  socket.emit('end-sending-data');
+  if (!document.URL.includes('dashboard')){
+    socket.emit('end-sending-data');
+  }
 }
 
 

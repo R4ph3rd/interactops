@@ -13,11 +13,11 @@ let antiBounce = false;
 
 module.exports = function(io){
   io.on('connection', function(socket){ 
-        console.log('  Interactops Companion is connected  '.bgGreen.black);
+    console.log('  Interactops Companion is connected  '.bgGreen.black);
     
-        if (!companionIsConnected){
-          companionIsConnected = !companionIsConnected;
-        }
+    if (!companionIsConnected){
+      companionIsConnected = !companionIsConnected;
+    }
 
         // when user leave
 		socket.on('close-connection', () => {
