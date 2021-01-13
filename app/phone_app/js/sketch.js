@@ -46,6 +46,23 @@ function draw() {
     }
 }
 
+// function mouseReleased(){
+//   socket.emit('end-sending-data');
+// }
+
+// function mousePressed(){
+//   socket.emit('start-sending-data');
+// }
+
+function touchStarted(){
+  socket.emit('start-sending-data');
+}
+
+function touchEnded(){
+  socket.emit('end-sending-data');
+}
+
+
 /* Acceleration and rotation test
 gets a TypeError in the p5 Editor because
 it can't read a property toString of null:

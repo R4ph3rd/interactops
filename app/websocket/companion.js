@@ -2,13 +2,15 @@ const { screen } = require("@nut-tree/nut-js");
 const fs = require('fs'); // required for file serving
 const colors = require('colors');
 
-const dwt = require('../DTW')
+// const dwt = require('../../features_standalone_examples/DTW')
 const oscSend = require('../osc/send');
 const actions = require('../actions')
+const filters = require('../actions/filters')
 const mutations = require('../store/mutations')
 
 let companionIsConnected = false ;
 let antiBounce = false;
+let lastGestureRecognized = undefined;
 
 module.exports = function(io){
   io.on('connection', function(socket){ 
@@ -27,8 +29,8 @@ module.exports = function(io){
       
 		socket.on('sensors-data', data => {
       // console.log('new datas :', data)
-      // oscSend(data);
-      dwt.compute(data)
+      oscSend(data);
+      // dwt.compute(data)
 		})
     
     socket.on('train-data', data => {
@@ -37,24 +39,30 @@ module.exports = function(io){
     })
     
     socket.on('start-sending-data', () => {
-      console.log('start sendig')
-      dwt.clear();
+      console.log('\n-------------- start ---------------'.yellow);
+      filters.toggleBounce(true);
+      // dwt.clear();
     })
     
     socket.on('end-sending-data', () => {
-      console.log('register')
-      dwt.registerExample('share-throw');
+      console.log('-------------- end ---------------\n'.yellow);
+      setTimeout(() => {
+        filters.toggleBounce(false);
+        actions();
+      }, 100)
+      // dwt.registerExample('share-throw');
 		})
     
     socket.on('fake-action', action => {
       if (!antiBounce){
         antiBounce = !antiBounce;
         actions(action);
+        lastGestureRecognized = action;
         console.log('recognized gesture : ', action)
-
+        
         setTimeout(() => {
           antiBounce = !antiBounce;
-        }, 100)
+        }, 500)
       }
 		})
     

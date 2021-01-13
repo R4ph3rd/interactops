@@ -2,9 +2,7 @@ const osc       = require('node-osc');
 const wekGetPort = process.env.OSC_RECEIVE_PORT || 12000;
 
 const actions = require('../actions');
-
-let antiBounce = false;
-const bounceStamp = 1000;
+const filters = require('../actions/filters')
 
 module.exports = () => {
     const wekinatorServer = new osc.Server(wekGetPort, '127.0.0.1');
@@ -14,15 +12,11 @@ module.exports = () => {
       // We expect the following structure :
       
       if(msg.length < 2){   
-        
-        if (!antiBounce){
-          console.log('wek message : ', msg)
+        console.log('Recognized gesture : '.yellow , msg[0])
+        filters.lastRecognizedGesture = msg[0];
+        if (!filters.bounce()){
+          // console.log('Recognized gesture : '.yellow , msg[0])
           actions(msg[0]);
-          antiBounce = !antiBounce;
-
-          setTimeout(() => {
-            antiBounce = !antiBounce;
-          }, bounceStamp)
         }
       }
     })
