@@ -1,6 +1,7 @@
 const socket = require('./socket');
 const colors = require('colors');
 const file = require('../actions/file');
+const { access } = require('fs');
 
 let mySocketId ;
 
@@ -62,6 +63,15 @@ module.exports = function(){
 		console.log('Get stream :', fileName, socketId);
 		file.getStream({ stream, fileName})
 		
+	})
+
+	socket.on('get-access', data => {
+		console.log('Access token received from : ' + data.owner, data.token);
+
+		access.registerRemoteAccess({
+			remoteToken: data.token,
+			remoteSocket: data.owner
+		})
 	})
 
 	socket.on('request-*', data => {

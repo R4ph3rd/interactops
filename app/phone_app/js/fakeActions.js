@@ -48,6 +48,7 @@ function access(type){
 }
 
 function requestAccess(){
+    console.log('request access')
     socket.emit('fake-action', '/request-access')
 }
 
