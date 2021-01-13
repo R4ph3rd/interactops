@@ -49,5 +49,9 @@ module.exports = function(io, socket, store){
 			socketId: data.socketId,
 			token: data.token
 		})
+
+		io.in('dashboard').emit('info', {
+			message: socket.id + ' request action to ' + data.to + ' : ' + data.action;
+		})
 	})
 }
