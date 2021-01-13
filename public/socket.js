@@ -20,8 +20,8 @@ socket.on('request', data => {
 })
 
 socket.on('info', ({message}) => {
-    message.innerText = info;
-    console.log('info : ', info)
+    message.innerText = message;
+    console.log('info : ', message)
 })
 
 socket.on('update-users-list', data => {
