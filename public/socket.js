@@ -19,7 +19,7 @@ socket.on('request', data => {
     console.log('request : ', data)
 })
 
-socket.on('info', info => {
+socket.on('info', ({message}) => {
     message.innerText = info;
     console.log('info : ', info)
 })
