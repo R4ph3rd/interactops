@@ -34,10 +34,12 @@ module.exports = {
         store.remote.token = remoteToken; 
         store.remote.socket = remoteSocket; 
     },
-    middleware(action, token){
+    middleware({action, token}){
         if (token == store.tokens.viewer && store.viewerRights.includes(action)){
+            console.log('Viewer"s request authorized'.green)
             return true;
         } else if (token == store.tokens.collaborator && store.collaboratorRights.includes(action)){
+            console.log('Collaborator"s request authorized'.green)
             return true;
         }
     }
