@@ -5,7 +5,7 @@ const fps = 30;
 // const dahsboard = document.querySelector('')
 
 function setup(){
-    createCanvas(0, 0);
+    createCanvas(windowWidth, windowHeight);
     frameRate(fps);
 }
 
@@ -13,9 +13,9 @@ function setup(){
 this is the one of the accelerations that suits the most in here
 */
 function draw() {
-    background(220, 50);
+    /* background(220, 50);
     fill('magenta'); //it can be any color
-    ellipse(width / 2, height / 2, accelerationZ);
+    ellipse(width / 2, height / 2, accelerationZ); */
 
     if  (acc){
       acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
@@ -25,10 +25,24 @@ function draw() {
     }
 
     if(!document.URL.includes('dashboard')){
-      socket.emit('sensors-data', {
-        acceleration : [accelerationX, accelerationY, accelerationZ],
-        rotation: [rotationX, rotationY, rotationZ]
-      })
+      if (!document.URL.includes('control')){
+        socket.emit('sensors-data', {
+          acceleration : [accelerationX, accelerationY, accelerationZ],
+          rotation: [rotationX, rotationY, rotationZ]
+        })
+      } else {
+        if (mouseIsPressed){
+          socket.emit('sensors-data', {
+            acceleration : [accelerationX, accelerationY, accelerationZ],
+            rotation: [rotationX, rotationY, rotationZ]
+          })
+
+          fill(0,0,130, 30)
+          rect(0,0, width, height)
+        } else {
+          clear()
+        }
+      }
     }
 }
 

@@ -9,9 +9,12 @@ module.exports = function(data){
         message.append(data.rotation[0]);
         message.append(data.rotation[1]);
         message.append(data.rotation[2]);
-        message.append(data.acceleration[0]);
+        /* message.append(data.acceleration[0]);
         message.append(data.acceleration[1]);
-        message.append(data.acceleration[2]);
+        message.append(data.acceleration[2]); */
+        message.append(0);
+        message.append(0);
+        message.append(0);
 
         // console.log('message', message)
         client.send(message);

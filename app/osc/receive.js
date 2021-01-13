@@ -3,6 +3,9 @@ const wekGetPort = process.env.OSC_RECEIVE_PORT || 12000;
 
 const actions = require('../actions');
 
+let antiBounce = false;
+const bounceStamp = 1000;
+
 module.exports = () => {
     const wekinatorServer = new osc.Server(wekGetPort, '127.0.0.1');
 
@@ -11,9 +14,16 @@ module.exports = () => {
       // We expect the following structure :
       
       if(msg.length < 2){   
-        console.log('wek message : ', msg)
+        
+        if (!antiBounce){
+          console.log('wek message : ', msg)
+          actions(msg[0]);
+          antiBounce = !antiBounce;
 
-        actions(msg[0]);
+          setTimeout(() => {
+            antiBounce = !antiBounce;
+          }, bounceStamp)
+        }
       }
     })
 }

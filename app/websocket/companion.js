@@ -2,6 +2,7 @@ const { screen } = require("@nut-tree/nut-js");
 const fs = require('fs'); // required for file serving
 const colors = require('colors');
 
+const dwt = require('../DTW')
 const oscSend = require('../osc/send');
 const actions = require('../actions')
 const mutations = require('../store/mutations')
@@ -26,14 +27,30 @@ module.exports = function(io){
       
 		socket.on('sensors-data', data => {
       // console.log('new datas :', data)
-      oscSend(data);
+      // oscSend(data);
+      dwt.compute(data)
+		})
+    
+    socket.on('train-data', data => {
+      console.log('... sending data')
+      dwt.trainGesture(data);
+    })
+    
+    socket.on('start-sending-data', () => {
+      console.log('start sendig')
+      dwt.clear();
+    })
+    
+    socket.on('end-sending-data', () => {
+      console.log('register')
+      dwt.registerExample('share-throw');
 		})
     
     socket.on('fake-action', action => {
       if (!antiBounce){
         antiBounce = !antiBounce;
         actions(action);
-        console.log('fake action', action)
+        console.log('recognized gesture : ', action)
 
         setTimeout(() => {
           antiBounce = !antiBounce;

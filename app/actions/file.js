@@ -129,6 +129,12 @@ module.exports = {
     
             socketSendings.send({data : copied});
         }
+
+        notifier.notify({
+            title:'Interactops',
+            subtitle: 'Data copied',
+            message:'Data copied and sended to socket server'
+        });
     },
     requestDownload: () => {
         socketSendings.requestDownload();

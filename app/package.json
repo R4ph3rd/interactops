@@ -10,6 +10,7 @@
     "@nut-tree/nut-js": "^1.5.0",
     "archiver": "^5.2.0",
     "colors": "^1.4.0",
+    "dtw": "0.0.3",
     "express": "^4.17.1",
     "find-free-port": "^2.0.0",
     "node-notifier": "^9.0.0",
