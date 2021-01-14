@@ -2,6 +2,7 @@ const socket = require('./socket');
 const colors = require('colors');
 const file   = require('../actions/file');
 const access = require('../actions/access');
+const actions = require('../actions')
 
 let mySocketId ;
 
@@ -74,10 +75,9 @@ module.exports = function(){
 		})
 	})
 
-	socket.on('request-action', data => {
-		console.log('Data received from remote : '.magenta, data)
-		console.log(`${data.socketId.magenta} request an action on your PC : `.magenta + data.action)
+	socket.on('request-action', ({socketId, action, token}) => {
+		console.log(`${socketId.magenta} request an action on your PC : `.magenta + action.green + ' with following token : '.magenta + token)
 
-		access.middleware({action: data.action, token: data.token});
+		actions({action, token, socketId});
 	})
 }

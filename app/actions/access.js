@@ -1,6 +1,6 @@
 const socketSendings = require('../websocket/sendings');
-const actions = require('./index');
 
+const actions = require('./index')
 const store = require('../store');
 const mutations = require('../store/mutations');
 
@@ -24,13 +24,18 @@ module.exports = {
         });
     },
     getRequestAction: ({action, token, socketId}) => {
-        if(module.exports.middleware(action, token)){
-            actions(action);
+        mutations.registerRequest({action, token, socketId});
+
+        if(module.exports.middleware({action, token})){
+            // actions(action);
+            return true;
         } else {
             socketSendings.sendMessage({
                 socketId,
                 message: "You're not allowed to perform this action on the remote computer."
             })
+
+            return false;
         }
     },
     registerRemoteAccess: ({remoteToken, remoteSocket}) => {

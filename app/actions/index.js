@@ -1,67 +1,66 @@
 const colors = require('colors');
 const filters = require('./filters');
-const keyboardActions = require('./keyboard');
-const fileActions = require('./file');
-const accessActions = require('./access');
+const {right, left} = require('./keyboard');
+const {copySend, requestDownload} = require('./file');
+const {shareViewerAccess, shareCollaboratorAccess, requestAccess, closeAccess, requestAction, getRequestAction} = require('./access');
 const store = require('../store');
-const socketSendings = require('../websocket/sendings');
 
-module.exports = function (msg){
-    const filteredAction = msg || filters.lastRecognizedGesture ;
-    
+module.exports = function ({action, token , socketId}){
+    const filteredAction = action || filters.lastRecognizedGesture ;
+
     if (filteredAction != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
-        accessActions.requestAction(filteredAction);
+        requestAction(filteredAction);
     } else {
-        if (!filters.bounce()){
+        if (!filters.bounce() || (token && socketId && getRequestAction({action, token, socketId}))){
             console.log('Perfomed gesture:'.yellow, filteredAction.bgYellow.black)
             switch (filteredAction){
                 case '/swipe-right':
-                    keyboardActions.right();
+                    right();
                     break;
                 case '/swipe-left':
-                    keyboardActions.left();
+                    left();
                     break;
                 case '/share-throw':
-                    fileActions.copySend();
+                    copySend();
                     break;
                 case '/share-get':
-                    fileActions.requestDownload();
+                    requestDownload();
                     break;
                 case '/share-multi':
-                    fileActions.copySend();
+                    copySend();
                     break;
                 case '/access-collaborator':
                     if (store.mode == 'presentation'){
-                        accessActions.shareCollaboratorAccess();
+                        shareCollaboratorAccess();
                     } else if (store.mode == 'remote'){
-                        accessActions.requestAccess();
+                        requestAccess();
                     } else if (store.mode == 'dashboard'){
-                        accessActions.shareCollaboratorAccess();
+                        shareCollaboratorAccess();
                     }
                     break;
                 case '/access-viewer':
                     if (store.mode == 'presentation'){
-                        accessActions.shareViewerAccess();
+                        shareViewerAccess();
                     } else if (store.mode == 'remote'){
-                        accessActions.requestAccess();
+                        requestAccess();
                     } else if (store.mode == 'dashboard'){
-                        accessActions.shareViewerAccess();
+                        shareViewerAccess();
                     }
                     break;
                 case '/request-access':
                     if (store.mode == ('dashboard' || 'remote')){
-                        accessActions.requestAccess();
+                        requestAccess();
                     }
                 case '/close-access':
                     if (store.mode == 'control'){
-                        accessActions.closeAccess(true);
+                        closeAccess(true);
                     }
                     else if (store.mode == 'dashboard'){
-                        accessActions.closeAccess(true);
-                        accessActions.closeAccess(false);
+                        closeAccess(true);
+                        closeAccess(false);
                     }
                     else if (store.mode == 'remote'){
-                        accessActions.closeAccess(false);
+                        closeAccess(false);
                     }
                     break;
                 case '/alert':

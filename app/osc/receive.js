@@ -16,7 +16,7 @@ module.exports = () => {
         filters.lastRecognizedGesture = msg[0];
         if (!filters.bounce()){
           // console.log('Recognized gesture : '.yellow , msg[0])
-          actions(msg[0]);
+          actions({action: msg[0]});
         }
       }
     })

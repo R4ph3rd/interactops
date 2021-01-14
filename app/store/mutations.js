@@ -2,7 +2,7 @@ const store = require(".")
 
 function generateToken() {
     let r = Math.random().toString(36);
-    console.log("New token generated : ", r);
+    console.log("New token generated : ".green, r);
 
     return r;
 }
@@ -17,12 +17,22 @@ module.exports = {
         console.log('New personal tokens generated'.green)
     },
     clearRemote: () => {
-        store.remote = {};
+        store.remote.archived.push(store.remote.requests);
+        store.remote.token = null;
+        store.remote.socket = null;
+        store.remote.requests = {};
+        
         console.log('Remote token cleared.'.green)
     },
     setRemote: ({remoteToken, remoteSocket}) => {
         store.remote.token = remoteToken; 
         store.remote.socket = remoteSocket; 
         console.log('Remote token is set : '.green, store.remote)
+    },
+    registerRequest: ({action, token, socketId}) => {
+        store.remote.requests[socketId] = {
+            action,
+            token
+        }
     }
 }

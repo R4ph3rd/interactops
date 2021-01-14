@@ -47,7 +47,7 @@ module.exports = function(io){
       console.log('-------------- end ---------------\n'.yellow);
       setTimeout(() => {
         filters.toggleBounce(false);
-        actions();
+        // actions();
       }, 100)
       // dwt.registerExample('share-throw');
 		})
@@ -55,7 +55,7 @@ module.exports = function(io){
     socket.on('fake-action', action => {
       if (!antiBounce){
         antiBounce = !antiBounce;
-        actions(action);
+        actions({action});
         console.log('Fake gesture : '.green, action)
         
         setTimeout(() => {

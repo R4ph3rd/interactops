@@ -12,6 +12,8 @@ module.exports = {
     },
     remote : {
         token: null,
-        socket: null
+        socket: null,
+        requests: {},
+        archived: []
     }
 }
