@@ -75,6 +75,7 @@ module.exports = function(){
 	})
 
 	socket.on('request-action', data => {
+		console.log('Data received from remote : '.magenta, data)
 		console.log(`${data.socketId.magenta} request an action on your PC : `.magenta + data.action)
 
 		access.middleware({action: data.action, token: data.token});

@@ -54,4 +54,5 @@ function requestAccess(){
 
 function closeAccess(){
     console.log('Close access')
+    socket.emit('fake-action', '/close-access')
 }

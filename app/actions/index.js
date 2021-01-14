@@ -9,7 +9,7 @@ const socketSendings = require('../websocket/sendings');
 module.exports = function (msg){
     const filteredAction = msg || filters.lastRecognizedGesture ;
     
-    if ((store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
+    if (filteredAction != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
         accessActions.requestAction(filteredAction);
     } else {
         if (!filters.bounce()){
@@ -51,6 +51,17 @@ module.exports = function (msg){
                 case '/request-access':
                     if (store.mode == ('dashboard' || 'remote')){
                         accessActions.requestAccess();
+                    }
+                case '/close-access':
+                    if (store.mode == 'control'){
+                        accessActions.closeAccess(true);
+                    }
+                    else if (store.mode == 'dashboard'){
+                        accessActions.closeAccess(true);
+                        accessActions.closeAccess(false);
+                    }
+                    else if (store.mode == 'remote'){
+                        accessActions.closeAccess(false);
                     }
                     break;
                 case '/alert':

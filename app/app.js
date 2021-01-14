@@ -10,11 +10,13 @@ const { keyboard, screen }  = require("@nut-tree/nut-js");
 const {join}                = require('path'); 
 const { networkInterfaces } = require('os');
 
+
 // patterns & host declaration
 const appPort           = process.env.APP_PORT || 3000;
 
 require('./osc/receive.js')();
 require('./websocket/index.js')(io);
+require('./store/mutations').setTokens();
 
 
 /////////////  PAGES   /////////////////

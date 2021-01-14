@@ -2,13 +2,16 @@ const socketSendings = require('../websocket/sendings');
 const actions = require('./index');
 
 const store = require('../store');
+const mutations = require('../store/mutations');
 
 module.exports = {
     shareViewerAccess: () => {
         socketSendings.shareAccess({token: store.tokens.viewer});
+        console.log('Sharing viewer access'.green)
     },
     shareCollaboratorAccess: () => {
         socketSendings.shareAccess({token: store.tokens.collaborator});
+        console.log('Sharing collaborator access'.green)
     },
     requestAccess: () => {
         socketSendings.requestAccess();
@@ -20,8 +23,8 @@ module.exports = {
             remoteToken: store.remote.token
         });
     },
-    getRequestAction: ({action, token, socket}) => {
-        if(this.middleware(action, token)){
+    getRequestAction: ({action, token, socketId}) => {
+        if(module.exports.middleware(action, token)){
             actions(action);
         } else {
             socketSendings.sendMessage({
@@ -31,8 +34,14 @@ module.exports = {
         }
     },
     registerRemoteAccess: ({remoteToken, remoteSocket}) => {
-        store.remote.token = remoteToken; 
-        store.remote.socket = remoteSocket; 
+        mutations.setRemote({remoteSocket, remoteToken});
+    },
+    closeAccess: (which) => {
+        if (which){
+            mutations.setTokens();
+        } else {
+            mutations.clearRemote();
+        }
     },
     middleware({action, token}){
         if (token == store.tokens.viewer && store.viewerRights.includes(action)){
@@ -41,6 +50,9 @@ module.exports = {
         } else if (token == store.tokens.collaborator && store.collaboratorRights.includes(action)){
             console.log('Collaborator"s request authorized'.green)
             return true;
+        } else {
+            console.log('Request not authorized.'.red);
+            return false;
         }
     }
 }

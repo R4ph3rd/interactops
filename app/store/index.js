@@ -1,12 +1,3 @@
-function generateToken() {
-    let r = Math.random().toString(36);
-    console.log("New token generated : ", r);
-
-    return r;
-}
-
-//generating tokens
-
 module.exports = {
     mode: null,
     viewerRights : ['screencast'],
@@ -16,8 +7,8 @@ module.exports = {
         '/swipe-right', '/swipe-left', '/alert'
     ],
     tokens: {
-        viewer : generateToken(),
-        collaborator : generateToken(),
+        viewer : '',
+        collaborator : '',
     },
     remote : {
         token: null,
