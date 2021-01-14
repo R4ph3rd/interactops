@@ -46,7 +46,7 @@ module.exports = function(io, socket, store){
 	socket.on('request-action', data => {
 		socket.to(data.to).emit('request-action', {
 			action: data.action,
-			socketId: data.socketId,
+			socketId: socket.id,
 			token: data.token
 		})
 
