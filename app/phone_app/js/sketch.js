@@ -7,11 +7,10 @@ const fps = 30;
 function setup(){
     createCanvas(windowWidth, windowHeight);
     frameRate(fps);
+
+    // setShakeThreshold(50);
 }
 
-/* move the touchscreen of the device to register the acceleration changes ACC Z
-this is the one of the accelerations that suits the most in here
-*/
 function draw() {
     if  (acc){
       acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
@@ -32,13 +31,13 @@ function draw() {
           rect(0,0, width, height)
 
         } else if (touches.length == 2){
-          fill(255,0,0);
-
+          
           socket.emit('mouse-control', {
             rotation : [rotationX, rotationY, rotationZ],
             pRotation: [pRotationX, pRotationY, pRotationZ]
           })
           
+          fill(255,0,0);
           touches.forEach(touch => {
             ellipse(touch.x, touch.y, 50, 50)
           })
@@ -58,6 +57,10 @@ function draw() {
 // }
 
 function touchStarted(){
+
+  if (touches[0].x > windowWidth * .9 && touches[0].y < windowHeight * .1){
+    window.location.href = '/companion'
+  }
   if (!document.URL.includes('dashboard')){
     socket.emit('start-sending-data');
     return false;
@@ -68,10 +71,16 @@ function touchStarted(){
 function touchEnded(){
   if (!document.URL.includes('dashboard')){
     socket.emit('end-sending-data');
+
     return false;
   }
 }
 
+function deviceShaken() {
+  if (touches.length == 1 ){
+    socket.emit('change-control-mode')
+  }
+}
 
 /* Acceleration and rotation test
 gets a TypeError in the p5 Editor because

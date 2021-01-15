@@ -2,18 +2,19 @@ let antiBounce = false;
 
 module.exports = {
     lastRecognizedGesture: undefined,
-    phoneIsDown : (data) => {
-        data['/rotation_vector/r2'] > -0.2 && data['/rotation_vector/r2'] < 0.1;
-    },
-    phoneIsUp : (data) => {
-        data['/rotation_vector/r2'] > 0.4 && data['/rotation_vector/r2'] < 0.8;
-    },
+    clicks: 0,
     toggleBounce: (value) => {
         antiBounce = value || !antiBounce;
-        console.log('toogle bounce', antiBounce)
+
+        if (antiBounce){
+            module.exports.clicks ++ ;
+        }
+        // console.log('toogle bounce', antiBounce)
     },
     bounce: () => {
         return antiBounce;
     },
-
+    resetClicks: () => {
+        module.exports.clicks = 0;
+    }
 }

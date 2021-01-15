@@ -8,9 +8,13 @@ const actions = require('../actions')
 const mouseAction = require('../actions/mouse')
 const filters = require('../actions/filters')
 const mutations = require('../store/mutations')
+const store = require('../store');
 
 let companionIsConnected = false ;
 let antiBounce = false;
+
+// let controlBounce = false;
+// let controlMode = true;
 
 module.exports = function(io){
   io.on('connection', function(socket){ 
@@ -29,7 +33,11 @@ module.exports = function(io){
       
 		socket.on('sensors-data', data => {
       // console.log('new datas :', data)
+
       oscSend(data);
+      if (!store.controlMode){
+        mouseAction.control({rot: data.rotation, pRot: data.pRotation});
+      }
       // dwt.compute(data)
 		})
     
@@ -46,12 +54,24 @@ module.exports = function(io){
     
     socket.on('end-sending-data', () => {
       console.log('-------------- end ---------------\n'.yellow);
+
       setTimeout(() => {
         filters.toggleBounce(false);
+
+        setTimeout(() => {
+          filters.resetClicks();
+        }, 200)
+
+
+        if (filters.clicks >= 2 && !store.controlMode){
+          mouseAction.click();
+        }
+
         actions();
-      }, 100)
+      }, 50)
       // dwt.registerExample('share-throw');
-		})
+    })
+  
     
     socket.on('fake-action', action => {
       if (!antiBounce){
@@ -70,10 +90,6 @@ module.exports = function(io){
       mutations.setMode(mode);
     })
 
-    socket.on('mouse-control', data => {
-      mouseAction.control({rot: data.rotation, pRot: data.pRotation});
-    })
-    
 
     socket.on('request-screencast', async () => {
       await screen.capture(`${__dirname}/../store/assets/screenshot.png`);
@@ -86,6 +102,11 @@ module.exports = function(io){
     socket.on('disconnect', () => {
       console.log('-- Companion is disconnected --'.black.bgGreen)
     })
+
+    /* socket.on('change-control-mode', () => {
+      controlBounce = true ;
+      console.log('changing control mode')
+    }) */
         
   });
 }

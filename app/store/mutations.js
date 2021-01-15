@@ -11,6 +11,13 @@ module.exports = {
     setMode: (mode) => {
         store.mode = mode;
     },
+    setScreenSize: async ({x, y}) => {
+        store.screenSize = {x: x, y: y};
+        console.log('\nScreen size : '.green, store.screenSize.x, store.screenSize.y);
+    },
+    toggleControlMode: () => {
+        store.controlMode = !store.controlMode
+    },
     setTokens: () => {
         store.tokens.collaborator = generateToken();
         store.tokens.viewer = generateToken();

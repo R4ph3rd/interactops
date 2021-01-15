@@ -9,3 +9,8 @@ socket.emit('set-mode', mode);
 socket.on('request-mode', () => {
     socket.emit('set-mode', mode);
 })
+
+
+socket.on('control-mode-changed', () => {
+    background(0,255,0); // alert user
+})

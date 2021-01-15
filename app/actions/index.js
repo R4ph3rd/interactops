@@ -4,14 +4,13 @@ const {right, left} = require('./keyboard');
 const {copySend, requestDownload} = require('./file');
 const {shareViewerAccess, shareCollaboratorAccess, requestAccess, closeAccess, requestAction, getRequestAction} = require('./access');
 const store = require('../store');
-const { filter } = require('minimatch');
+const mutations = require('../store/mutations');
 
 module.exports = function ({action = filters.lastRecognizedGesture, token , socketId} = {}){
-
     if (action != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
         requestAction(action);
     } else {
-        if ((!filters.bounce() && filters.lastRecognizedGesture )|| (token && socketId && getRequestAction({action, token, socketId}))){
+        if ((store.controlMode && !filters.bounce() && action ) || (token && socketId && getRequestAction({action, token, socketId}))){
             console.log('Perfomed gesture:'.yellow, action.bgYellow.black)
             switch (action){
                 case '/swipe-right':
@@ -28,6 +27,9 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                     break;
                 case '/share-multi':
                     copySend();
+                    break;
+                case '/change-control-mode':
+                    mutations.toggleControlMode();
                     break;
                 case '/access-collaborator':
                     if (store.mode == 'presentation'){
@@ -68,7 +70,10 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                     console.warn('Alert !')
             }
 
-            filters.lastRecognizedGesture = undefined;
+        } else if (!store.controlMode && action == '/change-control-mode'){
+            mutations.toggleControlMode();
         }
+
+        filters.lastRecognizedGesture = undefined;
     }
 }

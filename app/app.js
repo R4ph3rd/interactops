@@ -6,10 +6,11 @@ const io        = require("socket.io")(http);
 const colors = require('colors');
 var fp = require("find-free-port")
 
-const { keyboard, screen }  = require("@nut-tree/nut-js");
+const { keyboard, screen, width, height}  = require("@nut-tree/nut-js");
 const {join}                = require('path'); 
 const { networkInterfaces } = require('os');
 
+const mutations = require('./store/mutations')
 
 // patterns & host declaration
 const appPort           = process.env.APP_PORT || 3000;
@@ -17,7 +18,6 @@ const appPort           = process.env.APP_PORT || 3000;
 require('./osc/receive.js')();
 require('./websocket/index.js')(io);
 require('./store/mutations').setTokens();
-
 
 /////////////  PAGES   /////////////////
 // dashboard(socketIO, dashboardPort);
@@ -34,7 +34,7 @@ app.get('/companion', function (req, res) {
 
 // Hosts the page on port [freePort]
 fp(appPort, function(err, freePort){
-    http.listen(freePort, function(){
+    http.listen(freePort, async function(){
         for (let adress in ip()){
             console.log('---------------------------------------------------------------------------------------------------------------------\n\n',)
             console.log('Interactops'.rainbow.bold)
@@ -46,6 +46,9 @@ fp(appPort, function(err, freePort){
         const str = 'http://localhost:' + freePort;
         console.log('Companion is served on :' + `http://localhost:${freePort}/companion`.green);
         console.log("Open app dashboard: " + str.green);
+        
+        // store screen size in sync way
+        mutations.setScreenSize({x: await screen.width(), y: await screen.height()})
     })
 });
 
