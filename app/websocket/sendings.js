@@ -45,5 +45,8 @@ module.exports = {
     },
     requestDownload: () => {
         socket.emit('request-content')
+    },
+    updateScreencast: ({buffer}) => {
+        socket.emit('update-screencast', { image: true, buffer: buf })
     }
 }

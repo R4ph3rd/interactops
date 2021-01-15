@@ -35,19 +35,21 @@ app.get('/companion', function (req, res) {
 // Hosts the page on port [freePort]
 fp(appPort, function(err, freePort){
     http.listen(freePort, function(){
-        const str = 'http://localhost:' + appPort;
-        console.log('Companion is served on :' + `http://localhost:${appPort}/companion`.green);
-        console.log("Open dashboard: " + str.green);
+        for (let adress in ip()){
+            console.log('---------------------------------------------------------------------------------------------------------------------\n\n',)
+            console.log('Interactops'.rainbow.bold)
+            const str = '\nTry to connect to this url on your phone : ';
+            const str1 = 'http://' + ip()[adress] + ':' + freePort + '/companion';
+            console.log(str + str1.green)
+        }
+
+        const str = 'http://localhost:' + freePort;
+        console.log('Companion is served on :' + `http://localhost:${freePort}/companion`.green);
+        console.log("Open app dashboard: " + str.green);
     })
 });
 
-for (let adress in ip()){
-    console.log('---------------------------------------------------------------------------------------------------------------------\n\n',)
-    console.log('Interactops'.rainbow.bold)
-    const str = '\nTry to connect to this url on your phone : ';
-    const str1 = 'http://' + ip()[adress] + ':' + appPort + '/companion';
-    console.log(str + str1.green)
-}
+
 
 
 // nut-js setup

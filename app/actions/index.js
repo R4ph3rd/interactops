@@ -12,7 +12,7 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
         requestAction(action);
     } else {
         if ((!filters.bounce() && filters.lastRecognizedGesture )|| (token && socketId && getRequestAction({action, token, socketId}))){
-            console.log('Perfomed gesture:'.yellow, action.bgYellow.black, filters.lastRecognizedGesture)
+            console.log('Perfomed gesture:'.yellow, action.bgYellow.black)
             switch (action){
                 case '/swipe-right':
                     right();

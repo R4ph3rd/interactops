@@ -76,10 +76,6 @@ module.exports = function(io){
     
 
     socket.on('request-screencast', async () => {
-      const screenshot = await screen.capture(`${__dirname}/../store/assets/screenshot.png`);
-      console.log('screenshot for companion : ')
-      console.log(screenshot)
-
       fs.readFile(__dirname + '/../screenshot.png', function(err, buf){
         socket.emit('update-screencast', { image: true, buffer: buf });
         console.log('image file is initialized', buf);
