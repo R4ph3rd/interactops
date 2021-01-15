@@ -4,16 +4,16 @@ const {right, left} = require('./keyboard');
 const {copySend, requestDownload} = require('./file');
 const {shareViewerAccess, shareCollaboratorAccess, requestAccess, closeAccess, requestAction, getRequestAction} = require('./access');
 const store = require('../store');
+const { filter } = require('minimatch');
 
-module.exports = function ({action, token , socketId}){
-    const filteredAction = action || filters.lastRecognizedGesture ;
+module.exports = function ({action = filters.lastRecognizedGesture, token , socketId} = {}){
 
-    if (filteredAction != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
-        requestAction(filteredAction);
+    if (action != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null){
+        requestAction(action);
     } else {
-        if (!filters.bounce() || (token && socketId && getRequestAction({action, token, socketId}))){
-            console.log('Perfomed gesture:'.yellow, filteredAction.bgYellow.black)
-            switch (filteredAction){
+        if ((!filters.bounce() && filters.lastRecognizedGesture )|| (token && socketId && getRequestAction({action, token, socketId}))){
+            console.log('Perfomed gesture:'.yellow, action.bgYellow.black, filters.lastRecognizedGesture)
+            switch (action){
                 case '/swipe-right':
                     right();
                     break;
@@ -67,6 +67,8 @@ module.exports = function ({action, token , socketId}){
                     // shareAlert();
                     console.warn('Alert !')
             }
+
+            filters.lastRecognizedGesture = undefined;
         }
     }
 }

@@ -14,10 +14,10 @@ module.exports = () => {
       if(msg.length < 2){   
         console.log('Recognized gesture : '.yellow , msg[0])
         filters.lastRecognizedGesture = msg[0];
-        if (!filters.bounce()){
+        /* if (!filters.bounce()){
           // console.log('Recognized gesture : '.yellow , msg[0])
           actions({action: msg[0]});
-        }
+        } */
       }
     })
 }

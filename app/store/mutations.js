@@ -14,13 +14,13 @@ module.exports = {
     setTokens: () => {
         store.tokens.collaborator = generateToken();
         store.tokens.viewer = generateToken();
+        store.remote.requests = {};
+        store.remote.archived.push(store.remote.requests);
         console.log('New personal tokens generated'.green)
     },
     clearRemote: () => {
-        store.remote.archived.push(store.remote.requests);
         store.remote.token = null;
         store.remote.socket = null;
-        store.remote.requests = {};
         
         console.log('Remote token cleared.'.green)
     },

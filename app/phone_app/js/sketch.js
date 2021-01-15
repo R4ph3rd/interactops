@@ -31,7 +31,7 @@ function draw() {
           rotation: [rotationX, rotationY, rotationZ]
         })
       } else {
-        if (mouseIsPressed){
+        if (touches.length == 1){
           socket.emit('sensors-data', {
             acceleration : [accelerationX, accelerationY, accelerationZ],
             rotation: [rotationX, rotationY, rotationZ]
@@ -39,6 +39,19 @@ function draw() {
 
           fill(0,0,130, 30)
           rect(0,0, width, height)
+
+        } else if (touches.length == 2){
+          fill(255,0,0);
+
+          socket.emit('mouse-control', {
+            rotation : [rotationX, rotationY, rotationZ],
+            pRotation: [pRotationX, pRotationY, pRotationZ]
+          })
+          
+          touches.forEach(touch => {
+            ellipse(touch.x, touch.y, 50, 50)
+          })
+          
         } else {
           clear()
         }
@@ -58,12 +71,15 @@ function touchStarted(){
   if (!document.URL.includes('dashboard')){
     socket.emit('start-sending-data');
   }
+
+  return false;
 }
 
 function touchEnded(){
   if (!document.URL.includes('dashboard')){
     socket.emit('end-sending-data');
   }
+  return false;
 }
 
 

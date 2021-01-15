@@ -1,7 +1,7 @@
 let antiBounce = false;
 
 module.exports = {
-    lastRecognizedGesture: '',
+    lastRecognizedGesture: undefined,
     phoneIsDown : (data) => {
         data['/rotation_vector/r2'] > -0.2 && data['/rotation_vector/r2'] < 0.1;
     },

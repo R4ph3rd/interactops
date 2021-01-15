@@ -5,6 +5,7 @@ const colors = require('colors');
 // const dwt = require('../../features_standalone_examples/DTW')
 const oscSend = require('../osc/send');
 const actions = require('../actions')
+const mouseAction = require('../actions/mouse')
 const filters = require('../actions/filters')
 const mutations = require('../store/mutations')
 
@@ -47,7 +48,7 @@ module.exports = function(io){
       console.log('-------------- end ---------------\n'.yellow);
       setTimeout(() => {
         filters.toggleBounce(false);
-        // actions();
+        actions();
       }, 100)
       // dwt.registerExample('share-throw');
 		})
@@ -67,6 +68,10 @@ module.exports = function(io){
     socket.on('set-mode', mode => {
       console.log('New interactops mode : ', mode.green);
       mutations.setMode(mode);
+    })
+
+    socket.on('mouse-control', data => {
+      mouseAction.control({rot: data.rotation, pRot: data.pRotation});
     })
     
 
