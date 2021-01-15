@@ -12,6 +12,7 @@ socket.on('update-screencast', ({image, buffer}) => {
         screencast.src = img;
 
         console.log(" image: from client side", img);
+        document.getElementById('body').style.border = '6px red solid'
      }
 })
 
@@ -20,6 +21,7 @@ if(screencast){
         screencast.addEventListener('click', () => {
             socket.emit('request-screencast');
             console.log('request screencast');
+            document.getElementById('body').style.border = '6px green solid'
     
         })
     } else if (mode == 'presentation'){
@@ -30,5 +32,7 @@ if(screencast){
     screencast.onload = () => {
         console.log('image loaded');
         socket.emit('request-screencast');
+
+        document.getElementById('body').style.border = '6px green solid'
     }
 }

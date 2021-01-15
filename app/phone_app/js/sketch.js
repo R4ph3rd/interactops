@@ -13,10 +13,6 @@ function setup(){
 this is the one of the accelerations that suits the most in here
 */
 function draw() {
-    /* background(220, 50);
-    fill('magenta'); //it can be any color
-    ellipse(width / 2, height / 2, accelerationZ); */
-
     if  (acc){
       acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
     }
@@ -25,12 +21,7 @@ function draw() {
     }
 
     if(!document.URL.includes('dashboard')){
-      if (!document.URL.includes('control')){
-        socket.emit('sensors-data', {
-          acceleration : [accelerationX, accelerationY, accelerationZ],
-          rotation: [rotationX, rotationY, rotationZ]
-        })
-      } else {
+
         if (touches.length == 1){
           socket.emit('sensors-data', {
             acceleration : [accelerationX, accelerationY, accelerationZ],
@@ -55,7 +46,6 @@ function draw() {
         } else {
           clear()
         }
-      }
     }
 }
 
@@ -70,16 +60,16 @@ function draw() {
 function touchStarted(){
   if (!document.URL.includes('dashboard')){
     socket.emit('start-sending-data');
+    return false;
   }
 
-  return false;
 }
 
 function touchEnded(){
   if (!document.URL.includes('dashboard')){
     socket.emit('end-sending-data');
+    return false;
   }
-  return false;
 }
 
 
