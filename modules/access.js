@@ -32,7 +32,7 @@ module.exports = function(io, socket, store){
 			})
 
 			socket.emit('send-message', {
-				message: 'You get a token and are now allowed to collaborate with ' + store.rooms.temp.owner + ' on its desktop.'
+				message: `You get a token and are now allowed to ${store.rooms.temp.rights == 'viewer' ? `cast ${store.rooms.temp.owner}'s computer` : `collaborate with ${store.rooms.temp.owner} on its desktop`} .`
 			})
 
 			socket.to(store.rooms.temp.owner).emit('send-message', {
