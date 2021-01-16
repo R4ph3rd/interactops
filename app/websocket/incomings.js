@@ -3,7 +3,8 @@ const colors = require('colors');
 const file   = require('../actions/file');
 const access = require('../actions/access');
 const screen = require('../actions/screen')
-const actions = require('../actions')
+const actions = require('../actions');
+const store = require('../store');
 
 let mySocketId ;
 
@@ -82,9 +83,9 @@ module.exports = function(){
 		actions({action, token, socketId});
 	})
 
-	socket.on('request-screencast', ({action, remoteToken}) => {
-		if (access.middleware({action, token: remoteToken})){
-			screen.sendScreen();
+	socket.on('request-screencast', ({action, socketId, remoteToken}) => {
+		if (access.middleware({action, token: remoteToken, socketId})){
+			screen.sendScreen({to: socketId});
 		}
 	})
 

@@ -31,9 +31,7 @@ module.exports = {
         })
     },
     getRequestAction: ({action, token, socketId}) => {
-        mutations.registerRequest({action, token, socketId});
-
-        if(module.exports.middleware({action, token})){
+        if(module.exports.middleware({action, token, socketId})){
             // actions(action);
             return true;
         } else {
@@ -59,7 +57,8 @@ module.exports = {
             mutations.clearRemote();
         }
     },
-    middleware({action, token}){
+    middleware({action, token, socketId}){
+        mutations.registerRequest({action, token, socketId});
         if (token == store.tokens.viewer && store.viewerRights.includes(action)){
             console.log('Viewer"s request authorized'.green)
             return true;
