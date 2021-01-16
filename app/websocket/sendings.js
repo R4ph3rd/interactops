@@ -26,9 +26,10 @@ module.exports = {
 
         console.log('send stream to server')
     },
-    shareAccess: ({token}) => {
+    shareAccess: ({token, rights}) => {
         socket.emit('share-access', {
-            token
+            token,
+            rights
         })
     },
     requestAccess: () => {

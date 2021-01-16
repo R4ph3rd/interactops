@@ -4,7 +4,6 @@ const socketSendings = require('../websocket/sendings');
 const actions = require('./index')
 const store = require('../store');
 const mutations = require('../store/mutations');
-const { remoteCastIsOpen } = require('../store');
 
 module.exports = {
     shareViewerAccess: () => {
@@ -56,6 +55,7 @@ module.exports = {
             mutations.setTokens();
         } else {
             mutations.clearRemote();
+            mutations.toggleCast();
         }
     },
     middleware({action, token, socketId}){
@@ -71,11 +71,14 @@ module.exports = {
             return false;
         }
     },
-    getCast: ({buffer}) => {
+    getCast: async ({buffer} = {}) => {
+
         console.log('Get screencast', buffer)
-        if (store.remoteCastIsOpen){
-            open('localhost:3000/remote.html');
-            remoteCastIsOpen = !remoteCastIsOpen;
+
+        if (!store.remoteCastIsOpen){
+            await open('localhost:3000/remote.html', {wait:true});
+            console.log('Openning browerser window to screencast');
+            mutations.toggleCast();
         }
     }
 }

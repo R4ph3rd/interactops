@@ -18,6 +18,9 @@ module.exports = {
     toggleControlMode: () => {
         store.controlMode = !store.controlMode
     },
+    toggleCast: () => {
+        store.remoteCastIsOpen = !store.remoteCastIsOpen;
+    },
     setTokens: () => {
         store.tokens.collaborator = generateToken();
         store.tokens.viewer = generateToken();
