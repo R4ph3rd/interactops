@@ -1,3 +1,4 @@
+const open = require('open');
 const socketSendings = require('../websocket/sendings');
 
 const actions = require('./index')
@@ -22,6 +23,12 @@ module.exports = {
             remoteSocket: store.remote.socket,
             remoteToken: store.remote.token
         });
+    },
+    requestCast: () => {
+        socketSendings.requestCast({
+            remoteSocket: store.remote.socket,
+            remoteToken: store.remote.token
+        })
     },
     getRequestAction: ({action, token, socketId}) => {
         mutations.registerRequest({action, token, socketId});
@@ -59,5 +66,8 @@ module.exports = {
             console.log('Request not authorized.'.red);
             return false;
         }
+    },
+    getCast: ({buff}) => {
+        open('localhost:3000');
     }
 }

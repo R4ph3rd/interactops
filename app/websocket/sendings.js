@@ -43,10 +43,18 @@ module.exports = {
             token: remoteToken
         })
     },
+    requestCast: ({remoteSocket, remoteToken}) => {
+        console.log('Sending a screencast request to socket ' + remoteSocket)
+        socket.emit('request-screencast', {
+            to: remoteSocket,
+            token: remoteToken,
+            action: 'screencast'
+        })
+    },
     requestDownload: () => {
         socket.emit('request-content')
     },
-    updateScreencast: ({buffer}) => {
-        socket.emit('update-screencast', { image: true, buffer: buf })
+    updateScreencast: ({to, buffer}) => {
+        socket.emit('update-screencast', { to, image: true, buffer })
     }
 }

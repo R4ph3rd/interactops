@@ -15,6 +15,7 @@
     "find-free-port": "^2.0.0",
     "node-notifier": "^9.0.0",
     "node-osc": "^5.2.1",
+    "open": "^7.3.1",
     "socket.io": "^3.0.1",
     "socket.io-client": "^3.0.5",
     "socket.io-stream": "^0.9.1",

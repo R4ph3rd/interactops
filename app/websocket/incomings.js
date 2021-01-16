@@ -2,6 +2,7 @@ const socket = require('./socket');
 const colors = require('colors');
 const file   = require('../actions/file');
 const access = require('../actions/access');
+const screen = require('../actions/screen')
 const actions = require('../actions')
 
 let mySocketId ;
@@ -79,5 +80,15 @@ module.exports = function(){
 		console.log(`${socketId.magenta} request an action on your PC : `.magenta + action.green + ' with following token : '.magenta + token)
 
 		actions({action, token, socketId});
+	})
+
+	socket.on('request-screencast', ({action, remoteToken}) => {
+		if (access.middleware({action, token: remoteToken})){
+			screen.sendScreen();
+		}
+	})
+
+	socket.on('update-screencast', ({image, buffer}) => {
+		access.getCast({buffer});
 	})
 }
