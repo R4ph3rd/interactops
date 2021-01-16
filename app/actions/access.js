@@ -75,10 +75,10 @@ module.exports = {
 
         console.log('Get screencast', buffer)
 
-        if (!store.remoteCastIsOpen){
-            await open('localhost:3000/remote.html', {wait:true});
+        // if (!store.remoteCastIsOpen){
+            await open('http://localhost:3000/remote.html', {wait:true});
             console.log('Openning browerser window to screencast');
             mutations.toggleCast();
-        }
+        // }
     }
 }
