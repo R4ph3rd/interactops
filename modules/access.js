@@ -6,7 +6,8 @@ module.exports = function(io, socket, store){
     // will share a token acess, either view or collaboration. This will be set by host
     socket.on('share-access', data => {
         store.rooms.temp.token = data.token;
-        store.rooms.temp.owner = socket.id;
+		store.rooms.temp.owner = socket.id;
+		store.rooms.temp.rights = data.rights;
         store.rooms.temp.requests = [];
 
 		mutations.clearTemp(20000);
@@ -27,6 +28,7 @@ module.exports = function(io, socket, store){
 			socket.emit('get-access', {
 				owner: store.rooms.temp.owner,
 				token: store.rooms.temp.token,
+				rights: store.rooms.temp.rights
 			})
 
 			socket.emit('send-message', {
@@ -52,6 +54,22 @@ module.exports = function(io, socket, store){
 
 		io.in('dashboard').emit('info', {
 			message: socket.id + ' request action to ' + data.to + ' : ' + data.action
+		})
+	})
+
+
+	// screencast
+	socket.on('request-screencast', ({to, token}) => {
+		socket.to(to).emit('request-screencast', {
+			token,
+			socketId: socket.id
+		})
+	})
+
+	socket.on('update-screencast', ({to, buffer, image}) => {
+		socket.to(to).emit('update-screencast', {
+			image,
+			buffer
 		})
 	})
 }
