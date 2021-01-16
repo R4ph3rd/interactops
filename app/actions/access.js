@@ -7,11 +7,11 @@ const mutations = require('../store/mutations');
 
 module.exports = {
     shareViewerAccess: () => {
-        socketSendings.shareAccess({token: store.tokens.viewer});
+        socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
         console.log('Sharing viewer access'.green)
     },
     shareCollaboratorAccess: () => {
-        socketSendings.shareAccess({token: store.tokens.collaborator});
+        socketSendings.shareAccess({token: store.tokens.collaborator, rights: 'collaborator'});
         console.log('Sharing collaborator access'.green)
     },
     requestAccess: () => {
@@ -45,8 +45,12 @@ module.exports = {
             return false;
         }
     },
-    registerRemoteAccess: ({remoteToken, remoteSocket}) => {
-        mutations.setRemote({remoteSocket, remoteToken});
+    registerRemoteAccess: ({remoteToken, remoteSocket, rights}) => {
+        mutations.setRemote({remoteSocket, remoteToken, rights});
+
+        if (rights == 'viewer'){
+            module.exports.getCast();
+        }
     },
     closeAccess: (which) => {
         if (which){
