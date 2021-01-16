@@ -41,11 +41,9 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                     }
                     break;
                 case '/access-viewer':
-                    if (store.mode == 'presentation'){
-                        shareViewerAccess();
-                    } else if (store.mode == 'remote'){
+                    if (store.mode == 'remote'){
                         requestAccess();
-                    } else if (store.mode == 'dashboard'){
+                    } else {
                         shareViewerAccess();
                     }
                     break;

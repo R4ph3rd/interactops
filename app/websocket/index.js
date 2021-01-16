@@ -1,4 +1,4 @@
-const companion = require('./companion');
+const companion = require('./localApp');
 const incomings = require('./incomings');
 
 module.exports = function(io) {

@@ -5,6 +5,7 @@ const colors = require('colors');
 // const dwt = require('../../features_standalone_examples/DTW')
 const oscSend = require('../osc/send');
 const actions = require('../actions')
+const access = require('../actions/access');
 const mouseAction = require('../actions/mouse')
 const filters = require('../actions/filters')
 const mutations = require('../store/mutations')
@@ -97,6 +98,12 @@ module.exports = function(io){
         socket.emit('update-screencast', { image: true, buffer: buf });
         console.log('## Screenshot sended ## '.green);
       });
+    })
+    
+    socket.on('request-remote-screencast', async () => {
+      if (store.remote.token && store.remote.socket){
+        access.requestCast();
+      }
     })
 
     socket.on('disconnect', () => {

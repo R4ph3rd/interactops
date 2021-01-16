@@ -4,6 +4,7 @@ const socketSendings = require('../websocket/sendings');
 const actions = require('./index')
 const store = require('../store');
 const mutations = require('../store/mutations');
+const { remoteCastIsOpen } = require('../store');
 
 module.exports = {
     shareViewerAccess: () => {
@@ -70,7 +71,11 @@ module.exports = {
             return false;
         }
     },
-    getCast: ({buff}) => {
-        open('localhost:3000');
+    getCast: ({buffer}) => {
+        console.log('Get screencast', buffer)
+        if (store.remoteCastIsOpen){
+            open('localhost:3000/remote.html');
+            remoteCastIsOpen = !remoteCastIsOpen;
+        }
     }
 }

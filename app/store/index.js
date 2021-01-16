@@ -17,5 +17,6 @@ module.exports = {
         socket: null,
         requests: {},
         archived: []
-    }
+    },
+    remoteCastIsOpen: false
 }
