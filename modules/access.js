@@ -84,7 +84,7 @@ module.exports = function(io, socket, store){
 			store.tempAccess[data.rights].rights = data.rights;
 			store.tempAccess[data.rights].requests = [];
 	
-			mutations.clearTemp(20000);
+			mutations.clearTempAccess(10000);
 			
 			io.in('dashboard').emit('info', {
 				info: socket.id + ' shared access token.'
@@ -93,7 +93,7 @@ module.exports = function(io, socket, store){
 	})
 	
 	socket.on('clear-access', ({userList}) => {
-		mutations.clearTemp(0);
+		mutations.clearTempAccess(0);
 		for (let user of userList){
 			socket.to(user).emit('clear-access');
 		}

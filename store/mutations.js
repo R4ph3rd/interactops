@@ -10,5 +10,10 @@ module.exports = {
         setTimeout( () => {
             store.temp = {};
         }, timeout || store.tempDelay);
+    },
+    clearTempAccess: (timeout) => {
+        setTimeout( () => {
+            store.tempAccess = {};
+        }, timeout || store.tempDelay);
     }
 }
