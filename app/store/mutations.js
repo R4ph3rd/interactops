@@ -1,3 +1,4 @@
+const { mouse } = require("@nut-tree/nut-js");
 const store = require(".")
 const {clearRemoteAccess} = require('../websocket/sendings')
 
@@ -54,5 +55,8 @@ module.exports = {
             action,
             token
         }
+    },
+    setStartingPos: async () => {
+        store.startingPos = await mouse.getPosition();
     }
 }

@@ -19,5 +19,6 @@ module.exports = {
         requests: {},
         archived: []
     },
-    remoteCastIsOpen: false
+    remoteCastIsOpen: false,
+    startingPos: {}
 }

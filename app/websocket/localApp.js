@@ -50,6 +50,7 @@ module.exports = function(){
     socket.on('start-sending-data', () => {
       console.log('\n-------------- start ---------------'.yellow);
       filters.toggleBounce(true);
+      mutations.setStartingPos()
       // dwt.clear();
     })
     
