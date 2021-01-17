@@ -78,10 +78,12 @@ module.exports = {
             console.log('Openning browerser window to screencast');
             mutations.toggleCast();
 
-            io.emit('update-remote-screencast', {
-                buffer,
-                image: true
-            })
+            if (buffer){
+                io.emit('update-remote-screencast', {
+                    buffer,
+                    image: true
+                })
+            }
         }
     }
 }

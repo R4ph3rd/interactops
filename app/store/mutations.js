@@ -31,6 +31,7 @@ module.exports = {
         console.log('User list to disconnect:'.green, userList);
 
         clearRemoteAccess({userList})
+        module.exports.toggleCast()
 
         console.log('New personal tokens generated'.green)
         store.remote.archived.push(store.remote.requests);
