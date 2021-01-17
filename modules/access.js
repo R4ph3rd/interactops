@@ -12,21 +12,34 @@ module.exports = function(io, socket, store){
 
 		// case : user did twice the gesture. he override tokens.
 		if (store.rooms.temp.waiters && store.rooms.temp.waiters.length >= 1){
+
+			socket.emit('send-message',{
+				message: "You have overrided " + store.rooms.temp.owner + "'s tokens."
+			})
+
+			setTimeout(() => {
+				socket.in('dashboard').emit('info', {
+					message: socket.id + ' overrided ' + store.rooms.temp.owner + "'s tokens."
+				})
+			},1000)
+
 			store.rooms.temp.token = store.rooms.temp.waiters[0].token;
 			store.rooms.temp.owner = store.rooms.temp.waiters[0].owner;
 			store.rooms.temp.rights = store.rooms.temp.waiters[0].rights;
 			store.rooms.temp.requests = [];
 			store.rooms.temp.waiters = [];
 
-			socket.emit('send-message',{
-				message: "You have overrided " + store.rooms.temp.owner + "'s tokens."
-			})
-
 			// case : when user had already made the gesture once, he is asked to redo it twice to override existing tokens.
 		} else if (store.rooms.temp.token){
 			socket.emit('send-message',{
 				message: "Another user had already shared his access tokens. Please perform the sharing access gesture another time if you actually want to share yours, or wait a moment to be connected to " + store.rooms.temp.owner
 			})
+			
+			setTimeout(() => {
+				socket.in('dashboard').emit('info', {
+					message: 'Prevents ' + socket.id + ' that another user had already shared his access tokens.'
+				})
+			},1000)
 
 			store.rooms.temp.waiters = [{
 				token: data.token,
@@ -36,9 +49,12 @@ module.exports = function(io, socket, store){
 
 			// case : user didn't do anything after a while, meaning he just wants to get tokens.
 			setTimeout(() => {
-				socket.in('dashboard').emit('info', {
-					message: socket.id + ' request access.'
-				})
+				
+				setTimeout(() => {
+					socket.in('dashboard').emit('info', {
+						message: socket.id + ' request access.'
+					})
+				},1000)
 	
 				socket.emit('get-access', {
 					owner: store.rooms.temp.owner,
