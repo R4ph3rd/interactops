@@ -62,3 +62,10 @@ socket.emit('new-user-entered', ({message, socketId}) => {
 function clear(){
     socket.emit('clear-connections');
 }
+
+function access(which){
+    socket.emit('share-access', {
+        token: 'coooooooool',
+        rights: which ? 'collaborator' : 'viewer'
+    })
+}
