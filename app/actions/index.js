@@ -32,13 +32,13 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                     mutations.toggleControlMode();
                     break;
                 case '/access-collaborator':
-                    if (store.mode == 'presentation'){
-                        shareCollaboratorAccess();
+                    shareCollaboratorAccess();
+                    /* if (store.mode == 'presentation'){
                     } else if (store.mode == 'remote'){
                         requestAccess();
                     } else if (store.mode == 'dashboard'){
                         shareCollaboratorAccess();
-                    }
+                    } */
                     break;
                 case '/access-viewer':
                     if (store.mode == 'remote'){
