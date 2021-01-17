@@ -36,7 +36,3 @@ if(screencast){
         document.querySelector('body').style.border = '3px green solid'
     }
 }
-
-socket.on('cool', () => {
-    console.log('cool')
-})
