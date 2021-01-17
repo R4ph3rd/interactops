@@ -8,9 +8,9 @@ module.exports = function(io, socket, store){
 
 		// case : user did twice the gesture. he override tokens.
 		if (store.rooms.temp.waiters && store.rooms.temp.waiters.length >= 1){
-			store.rooms.temp.token = store.rooms.waiters[0].token;
-			store.rooms.temp.owner = store.rooms.waiters[0].owner;
-			store.rooms.temp.rights = store.rooms.waiters[0].rights;
+			store.rooms.temp.token = store.rooms.temp.waiters[0].token;
+			store.rooms.temp.owner = store.rooms.temp.waiters[0].owner;
+			store.rooms.temp.rights = store.rooms.temp.waiters[0].rights;
 			store.rooms.temp.requests = [];
 			store.rooms.temp.waiters = [];
 
