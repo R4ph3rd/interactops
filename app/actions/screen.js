@@ -1,17 +1,17 @@
 const fs = require('fs');
 const open = require('open');
-const { screen } = require("@nut-tree/nut-js");
+const screenshot = require('screenshot-desktop')
 const socketSendings = require('../websocket/sendings');
 
 module.exports = {
     sendScreen: async ({to}) => {
-        await screen.capture(`${__dirname}/../store/assets/screenshot.png`);
-        console.log('-- Screenshot taken --'.green)
+        screenshot().then((buffer) => {
+            console.log('-- Image buffer initialized -- '.green);
 
-        fs.readFile(__dirname + '/../screenshot.png', function(err, buffer){
-            socketSendings.updateScreencast({to, buffer });
-            console.log('-- Image file is initialized -- '.green);
-        });
+            socketSendings.updateScreencast({to, image:true, buffer})
+          }).catch((err) => {
+            console.error(err)
+          })
     },
     openCast: async () => {
         await open('http://localhost:3000/cast.html', {wait:true});
