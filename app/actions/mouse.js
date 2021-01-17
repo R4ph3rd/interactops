@@ -20,7 +20,7 @@ module.exports = {
         // if (bounce()){
         let x = mapRange(rot[2], rangeZ[0], rangeZ[1], 0, store.screenSize.x)
         let y = mapRange(rot[0], rangeX[0], rangeX[1], 0, store.screenSize.y)
-        console.log('X', rot[0], 'Y', rot[1], ' Z ', rot[2])
+        // console.log('X', rot[0], 'Y', rot[1], ' Z ', rot[2])
 
         let pos = new Point(x,y);
         await mouse.setPosition(pos).catch(err => console.log(err));
@@ -28,6 +28,7 @@ module.exports = {
     },
     click: async () => {
         await mouse.leftClick();
+        console.log('Click !'.yellow)
     },
     setBasePos: ({rot}) => {
         basePos = [rot[0], rot[2]];

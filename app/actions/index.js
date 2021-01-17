@@ -33,12 +33,6 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                     break;
                 case '/access-collaborator':
                     shareCollaboratorAccess();
-                    /* if (store.mode == 'presentation'){
-                    } else if (store.mode == 'remote'){
-                        requestAccess();
-                    } else if (store.mode == 'dashboard'){
-                        shareCollaboratorAccess();
-                    } */
                     break;
                 case '/access-viewer':
                     if (store.mode == 'remote'){
@@ -69,6 +63,7 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
             }
 
         } else if (!store.controlMode && action == '/change-control-mode'){
+            console.log('Performed gesture : '.yellow, action.bgYellow.black)
             mutations.toggleControlMode();
         }
 

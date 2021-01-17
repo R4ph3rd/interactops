@@ -18,6 +18,7 @@ module.exports = {
     },
     toggleControlMode: () => {
         store.controlMode = !store.controlMode
+        console.log('------- Toggle control mode ---------')
     },
     toggleCast: () => {
         store.remoteCastIsOpen = !store.remoteCastIsOpen;
