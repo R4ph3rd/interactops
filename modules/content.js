@@ -4,23 +4,23 @@ const ioStream = require('socket.io-stream');
 module.exports = function(io, socket, store){
     // content sharing
 	socket.on('share-content', ({data, fileName, stream}) => {
-		store.rooms.temp = {};
-		store.rooms.temp.socketId = socket.id;
-		store.rooms.temp.requests = [];
+		store.temp = {};
+		store.temp.socketId = socket.id;
+		store.temp.requests = [];
 
 		if (fileName){
-			store.rooms.temp.fileName = fileName;
+			store.temp.fileName = fileName;
 		}
 
 		/* if (stream){
-			store.rooms.temp.stream = stream;
-			store.rooms.temp.fileName = fileName;
+			store.temp.stream = stream;
+			store.temp.fileName = fileName;
 
 			socket.in('dashboard').emit('info', {
 				message: socket.id + ' send stream on server : ' + fileName
 			})
 		} else { */
-			store.rooms.temp.data = data;
+			store.temp.data = data;
 
 			socket.in('dashboard').emit('share', {
 				socket: socket.id,
@@ -32,8 +32,8 @@ module.exports = function(io, socket, store){
 		
 
         setTimeout( () => {
-            store.archived.push(store.rooms.temp);
-            store.rooms.temp = {};
+            store.archived.push(store.temp);
+            store.temp = {};
 		}, store.tempDelay)
 	})
     
@@ -44,14 +44,14 @@ module.exports = function(io, socket, store){
 			request: 'content'
 		})
 
-		if (store.rooms.temp.data){
-			store.rooms.temp.requests.push(socket.id);
+		if (store.temp.data){
+			store.temp.requests.push(socket.id);
 		
-			/* if (store.rooms.temp.stream){
+			/* if (store.temp.stream){
 				socket.emit('get-stream', {
-					stream : store.rooms.temp.stream,
-					fileName: store.rooms.temp.fileName,
-					socketId: store.rooms.temp.socketId
+					stream : store.temp.stream,
+					fileName: store.temp.fileName,
+					socketId: store.temp.socketId
 				})
 
 				socket.in('dashboard').emit('info', {
@@ -62,11 +62,11 @@ module.exports = function(io, socket, store){
 					message: ' Stream is sending to you.'
 				})
 
-			} else  */if (store.rooms.temp.fileName){
+			} else  */if (store.temp.fileName){
 				socket.emit('get-content', {
-					content : store.rooms.temp.data,
-					fileName: store.rooms.temp.fileName,
-					socketId: store.rooms.temp.socketId
+					content : store.temp.data,
+					fileName: store.temp.fileName,
+					socketId: store.temp.socketId
 				})
 
 				socket.emit('send-message', {
@@ -79,8 +79,8 @@ module.exports = function(io, socket, store){
 
 			} else {
 				socket.emit('get-content', {
-					content : store.rooms.temp.data,
-					socketId: store.rooms.temp.socketId
+					content : store.temp.data,
+					socketId: store.temp.socketId
 				})
 
 				socket.emit('send-message', {
@@ -93,7 +93,7 @@ module.exports = function(io, socket, store){
 			}
 		} else {
 			socket.emit('send-message', {
-				message: 'The cache is empty.' + store.rooms
+				message: 'The cache is empty.' + store
 			})
 		}
     })

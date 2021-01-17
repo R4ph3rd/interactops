@@ -11,28 +11,28 @@ module.exports = function(io, socket, store){
 		})
 
 		// case : user did twice the gesture. he override tokens.
-		if (store.rooms.temp.waiters && store.rooms.temp.waiters.length >= 1){
+		if (store.tempAccess[data.rights].waiters && store.tempAccess[data.rights].waiters.length >= 1){
 
 			socket.emit('send-message',{
-				message: "You have overrided " + store.rooms.temp.owner + "'s tokens."
+				message: "You have overrided " + store.tempAccess[data.rights].owner + "'s tokens."
 			})
 
 			setTimeout(() => {
 				socket.in('dashboard').emit('info', {
-					message: socket.id + ' overrided ' + store.rooms.temp.owner + "'s tokens."
+					message: socket.id + ' overrided ' + store.tempAccess[data.rights].owner + "'s tokens."
 				})
 			},1000)
 
-			store.rooms.temp.token = store.rooms.temp.waiters[0].token;
-			store.rooms.temp.owner = store.rooms.temp.waiters[0].owner;
-			store.rooms.temp.rights = store.rooms.temp.waiters[0].rights;
-			store.rooms.temp.requests = [];
-			store.rooms.temp.waiters = [];
+			store.tempAccess[data.rights].token = store.tempAccess[data.rights].waiters[0].token;
+			store.tempAccess[data.rights].owner = store.tempAccess[data.rights].waiters[0].owner;
+			store.tempAccess[data.rights].rights = store.tempAccess[data.rights].waiters[0].rights;
+			store.tempAccess[data.rights].requests = [];
+			store.tempAccess[data.rights].waiters = [];
 
 			// case : when user had already made the gesture once, he is asked to redo it twice to override existing tokens.
-		} else if (store.rooms.temp.token){
+		} else if (store.tempAccess[data.rights].token){
 			socket.emit('send-message',{
-				message: "Another user had already shared his access tokens. Please perform the sharing access gesture another time if you actually want to share yours, or wait a moment to be connected to " + store.rooms.temp.owner
+				message: "Another user had already shared his access tokens. Please perform the sharing access gesture another time if you actually want to share yours, or wait a moment to be connected to " + store.tempAccess[data.rights].owner
 			})
 			
 			setTimeout(() => {
@@ -41,7 +41,7 @@ module.exports = function(io, socket, store){
 				})
 			},1000)
 
-			store.rooms.temp.waiters = [{
+			store.tempAccess[data.rights].waiters = [{
 				token: data.token,
 				owner: socket.id,
 				rights: data.rights
@@ -57,26 +57,26 @@ module.exports = function(io, socket, store){
 				},1000)
 	
 				socket.emit('get-access', {
-					owner: store.rooms.temp.owner,
-					token: store.rooms.temp.token,
-					rights: store.rooms.temp.rights
+					owner: store.tempAccess[data.rights].owner,
+					token: store.tempAccess[data.rights].token,
+					rights: store.tempAccess[data.rights].rights
 				})
 	
 				socket.emit('send-message', {
-					message: `You get a token and are now allowed to ${store.rooms.temp.rights == 'viewer' ? `cast ${store.rooms.temp.owner}'s computer` : `collaborate with ${store.rooms.temp.owner} on its desktop`} .`
+					message: `You get a token and are now allowed to ${store.tempAccess[data.rights].rights == 'viewer' ? `cast ${store.tempAccess[data.rights].owner}'s computer` : `collaborate with ${store.tempAccess[data.rights].owner} on its desktop`} .`
 				})
 	
-				socket.to(store.rooms.temp.owner).emit('send-message', {
-					message : `A new ${store.rooms.temp.rights} is connected ! You share now your PC with ${socket.id}`
+				socket.to(store.tempAccess[data.rights].owner).emit('send-message', {
+					message : `A new ${store.tempAccess[data.rights].rights} is connected ! You share now your PC with ${socket.id}`
 				})
 			}, 3000)
 
 			// case : temp was empty. so we store tokens in it.
 		} else {
-			store.rooms.temp.token = data.token;
-			store.rooms.temp.owner = socket.id;
-			store.rooms.temp.rights = data.rights;
-			store.rooms.temp.requests = [];
+			store.tempAccess[data.rights].token = data.token;
+			store.tempAccess[data.rights].owner = socket.id;
+			store.tempAccess[data.rights].rights = data.rights;
+			store.tempAccess[data.rights].requests = [];
 	
 			mutations.clearTemp(20000);
 			
@@ -98,25 +98,25 @@ module.exports = function(io, socket, store){
 			message: socket.id + ' request access.'
 		})
 
-		if (store.rooms.temp.token){
-			// socket.join(store.rooms.temp.socketId);
+		if (store.tempAccess[data.rights].token){
+			// socket.join(store.tempAccess[data.rights].socketId);
 
 			socket.emit('get-access', {
-				owner: store.rooms.temp.owner,
-				token: store.rooms.temp.token,
-				rights: store.rooms.temp.rights
+				owner: store.tempAccess[data.rights].owner,
+				token: store.tempAccess[data.rights].token,
+				rights: store.tempAccess[data.rights].rights
 			})
 
 			socket.emit('send-message', {
-				message: `You get a token and are now allowed to ${store.rooms.temp.rights == 'viewer' ? `cast ${store.rooms.temp.owner}'s computer` : `collaborate with ${store.rooms.temp.owner} on its desktop`} .`
+				message: `You get a token and are now allowed to ${store.tempAccess[data.rights].rights == 'viewer' ? `cast ${store.tempAccess[data.rights].owner}'s computer` : `collaborate with ${store.tempAccess[data.rights].owner} on its desktop`} .`
 			})
 
-			socket.to(store.rooms.temp.owner).emit('send-message', {
+			socket.to(store.tempAccess[data.rights].owner).emit('send-message', {
 				message : 'A new collaborator is connected ! You share now the PC with ' + socket.id
 			})
 		} else {
 			socket.emit('send-message', {
-				message: "The temp is empty." + store.rooms.temp
+				message: "The temp is empty." + store.tempAccess[data.rights]
 			})
 		}
 	});

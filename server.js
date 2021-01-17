@@ -46,6 +46,6 @@ io.on("connection", socket => {
 	})
 
 	console.log("connection estblished by: " + socket.id);
-	console.log(store.rooms);
+	console.log(store);
 })
 

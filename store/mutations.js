@@ -8,7 +8,7 @@ module.exports = {
     },
     clearTemp: (timeout) => {
         setTimeout( () => {
-            store.rooms.temp = {};
+            store.temp = {};
         }, timeout || store.tempDelay);
     }
 }

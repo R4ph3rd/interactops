@@ -1,8 +1,7 @@
 module.exports = {
-    rooms: {
-        general: {},
-        temp: {}
-    },
+    general:{},
+    temp:{},
+    tempAcces:{},
     archived: [],
     tempDelay: 20000, //delay to store temporaly content shared by users
     archivesClearInterval : 3600000, // every hour

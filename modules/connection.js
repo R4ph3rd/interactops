@@ -1,13 +1,13 @@
 // const store = require('../store');
 
 module.exports = function(io, socket, store){
-    const existingSocket = Object.keys(store.rooms[store.defaultRoom]).find(
+    const existingSocket = Object.keys(store[store.defaultRoom]).find(
 		existingSocket => existingSocket === socket.id
 	);
 
 	if (!existingSocket) {
 
-		store.rooms[store.defaultRoom][socket.id] = true;
+		store[store.defaultRoom][socket.id] = true;
 		socket.join(store.defaultRoom);
 	
 		socket.emit('entered-in-room', {
@@ -22,15 +22,15 @@ module.exports = function(io, socket, store){
 		})
 
 		io.emit('update-users-list', {
-			users : store.rooms[store.defaultRoom]
+			users : store[store.defaultRoom]
 		})
 
 		/* setInterval(() => {
 			socket.emit('check-connection');
-			store.rooms[store.defaultRoom][socket.id] = false ;
+			store[store.defaultRoom][socket.id] = false ;
 
 			setTimeout(() => {
-				if (!store.rooms[store.defaultRoom][socket.id]){
+				if (!store[store.defaultRoom][socket.id]){
 					socket.disconnect(true)
 				}
 			}, store.checkTimeout)
@@ -38,7 +38,7 @@ module.exports = function(io, socket, store){
     }
     
     socket.on('checked-connection', () => {
-		store.rooms[store.defaultRoom][socket.id] = true;
+		store[store.defaultRoom][socket.id] = true;
 	})
 
 	socket.on('dashboard-connection', () => {
@@ -62,7 +62,7 @@ module.exports = function(io, socket, store){
 			1
 		) */
 
-		delete store.rooms[store.defaultRoom][socket.id];
+		delete store[store.defaultRoom][socket.id];
 		
 		io.emit('send-message', {
 			message: "I'm leaving. Bye bye !",
@@ -71,13 +71,13 @@ module.exports = function(io, socket, store){
 
 		io.emit('update-users-list', {
 			leaving: socket.id,
-			users : store.rooms[store.defaultRoom]
+			users : store[store.defaultRoom]
 		})
     })
 
     socket.on('clear-connections', () => {
 		io.sockets.disconnect();
-		store.rooms[store.defaultRoom] = {};
+		store[store.defaultRoom] = {};
 
 		io.emit('update-users-list', {
 			users : io.sockets.adapter.rooms.get('general')
