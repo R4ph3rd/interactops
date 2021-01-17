@@ -84,9 +84,9 @@ module.exports = function(){
 		actions({action, token, socketId});
 	})
 
-	socket.on('request-screencast', ({socketId, remoteToken}) => {
-		console.log('Screencast request received from :'.magenta, socketId, ' with token arguments : ', remoteToken)
-		if (access.middleware({action: 'screencast', token: remoteToken, socketId})){
+	socket.on('request-screencast', ({socketId, token}) => {
+		console.log('Screencast request received from :'.magenta, socketId, ' with token arguments : ', token)
+		if (access.middleware({action: 'screencast', token: token, socketId})){
 			screen.sendScreen({to: socketId});
 		}
 	})

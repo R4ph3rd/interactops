@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { screen } = require("@nut-tree/nut-js");
 const socketSendings = require('../websocket/sendings');
 
@@ -8,7 +9,7 @@ module.exports = {
 
         fs.readFile(__dirname + '/../screenshot.png', function(err, buffer){
             socketSendings.updateScreencast({to, buffer });
-            console.log('image file is initialized', buffer);
+            console.log('-- Image file is initialized -- '.green);
         });
     }
 }
