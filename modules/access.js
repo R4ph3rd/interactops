@@ -11,14 +11,16 @@ module.exports = function(io, socket, store){
 			info: socket.id + ' send share-access event.'
 		})
 
-		if (store.tempAccess[data.rights].owner == socket.id){
+		if (store.tempAccess[data.rights] && store.tempAccess[data.rights].owner == socket.id){
 			socket.emit('send-message', {
 				message: "You've already shared your access tokens. This request is discarded."
 			})
+
+			return;
 		}
 
 		// case : user did twice the gesture. he override tokens.
-		if (store.tempAccess[data.rights].waiters && store.tempAccess[data.rights].waiters.length >= 1 && store.tempAccess[data.rights].owner != socket.id){
+		if (store.tempAccess[data.rights].waiters && store.tempAccess[data.rights].waiters.length >= 1){
 
 			socket.emit('send-message',{
 				message: "You have overrided " + store.tempAccess[data.rights].owner + "'s tokens."
@@ -37,7 +39,7 @@ module.exports = function(io, socket, store){
 			store.tempAccess[data.rights].waiters = [];
 
 			// case : when user had already made the gesture once, he is asked to redo it twice to override existing tokens.
-		} else if (store.tempAccess[data.rights].token && store.tempAccess[data.rights].owner != socket.id){
+		} else if (store.tempAccess[data.rights].token){
 			socket.emit('send-message',{
 				message: "Another user had already shared his access tokens. Please perform the sharing access gesture another time if you actually want to share yours, or wait a moment to be connected to " + store.tempAccess[data.rights].owner
 			})
@@ -85,7 +87,7 @@ module.exports = function(io, socket, store){
 			store.tempAccess[data.rights].rights = data.rights;
 			store.tempAccess[data.rights].requests = [];
 	
-			mutations.clearTempAccess(10000);
+			mutations.clearTempAccess(10000, data.rights);
 			
 			io.in('dashboard').emit('info', {
 				info: socket.id + ' shared access token.'

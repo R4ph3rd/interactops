@@ -11,9 +11,18 @@ module.exports = {
             store.temp = {};
         }, timeout || store.tempDelay);
     },
-    clearTempAccess: (timeout) => {
+    clearTempAccess: (timeout, rights) => {
         setTimeout( () => {
-            store.tempAccess = {};
+
+            if (rights){
+                store.tempAccess[rights] = {};
+            } else {
+                store.tempAccess = {
+                    viewer: {},
+                    collaborator: {}
+                }
+            }
+
         }, timeout || store.tempDelay);
     }
 }
