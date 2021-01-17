@@ -5,6 +5,7 @@ const access = require('../actions/access');
 const screen = require('../actions/screen')
 const actions = require('../actions');
 const store = require('../store');
+const mutations = require('../store/mutations');
 
 let mySocketId ;
 
@@ -93,5 +94,9 @@ module.exports = function(){
 
 	socket.on('update-screencast', ({image, buffer}) => {
 		access.getCast({buffer});
+	})
+
+	socket.on('clear-access', () => {
+		mutations.clearRemote();
 	})
 }

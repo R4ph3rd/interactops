@@ -1,4 +1,5 @@
 const store = require(".")
+const {clearRemoteAccess} = require('../websocket/sendings')
 
 function generateToken() {
     let r = Math.random().toString(36);
@@ -25,8 +26,14 @@ module.exports = {
         store.tokens.collaborator = generateToken();
         store.tokens.viewer = generateToken();
         store.remote.requests = {};
-        store.remote.archived.push(store.remote.requests);
+        
+        const userList = [... new Set(Object.keys(store.remote.requests))]
+        console.log('User list to disconnect:'.green, userList);
+
+        clearRemoteAccess({userList})
+
         console.log('New personal tokens generated'.green)
+        store.remote.archived.push(store.remote.requests);
     },
     clearRemote: () => {
         store.remote.token = null;

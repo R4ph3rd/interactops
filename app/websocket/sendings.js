@@ -57,5 +57,10 @@ module.exports = {
     },
     updateScreencast: ({to, buffer}) => {
         socket.emit('update-screencast', { to, image: true, buffer })
+    },
+    clearRemoteAccess: ({userList}) => {
+        socket.emit('clear-access', {
+            userList
+        })
     }
 }
