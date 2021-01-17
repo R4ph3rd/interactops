@@ -1,6 +1,9 @@
 *{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     box-sizing: border-box;
+    margin:0;
+    padding:0;
+
 }
 
 body{
@@ -50,4 +53,58 @@ body{
 
 .active .pin{
     background: greenyellow;
+}
+
+#screencast{
+    position:relative;
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 8px;
+    background: white;
+    /* background-color: grey; */
+}
+
+.fullscreen{
+    position: relative;
+    z-index:100;
+    top:0;
+    left:0;
+    width:100vw !important;
+    height:100vh !important;
+    border-radius:0 !important;
+}
+
+.loading{
+    overflow:hidden;
+}
+
+.loading p {
+    position: absolute;
+    top:50%;
+    left:45%;
+    text-align: center;
+    z-index:10000;
+}
+
+.loading::after{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width:100%;
+    height: 100%;
+    background: linear-gradient(to right, white, rgb(211, 211, 211), white);
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading{
+    from{
+        left: -50%;
+    }
+
+    to{
+        left:100%;
+    }
 }

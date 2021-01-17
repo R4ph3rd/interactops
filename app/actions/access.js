@@ -71,10 +71,7 @@ module.exports = {
             return false;
         }
     },
-    getCast: async ({buffer} = {}) => {
-
-        console.log('Get screencast', buffer)
-
+    getCast: async () => {
         // if (!store.remoteCastIsOpen){
             await open('http://localhost:3000/remote.html', {wait:true});
             console.log('Openning browerser window to screencast');

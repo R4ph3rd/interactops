@@ -1,6 +1,7 @@
 const socket = io();
 
 const screencast = document.getElementById('screencast');
+const load = document.querySelector('.loading');
 
 socket.on('update-remote-screencast', ({image, buffer}) => {
     console.log(image, buffer)
@@ -24,6 +25,13 @@ if(screencast){
     screencast.onload = () => {
         // console.log('image loaded');
         socket.emit('request-screencast');
+
+        if (load){
+            load.classList.remove('loading');
+            load.removeChild(
+                Array.from(load.children).find(child => child.localName == 'p')
+            )
+        }
 
         document.querySelector('body').style.border = '3px green solid'
     }
