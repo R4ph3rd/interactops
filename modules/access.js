@@ -6,6 +6,10 @@ module.exports = function(io, socket, store){
     // will share a token acess, either view or collaboration. This will be set by host
     socket.on('share-access', data => {
 
+		socket.in('dashboard').emit('info', {
+			message: socket.id + ' send share-access event.'
+		})
+
 		// case : user did twice the gesture. he override tokens.
 		if (store.rooms.temp.waiters && store.rooms.temp.waiters.length >= 1){
 			store.rooms.temp.token = store.rooms.temp.waiters[0].token;
@@ -32,7 +36,7 @@ module.exports = function(io, socket, store){
 
 			// case : user didn't do anything after a while, meaning he just wants to get tokens.
 			setTimeout(() => {
-				io.in('dashboard').emit('info', {
+				socket.in('dashboard').emit('info', {
 					message: socket.id + ' request access.'
 				})
 	
@@ -60,7 +64,7 @@ module.exports = function(io, socket, store){
 	
 			mutations.clearTemp(20000);
 			
-			io.in('dashboard').emit('info', {
+			socket.in('dashboard').emit('info', {
 				message: socket.id + ' shared access token.'
 			})
 		}   
@@ -74,7 +78,7 @@ module.exports = function(io, socket, store){
 	})
 	
 	socket.on('request-access', () => {	
-		io.in('dashboard').emit('info', {
+		socket.in('dashboard').emit('info', {
 			message: socket.id + ' request access.'
 		})
 
@@ -108,7 +112,7 @@ module.exports = function(io, socket, store){
 			token: data.token
 		})
 
-		io.in('dashboard').emit('info', {
+		socket.in('dashboard').emit('info', {
 			message: socket.id + ' request action to ' + data.to + ' : ' + data.action
 		})
 	})

@@ -16,7 +16,7 @@ module.exports = function(io, socket, store){
 			store.rooms.temp.stream = stream;
 			store.rooms.temp.fileName = fileName;
 
-			io.in('dashboard').emit('info', {
+			socket.in('dashboard').emit('info', {
 				message: socket.id + ' send stream on server : ' + fileName
 			})
 		} else { */
