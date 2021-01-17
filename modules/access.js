@@ -71,7 +71,13 @@ module.exports = function(io, socket, store){
 				message: socket.id + ' shared access token.'
 			})
 		}   
-    })
+	})
+	
+	socket.on('clear-access', ({userList}) => {
+		for (let user of userList){
+			socket.to(user).emit('clear-access');
+		}
+	})
 	
 	/* socket.on('request-access', () => {	
 		io.in('dashboard').emit('info', {
