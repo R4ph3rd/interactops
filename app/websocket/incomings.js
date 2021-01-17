@@ -94,7 +94,9 @@ module.exports = function(){
 	})
 
 	socket.on('update-screencast', ({image, buffer}) => {
-		access.getCast({buffer});
+		if (image){
+			access.getCast({buffer});
+		}
 	})
 
 	socket.on('clear-access', () => {

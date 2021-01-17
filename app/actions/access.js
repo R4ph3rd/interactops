@@ -1,5 +1,6 @@
 const open = require('open');
 const socketSendings = require('../websocket/sendings');
+const {io} = require('../server');
 
 const actions = require('./index')
 const store = require('../store');
@@ -71,11 +72,13 @@ module.exports = {
             return false;
         }
     },
-    getCast: async () => {
-        // if (!store.remoteCastIsOpen){
+    getCast: async ({buffer} = {}) => {
+        if (!store.remoteCastIsOpen){
             await open('http://localhost:3000/remote.html', {wait:true});
             console.log('Openning browerser window to screencast');
             mutations.toggleCast();
-        // }
+
+            io.emit('cool')
+        }
     }
 }

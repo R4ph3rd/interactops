@@ -93,11 +93,13 @@ module.exports = function(io){
 
 
     socket.on('request-screencast', async () => {
-      await screen.capture(`${__dirname}/../store/assets/screenshot.png`);
-      fs.readFile(__dirname + '/../screenshot.png', function(err, buf){
-        socket.emit('update-screencast', { image: true, buffer: buf });
-        console.log('## Screenshot sended ## '.green);
-      });
+      screenshot().then((buffer) => {
+        console.log('-- Image buffer initialized -- '.green);
+
+        socket.emit('update-screencast', { image: true, buffer });
+      }).catch((err) => {
+        console.error(err)
+      })
     })
     
     socket.on('request-remote-screencast', async () => {

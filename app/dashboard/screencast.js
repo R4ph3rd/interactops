@@ -19,7 +19,7 @@ socket.on('update-remote-screencast', ({image, buffer}) => {
 })
 
 if(screencast){
-    socket.emit('request-remote-screencast');
+    // socket.emit('request-remote-screencast');
     console.log('request remote screencast');
 
     screencast.onload = () => {
@@ -36,3 +36,7 @@ if(screencast){
         document.querySelector('body').style.border = '3px green solid'
     }
 }
+
+socket.on('cool', () => {
+    console.log('cool')
+})
