@@ -44,15 +44,14 @@ module.exports = function(io, socket, store){
 	socket.on('dashboard-connection', () => {
 		socket.join('dashboard');
 		
-		socket.emit('send-message', {
-			message: 'dashboard request'
+		io.in('dashboard').emit('send-message', {
+			socketId: socket.id,
+			message: socket.rooms
 		})
 
-		setTimeout(() => {
-			socket.in('dashboard').emit('send-message', {
-				message: 'from dashboard room'
-			})
-		}, 3000)
+		io.in('dashboard').emit('info', {
+			info:'Dashboard verified'
+		})
     })
     
     socket.on('disconnect',() => {

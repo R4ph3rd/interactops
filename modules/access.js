@@ -6,20 +6,26 @@ module.exports = function(io, socket, store){
     // will share a token acess, either view or collaboration. This will be set by host
     socket.on('share-access', data => {
 
-		socket.in('dashboard').emit('info', {
-			message: socket.id + ' send share-access event.'
+		io.in('dashboard').emit('info', {
+			info: socket.id + ' send share-access event.'
 		})
 
+		if (store.tempAccess[data.rights].owner == socket.id){
+			socket.emit('send-message', {
+				message: "You've already shared your access tokens. This request is discarded."
+			})
+		}
+
 		// case : user did twice the gesture. he override tokens.
-		if (store.tempAccess[data.rights].waiters && store.tempAccess[data.rights].waiters.length >= 1){
+		if (store.tempAccess[data.rights].waiters && store.tempAccess[data.rights].waiters.length >= 1 && store.tempAccess[data.rights].owner != socket.id){
 
 			socket.emit('send-message',{
 				message: "You have overrided " + store.tempAccess[data.rights].owner + "'s tokens."
 			})
 
 			setTimeout(() => {
-				socket.in('dashboard').emit('info', {
-					message: socket.id + ' overrided ' + store.tempAccess[data.rights].owner + "'s tokens."
+				io.in('dashboard').emit('info', {
+					info: socket.id + ' overrided ' + store.tempAccess[data.rights].owner + "'s tokens."
 				})
 			},1000)
 
@@ -30,14 +36,14 @@ module.exports = function(io, socket, store){
 			store.tempAccess[data.rights].waiters = [];
 
 			// case : when user had already made the gesture once, he is asked to redo it twice to override existing tokens.
-		} else if (store.tempAccess[data.rights].token){
+		} else if (store.tempAccess[data.rights].token && store.tempAccess[data.rights].owner != socket.id){
 			socket.emit('send-message',{
 				message: "Another user had already shared his access tokens. Please perform the sharing access gesture another time if you actually want to share yours, or wait a moment to be connected to " + store.tempAccess[data.rights].owner
 			})
 			
 			setTimeout(() => {
-				socket.in('dashboard').emit('info', {
-					message: 'Prevents ' + socket.id + ' that another user had already shared his access tokens.'
+				io.in('dashboard').emit('info', {
+					info: 'Prevents ' + socket.id + ' that another user had already shared his access tokens. Stored acces rights : ' + JSON.stringify(store.tempAccess) + ' current rights : ' + data.rights
 				})
 			},1000)
 
@@ -51,8 +57,8 @@ module.exports = function(io, socket, store){
 			setTimeout(() => {
 				
 				setTimeout(() => {
-					socket.in('dashboard').emit('info', {
-						message: socket.id + ' request access.'
+					io.in('dashboard').emit('info', {
+						info: socket.id + ' request access.'
 					})
 				},1000)
 	
@@ -80,8 +86,8 @@ module.exports = function(io, socket, store){
 	
 			mutations.clearTemp(20000);
 			
-			socket.in('dashboard').emit('info', {
-				message: socket.id + ' shared access token.'
+			io.in('dashboard').emit('info', {
+				info: socket.id + ' shared access token.'
 			})
 		}   
 	})
@@ -94,8 +100,8 @@ module.exports = function(io, socket, store){
 	})
 	
 	socket.on('request-access', () => {	
-		socket.in('dashboard').emit('info', {
-			message: socket.id + ' request access.'
+		io.in('dashboard').emit('info', {
+			info: socket.id + ' request access.'
 		})
 
 		if (store.tempAccess[data.rights].token){
@@ -128,8 +134,8 @@ module.exports = function(io, socket, store){
 			token: data.token
 		})
 
-		socket.in('dashboard').emit('info', {
-			message: socket.id + ' request action to ' + data.to + ' : ' + data.action
+		io.in('dashboard').emit('info', {
+			info: socket.id + ' request action to ' + data.to + ' : ' + data.action
 		})
 	})
 

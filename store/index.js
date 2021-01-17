@@ -1,7 +1,10 @@
 module.exports = {
     general:{},
     temp:{},
-    tempAcces:{},
+    tempAccess:{
+        viewer:{},
+        collaborator:{}
+    },
     archived: [],
     tempDelay: 20000, //delay to store temporaly content shared by users
     archivesClearInterval : 3600000, // every hour

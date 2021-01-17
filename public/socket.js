@@ -19,9 +19,9 @@ socket.on('request', data => {
     console.log('request : ', data)
 })
 
-socket.on('info', ({message}) => {
-    message.innerText = message;
-    console.log('info : ', message)
+socket.on('info', ({info}) => {
+    message.innerText = info;
+    console.log('info : ', info)
 })
 
 socket.on('update-users-list', data => {
@@ -48,6 +48,10 @@ socket.on('send-message', ({message, socketId}) => {
     }
 })
 
+socket.on('dashboard-verified', () => {
+    console.log('Dashboard is verified')
+})
+
 socket.emit('new-user-entered', ({message, socketId}) => {
     console.log(socketId + ' says : ' + message);
     message.innerText = socketId + ' says : ' + data.message;
@@ -64,6 +68,7 @@ function clear(){
 }
 
 function access(which){
+    console.log('click on access')
     socket.emit('share-access', {
         token: 'coooooooool',
         rights: which ? 'collaborator' : 'viewer'

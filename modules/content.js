@@ -16,13 +16,13 @@ module.exports = function(io, socket, store){
 			store.temp.stream = stream;
 			store.temp.fileName = fileName;
 
-			socket.in('dashboard').emit('info', {
-				message: socket.id + ' send stream on server : ' + fileName
+			io.in('dashboard').emit('info', {
+				info: socket.id + ' send stream on server : ' + fileName
 			})
 		} else { */
 			store.temp.data = data;
 
-			socket.in('dashboard').emit('share', {
+			io.in('dashboard').emit('share', {
 				socket: socket.id,
 				share: 'content',
 				data
@@ -39,7 +39,7 @@ module.exports = function(io, socket, store){
     
     socket.on('request-content', () => {
 
-		socket.in('dashboard').emit('request', {
+		io.in('dashboard').emit('request', {
 			socket: socket.id,
 			request: 'content'
 		})
@@ -54,8 +54,8 @@ module.exports = function(io, socket, store){
 					socketId: store.temp.socketId
 				})
 
-				socket.in('dashboard').emit('info', {
-					message: socket.id + ' request stream'
+				io.in('dashboard').emit('info', {
+					info: socket.id + ' request stream'
 				})
 
 				socket.emit('send-message', {
@@ -73,8 +73,8 @@ module.exports = function(io, socket, store){
 					message: ' Shared file is sending to you.'
 				})
 
-				socket.in('dashboard').emit('info', {
-					message: socket.id + ' request file'
+				io.in('dashboard').emit('info', {
+					info: socket.id + ' request file'
 				})
 
 			} else {
@@ -87,8 +87,8 @@ module.exports = function(io, socket, store){
 					message: ' Shared content is sending to you.'
 				})
 
-				socket.in('dashboard').emit('info', {
-					message: socket.id + ' request content'
+				io.in('dashboard').emit('info', {
+					info: socket.id + ' request content'
 				})
 			}
 		} else {
