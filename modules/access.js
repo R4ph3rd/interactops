@@ -1,3 +1,4 @@
+const { emit } = require('process');
 const mutations = require('../store/mutations');
 // const store = require('../store');
 
@@ -94,6 +95,10 @@ module.exports = function(io, socket, store){
 	
 	socket.on('clear-access', ({userList}) => {
 		mutations.clearTempAccess(0);
+
+		io.in('dashboard').emit('info', {
+			info: socket.id + ' clear access to its computer.'
+		})
 		for (let user of userList){
 			socket.to(user).emit('clear-access');
 		}
