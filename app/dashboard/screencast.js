@@ -14,13 +14,14 @@ socket.on('update-remote-screencast', ({image, buffer}) => {
         screencast.src = img;
 
         // console.log(" image: from client side", img);
-        document.querySelector('body').style.border = '3px red solid'
+        screencast.style.border = '3px green solid'
      }
 })
 
 if(screencast){
     // socket.emit('request-remote-screencast');
     console.log('request remote screencast');
+    screencast.style.border = '3px red solid'
 
     screencast.onload = () => {
         // console.log('image loaded');
@@ -33,6 +34,6 @@ if(screencast){
             )
         }
 
-        document.querySelector('body').style.border = '3px green solid'
+        screencast.style.border = '3px green solid'
     }
 }

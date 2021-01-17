@@ -1,4 +1,4 @@
-const { screen } = require("@nut-tree/nut-js");
+const screenshot = require('screenshot-desktop')
 const fs = require('fs'); // required for file serving
 const colors = require('colors');
 
