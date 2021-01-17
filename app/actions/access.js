@@ -1,10 +1,9 @@
 const open = require('open');
 const socketSendings = require('../websocket/sendings');
-const {io} = require('../server');
 
-const actions = require('./index')
 const store = require('../store');
 const mutations = require('../store/mutations');
+const screen = require('./screen')
 
 module.exports = {
     shareViewerAccess: () => {
@@ -48,7 +47,7 @@ module.exports = {
         mutations.setRemote({remoteSocket, remoteToken, rights});
 
         if (rights == 'viewer'){
-            module.exports.getCast();
+            screen.getCast();
         }
     },
     closeAccess: (which) => {
@@ -70,21 +69,6 @@ module.exports = {
         } else {
             console.log('Request not authorized.'.red);
             return false;
-        }
-    },
-    getCast: async ({buffer} = {}) => {
-        console.log('get cast !')
-        if (!store.remoteCastIsOpen){
-            await open('http://localhost:3000/remote.html', {wait:true});
-            console.log('Openning browerser window to screencast');
-            mutations.toggleCast();
-
-            if (buffer){
-                io.emit('update-remote-screencast', {
-                    buffer,
-                    image: true
-                })
-            }
         }
     }
 }

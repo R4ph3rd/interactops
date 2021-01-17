@@ -19,13 +19,13 @@ socket.on('update-remote-screencast', ({image, buffer}) => {
 })
 
 if(screencast){
-    // socket.emit('request-remote-screencast');
+    socket.emit('request-remote-screencast');
     console.log('request remote screencast');
     screencast.style.border = '3px red solid'
 
     screencast.onload = () => {
-        // console.log('image loaded');
-        socket.emit('request-screencast');
+        console.log('image loaded, request-screencast');
+        socket.emit('request-remote-screencast');
 
         if (load){
             load.classList.remove('loading');

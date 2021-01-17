@@ -96,7 +96,7 @@ module.exports = function(){
 	socket.on('update-screencast', ({image, buffer}) => {
 		console.log('-- Get remote screencast --'.green, buffer)
 		if (image){
-			access.getCast({buffer});
+			screen.getCast({buffer});
 		}
 	})
 

@@ -1,7 +1,7 @@
 const screenshot = require('screenshot-desktop')
 const fs = require('fs'); // required for file serving
 const colors = require('colors');
-
+const {io} = require('../server')
 // const dwt = require('../../features_standalone_examples/DTW')
 const oscSend = require('../osc/send');
 const actions = require('../actions')
@@ -17,7 +17,7 @@ let antiBounce = false;
 // let controlBounce = false;
 // let controlMode = true;
 
-module.exports = function(io){
+module.exports = function(){
   io.on('connection', function(socket){ 
     console.log('  Interactops Companion is connected  '.bgGreen.black);
     
