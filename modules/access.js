@@ -67,6 +67,7 @@ module.exports = function(io, socket, store){
 	})
 	
 	socket.on('clear-access', ({userList}) => {
+		mutations.clearTemp(0);
 		for (let user of userList){
 			socket.to(user).emit('clear-access');
 		}
