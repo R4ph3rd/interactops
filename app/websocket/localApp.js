@@ -104,7 +104,6 @@ module.exports = function(){
     })
     
     socket.on('request-remote-screencast', async () => {
-      console.log('cooooooooool', store.remote)
       if (store.remote.token && store.remote.socket){
         access.requestCast();
       }
