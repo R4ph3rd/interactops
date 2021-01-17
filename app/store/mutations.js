@@ -42,10 +42,11 @@ module.exports = {
         
         console.log('Remote token cleared.'.green)
     },
-    setRemote: ({remoteToken, remoteSocket}) => {
+    setRemote: ({remoteToken, remoteSocket, rights}) => {
         store.remote.token = remoteToken; 
         store.remote.socket = remoteSocket; 
-        console.log('Remote token is set : '.green, store.remote)
+        store.remote.rights = rights
+        console.log('Remote token is set for '.green + rights + ' : '.green, store.remote)
     },
     registerRequest: ({action, token, socketId}) => {
         store.remote.requests[socketId] = {
