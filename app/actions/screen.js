@@ -1,4 +1,5 @@
 const fs = require('fs');
+const open = require('open');
 const { screen } = require("@nut-tree/nut-js");
 const socketSendings = require('../websocket/sendings');
 
@@ -11,5 +12,8 @@ module.exports = {
             socketSendings.updateScreencast({to, buffer });
             console.log('-- Image file is initialized -- '.green);
         });
+    },
+    openCast: async () => {
+        await open('http://localhost:3000/cast.html', {wait:true});
     }
 }

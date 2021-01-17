@@ -89,6 +89,7 @@ module.exports = function(){
 		console.log('Screencast request received from :'.magenta, socketId, ' with token arguments : ', token)
 		if (access.middleware({action: 'screencast', token: token, socketId})){
 			screen.sendScreen({to: socketId});
+			// console.log('cooool')
 		}
 	})
 
