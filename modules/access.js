@@ -1,4 +1,3 @@
-const { emit } = require('process');
 const mutations = require('../store/mutations');
 // const store = require('../store');
 
@@ -40,6 +39,9 @@ module.exports = function(io, socket, store){
 
 			// case : when user had already made the gesture once, he is asked to redo it twice to override existing tokens.
 		} else if (store.tempAccess[data.rights].token){
+
+			mutations.toggleWaiting(data.rights);
+
 			socket.emit('send-message',{
 				message: "Another user had already shared his access tokens. Please perform the sharing access gesture another time if you actually want to share yours, or wait a moment to be connected to " + store.tempAccess[data.rights].owner
 			})
@@ -78,6 +80,9 @@ module.exports = function(io, socket, store){
 				socket.to(store.tempAccess[data.rights].owner).emit('send-message', {
 					message : `A new ${store.tempAccess[data.rights].rights} is connected ! You share now your PC with ${socket.id}`
 				})
+
+				mutations.toggleWaiting(data.rights);
+				mutations.clearTempAccess();
 			}, 3000)
 
 			// case : temp was empty. so we store tokens in it.

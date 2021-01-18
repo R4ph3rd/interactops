@@ -14,15 +14,22 @@ module.exports = {
     clearTempAccess: (timeout, rights) => {
         setTimeout( () => {
 
-            if (rights){
+            if (rights && !store.tempAccess[rights].waitingForSharing){
                 store.tempAccess[rights] = {};
             } else {
-                store.tempAccess = {
-                    viewer: {},
-                    collaborator: {}
+                if (!store.tempAccess.collaborator.waitingForSharing && !store.tempAccess.viewer.waitingForSharing){
+                    store.tempAccess = {
+                        viewer: {},
+                        collaborator: {}
+                    }
                 }
             }
 
         }, timeout || store.tempDelay);
+    },
+    toggleWaiting: (rights) => {
+        if (rights){
+            store.tempAccess[rights].waitingForSharing = !store.tempAccess[rights].waitingForSharing;
+        }
     }
 }
