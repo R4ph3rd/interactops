@@ -34,7 +34,7 @@ module.exports = function(){
     socket.on('remote-screencast-opened', () => {
       socket.join('remote');
       console.log('  Remote screencast is connected  '.bgGreen.black);
-      mutations.toggleCast(false);
+      mutations.toggleCast(true);
     })
 
     socket.emit('request-mode');
@@ -112,7 +112,7 @@ module.exports = function(){
     
     socket.on('request-remote-screencast', async () => {
       console.log('-- Request remote screencast -- '.green)
-      if (store.remote.token && store.remote.socket){
+      if (store.remote.token && store.remote.socket && store.remoteCastIsOpen){
         access.requestCast();
       }
     })
@@ -127,6 +127,7 @@ module.exports = function(){
       if (socket.rooms.has('remote')){
         console.log('  Remote screencast is disconnected  '.black.bgGreen);
         mutations.toggleCast(false);
+        mutations.clearRemote();
       }
     })          
   });

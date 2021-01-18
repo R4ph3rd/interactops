@@ -46,14 +46,8 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                         requestAccess();
                     }
                 case '/close-access':
-                    if (store.mode == 'control'){
+                    if (store.mode == 'dashboard'){
                         closeAccess(true);
-                    }
-                    else if (store.mode == 'dashboard'){
-                        closeAccess(true);
-                        closeAccess(false);
-                    }
-                    else if (store.mode == 'remote'){
                         closeAccess(false);
                     }
                     break;

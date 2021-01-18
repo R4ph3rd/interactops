@@ -21,7 +21,7 @@ module.exports = {
         await open('http://localhost:3000/cast.html', {wait:true});
     },
     getCast: async ({buffer} = {}) => {
-      if (!store.remoteCastIsOpen){
+      if (!store.remoteCastIsOpen && store.remote.token){
           open('http://localhost:3000/remote.html', { wait:true});
           console.log('Openning browerser window to screencast...'.green);
       }

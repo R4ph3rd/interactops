@@ -1,5 +1,6 @@
 const open = require('open');
 const socketSendings = require('../websocket/sendings');
+const {io} = require('../server')
 
 const store = require('../store');
 const mutations = require('../store/mutations');
@@ -9,7 +10,9 @@ module.exports = {
     shareViewerAccess: () => {
         if (store.remote.token && store.remoteCastIsOpen){
             mutations.clearRemote();
-            mutations.toggleCast();
+            mutations.toggleCast(false);
+
+            io.emit('screencast-ended');
         } else {
             socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
             console.log('Sharing viewer access'.green)

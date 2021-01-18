@@ -79,7 +79,7 @@ module.exports = function(){
 				rights: data.rights
 			})
 		} else {
-			console.log('Something went wront. You could not access to the target remote desktop. Please retry.'.magenta)
+			console.log('Something went wrong. You could not access to the target remote desktop. Please retry.'.magenta)
 		}
 		
 	})

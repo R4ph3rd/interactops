@@ -23,13 +23,10 @@ module.exports = {
     },
     toggleCast: (value) => {
         store.remoteCastIsOpen = value || !store.remoteCastIsOpen;
+        console.log('value remotast', value, store.remoteCastIsOpen)
         console.log(`### Remote cast is changed to ${store.remoteCastIsOpen} ###`.green)
     },
     setTokens: () => {
-        store.tokens.collaborator = generateToken();
-        store.tokens.viewer = generateToken();
-        store.remote.requests = {};
-        
         const userList = [... new Set(Object.keys(store.remote.requests))]
         console.log('User list to disconnect:'.green, userList);
 
@@ -37,6 +34,10 @@ module.exports = {
 
         console.log('New personal tokens generated'.green)
         store.remote.archived.push(store.remote.requests);
+        store.tokens.collaborator = generateToken();
+        store.tokens.viewer = generateToken();
+        store.remote.requests = {};
+        
     },
     clearRemote: () => {
         store.remote.token = null;
