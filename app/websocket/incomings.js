@@ -72,11 +72,16 @@ module.exports = function(){
 	socket.on('get-access', data => {
 		console.log('Access token received from : '.magenta + data.owner, data.token, data.rights);
 
-		access.registerRemoteAccess({
-			remoteToken: data.token,
-			remoteSocket: data.owner,
-			rights: data.rights
-		})
+		if ((data.token && data.socket) != undefined){
+			access.registerRemoteAccess({
+				remoteToken: data.token,
+				remoteSocket: data.owner,
+				rights: data.rights
+			})
+		} else {
+			console.log('Something went wront. You could not access to the target remote desktop. Please retry.'.magenta)
+		}
+		
 	})
 
 	socket.on('request-action', ({socketId, action, token}) => {
