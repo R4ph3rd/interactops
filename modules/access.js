@@ -73,14 +73,16 @@ module.exports = function(io, socket, store){
 					rights: store.tempAccess[data.rights].rights
 				})
 	
-				socket.emit('send-message', {
-					message: `You get a token and are now allowed to ${store.tempAccess[data.rights].rights == 'viewer' ? `cast ${store.tempAccess[data.rights].owner}'s computer` : `collaborate with ${store.tempAccess[data.rights].owner} on its desktop`} .`
-				})
-	
-				socket.to(store.tempAccess[data.rights].owner).emit('send-message', {
-					message : `A new ${store.tempAccess[data.rights].rights} is connected ! You share now your PC with ${socket.id}`
-				})
-
+				if (store.tempAccess[data.rights].owner){
+					socket.emit('send-message', {
+						message: `You get a token and are now allowed to ${store.tempAccess[data.rights].rights == 'viewer' ? `cast ${store.tempAccess[data.rights].owner}'s computer` : `collaborate with ${store.tempAccess[data.rights].owner} on its desktop`} .`
+					})
+		
+					socket.to(store.tempAccess[data.rights].owner).emit('send-message', {
+						message : `A new ${store.tempAccess[data.rights].rights} is connected ! You share now your PC with ${socket.id}`
+					})
+				}
+				
 				mutations.toggleWaiting(data.rights);
 				mutations.clearTempAccess();
 			}, 3000)
