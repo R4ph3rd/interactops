@@ -27,17 +27,15 @@ module.exports = function(){
       if (!companionIsConnected){
         companionIsConnected = !companionIsConnected;
         companionID = socket.id;
+        socket.join('companion');
       }
     })
-    
-    
 
-    // when user leave
-    if (socket.id == companionID){
-      socket.on('close-connection', () => {
-        console.log('Companion is disconnected.'.red.bgWhite)
-      })
-    }
+    socket.on('remote-screencast-opened', () => {
+      socket.join('remote');
+      console.log('  Remote screencast is connected  '.bgGreen.black);
+      mutations.toggleCast(false);
+    })
 
     socket.emit('request-mode');
       
@@ -120,13 +118,16 @@ module.exports = function(){
     })
 
     socket.on('disconnect', () => {
-      console.log('-- Companion is disconnected --'.black.bgGreen)
-    })
+      if (socket.id == companionID){
+        console.log('-- Companion is disconnected --'.black.bgGreen)
+      }
+    })  
 
-    /* socket.on('change-control-mode', () => {
-      controlBounce = true ;
-      console.log('changing control mode')
-    }) */
-        
+    socket.on('disconnecting', () => {
+      if (socket.rooms.has('remote')){
+        console.log('  Remote screencast is disconnected  '.black.bgGreen);
+        mutations.toggleCast(false);
+      }
+    })          
   });
 }

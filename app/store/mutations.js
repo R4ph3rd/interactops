@@ -21,9 +21,9 @@ module.exports = {
         store.controlMode = !store.controlMode
         console.log('------- Toggle control mode ---------')
     },
-    toggleCast: () => {
-        store.remoteCastIsOpen = !store.remoteCastIsOpen;
-        console.log('### Remote cast is opened ! ###'.green)
+    toggleCast: (value) => {
+        store.remoteCastIsOpen = value || !store.remoteCastIsOpen;
+        console.log(`### Remote cast is changed to ${store.remoteCastIsOpen} ###`.green)
     },
     setTokens: () => {
         store.tokens.collaborator = generateToken();

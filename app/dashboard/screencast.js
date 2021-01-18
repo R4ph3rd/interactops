@@ -3,6 +3,12 @@ const socket = io();
 const screencast = document.getElementById('screencast');
 const load = document.querySelector('.loading');
 
+socket.emit('remote-screencast-opened')
+
+socket.on('screencast-ended', () => {
+    window.close();
+})
+
 socket.on('update-remote-screencast', ({image, buffer}) => {
     console.log(image, buffer)
     if(image){

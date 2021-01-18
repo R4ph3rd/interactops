@@ -23,8 +23,7 @@ module.exports = {
     getCast: async ({buffer} = {}) => {
       if (!store.remoteCastIsOpen){
           open('http://localhost:3000/remote.html', { wait:true});
-          console.log('## Openning browerser window to screencast ## '.green);
-          mutations.toggleCast();
+          console.log('Openning browerser window to screencast...'.green);
       }
 
       if (buffer){
