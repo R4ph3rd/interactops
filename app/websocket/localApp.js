@@ -13,22 +13,31 @@ const store = require('../store');
 
 let companionIsConnected = false ;
 let antiBounce = false;
+let companionID = undefined;
 
 // let controlBounce = false;
 // let controlMode = true;
 
 module.exports = function(){
   io.on('connection', function(socket){ 
-    console.log('  Interactops Companion is connected  '.bgGreen.black);
     
-    if (!companionIsConnected){
-      companionIsConnected = !companionIsConnected;
-    }
+    socket.on('companion-paired', () => {
+      console.log('  Interactops Companion is connected  '.bgGreen.black);
 
-        // when user leave
-		socket.on('close-connection', () => {
-			console.log('Companion is disconnected.'.red.bgWhite)
+      if (!companionIsConnected){
+        companionIsConnected = !companionIsConnected;
+        companionID = socket.id;
+      }
     })
+    
+    
+
+    // when user leave
+    if (socket.id == companionID){
+      socket.on('close-connection', () => {
+        console.log('Companion is disconnected.'.red.bgWhite)
+      })
+    }
 
     socket.emit('request-mode');
       

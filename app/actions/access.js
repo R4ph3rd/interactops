@@ -7,12 +7,22 @@ const screen = require('./screen')
 
 module.exports = {
     shareViewerAccess: () => {
-        socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
-        console.log('Sharing viewer access'.green)
+        if (store.remote.token && store.remoteCastIsOpen){
+            mutations.clearRemote();
+            mutations.toggleCast();
+        } else {
+            socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
+            console.log('Sharing viewer access'.green)
+        }
     },
     shareCollaboratorAccess: () => {
-        socketSendings.shareAccess({token: store.tokens.collaborator, rights: 'collaborator'});
-        console.log('Sharing collaborator access'.green)
+        if (store.remote.token && store.remoteCastIsOpen){
+            mutations.clearRemote();
+            console.log('Remote tokens and connection cleared.'.green)
+        } else {
+            socketSendings.shareAccess({token: store.tokens.collaborator, rights: 'collaborator'});
+            console.log('Sharing collaborator access'.green)
+        }
     },
     requestAccess: () => {
         socketSendings.requestAccess();
