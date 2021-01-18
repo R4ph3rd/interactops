@@ -72,7 +72,7 @@ module.exports = function(){
 	socket.on('get-access', data => {
 		console.log('Access token received from : '.magenta + data.owner, data.token, data.rights);
 
-		if ((data.token && data.socket) != undefined){
+		if (data.token && data.owner){
 			access.registerRemoteAccess({
 				remoteToken: data.token,
 				remoteSocket: data.owner,

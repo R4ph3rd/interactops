@@ -5,6 +5,7 @@ const screenshot = require('screenshot-desktop')
 const {io} = require('../server')
 const socketSendings = require('../websocket/sendings');
 const store = require('../store');
+const mutations = require('../store/mutations')
 
 module.exports = {
     sendScreen: async ({to}) => {
@@ -21,9 +22,9 @@ module.exports = {
     },
     getCast: async ({buffer} = {}) => {
       console.log('get cast !')
-      if (!store.remoteCastIsOpen){
-          await open('http://localhost:3000/remote.html', { wait:true});
-          console.log('Openning browerser window to screencast');
+      if (store.remoteCastIsOpen){
+          open('http://localhost:3000/remote.html', { wait:true});
+          console.log('## Openning browerser window to screencast ## '.green);
           mutations.toggleCast();
       }
 
