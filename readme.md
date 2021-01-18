@@ -1,12 +1,8 @@
 # Interactops
 Using your phone as remote controller for your desktop to enable flexible cross-devices and human-to-human interactions.
 This project use [Wekinator](http://www.wekinator.org/) to determine gestures from data stream sended by mobile devices.
-We use [Socket.io]() to communicate between users and OSC to communicate between our app to Wekinator (working on the synchronised computer).
-[node-osc](https://github.com/MylesBorins/node-osc).
+We use [Socket.io]() to communicate between users and OSC with [node-osc](https://github.com/MylesBorins/node-osc) to communicate between our app to Wekinator (working on the synchronised computer).</br>
 [Nut.js](https://github.com/nut-tree/nut.js) is used for desktop automation.
-
-
-NB: Public folder holds a exemple of peer 2 peer connections with webRTC using a socket server to setup the connections. Maybe not really usefull for now, but at least, it holds example of how socket.io works.
 
 <details>
   <summary>Previous working process - First iteration</summary>
@@ -87,7 +83,7 @@ node index.js
 </details>
 
 ## Install Interactops app (cross-plateform)
-1. Install app dependicies : 
+1. Install app dependencies : 
     ```
     cd app
     npm install
@@ -102,7 +98,7 @@ node index.js
 5. The Interactops companion web-app shoud be enabled.
 
 ### Enable gesture recognition using Wekinator
-1. Open [Wekinator](http://www.wekinator.org/) and load project file in ``wekinator / interactops / interactops-3`` in Wekinator.
+1. Open [Wekinator](http://www.wekinator.org/) and load project file in ``wekinator / interactops / interactops-[last one]`` in Wekinator.
 2. Check that Wekinator listens the same port as your app is sending (should be ``6448``). The ``OSC in`` pin should be green when it is fine.
 3. Hit ``Run`` button to enable gesture recognition. The ``OSC out`` pin should be green when messages are send.
 
