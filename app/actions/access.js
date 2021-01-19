@@ -15,8 +15,22 @@ module.exports = {
 
             io.emit('screencast-ended');
 
+            notifier.notify({
+                title:'Interactops',
+                subtitle: 'Close screen sharing',
+                message:'Your remote screencast is closed.',
+                icon: path.join(__dirname, '../store/assets/icons/view_end.svg'),
+            });
+
         } else if (store.remote.isCasting){
             mutations.setTokens();
+
+            notifier.notify({
+                title:'Interactops',
+                subtitle: 'Close screen sharing',
+                message:'You closed your viewing access to remote users.',
+                icon: path.join(__dirname, '../store/assets/icons/view_end.svg'),
+            });
         } else {
             socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
             console.log('Sharing viewer access'.green)
@@ -24,7 +38,8 @@ module.exports = {
             notifier.notify({
                 title:'Interactops',
                 subtitle: 'Sharing viewer acces',
-                message:'You shared your viewer access token to the network.'
+                message:'You shared your viewer access token to the network.',
+                icon: path.join(__dirname, '../store/assets/icons/view.svg'),
             });
         }
     },
@@ -39,7 +54,9 @@ module.exports = {
             notifier.notify({
                 title:'Interactops',
                 subtitle: 'Sharing collaborator acces',
-                message:'You shared your collaboration access token to the network.'
+                message:'You shared your collaboration access token to the network.',
+                icon: path.join(__dirname, '../store/assets/icons/collab_send.svg'),
+                timeout: 3
             });
         }
     },
@@ -82,7 +99,8 @@ module.exports = {
         notifier.notify({
             title:'Interactops',
             subtitle: 'Received token access',
-            message: `You received ${rights} access token from ${remoteSocket}`
+            message: `You received ${rights} access token from ${remoteSocket}`,
+            timeout: 3
         });
     },
     closeAccess: (which) => {
@@ -92,7 +110,8 @@ module.exports = {
             notifier.notify({
                 title:'Interactops',
                 subtitle: 'Close access',
-                message: `You ended your access to your computer`
+                message: `You ended your access to your computer`,
+                timeout: 3
             });
         } else {
             mutations.clearRemote();
@@ -101,7 +120,8 @@ module.exports = {
             notifier.notify({
                 title:'Interactops',
                 subtitle: 'Close remote access',
-                message: `You closed your remote connection`
+                message: `You closed your remote connection`,
+                timeout: 3
             });
         }
     },

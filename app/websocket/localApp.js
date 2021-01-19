@@ -10,6 +10,7 @@ const mouseAction = require('../actions/mouse')
 const filters = require('../actions/filters')
 const mutations = require('../store/mutations')
 const store = require('../store');
+const keyboard = require('../actions/keyboard');
 
 let companionIsConnected = false ;
 let antiBounce = false;
@@ -60,9 +61,21 @@ module.exports = function(){
       mutations.setStartingPos()
       // dwt.clear();
     })
+
+    socket.on('alt-tab', () => {
+      keyboard.altTab();
+
+      if (!store.altTab){
+        mutations.toggleAltTab();
+      }
+    })
     
     socket.on('end-sending-data', () => {
       console.log('-------------- end ---------------\n'.yellow);
+
+      if (store.altTab){
+        mutations.toggleAltTab();
+      }
 
       setTimeout(() => {
         filters.toggleBounce(false);

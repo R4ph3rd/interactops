@@ -37,15 +37,11 @@ function draw() {
 
         } else if (touches.length == 2){
           
-          socket.emit('mouse-control', {
+          socket.emit('alt-tab', {
             rotation : [rotationX, rotationY, rotationZ],
             pRotation: [pRotationX, pRotationY, pRotationZ]
           })
           
-          fill(255,0,0);
-          touches.forEach(touch => {
-            ellipse(touch.x, touch.y, 50, 50)
-          })
           
         } else {
           clear()

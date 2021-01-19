@@ -67,7 +67,9 @@ module.exports = {
             notifier.notify({
                 title:'Interactops',
                 subtitle: 'Data incoming',
-                message:'Data received from socket' + socketId + ' copied in clipboard : ' + content
+                message:'Data received from socket' + socketId + ' copied in clipboard : ' + content,
+                icon: path.join(__dirname, '../store/assets/icons/get.svg'),
+                timeout: 3
             });
             console.log('Data received from socket'.magenta + socketId.magenta + ' copied in clipboard : '.magenta + content)
         } else {
@@ -133,7 +135,9 @@ module.exports = {
         notifier.notify({
             title:'Interactops',
             subtitle: 'Data copied',
-            message:'Data copied and sended to socket server'
+            message:'Data copied and sended to socket server',
+            icon: path.join(__dirname, '../store/assets/icons/send.svg'),
+            timeout: 3
         });
     },
     requestDownload: () => {

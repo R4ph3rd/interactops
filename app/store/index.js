@@ -21,5 +21,6 @@ module.exports = {
         archived: []
     },
     remoteCastIsOpen: false,
-    startingPos: {}
+    startingPos: {},
+    altTab: false
 }

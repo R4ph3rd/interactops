@@ -33,6 +33,9 @@ module.exports = {
         console.log('value remotast', value, store.remote.isCasting)
         console.log(`### Cast sharing is changed to ${store.remote.isCasting} ###`.green)
     },
+    toggleAltTab: () => {
+        store.altTab = !store.altTab;
+    },
     setTokens: () => {
         const userList = [... new Set(Object.keys(store.remote.requests))]
         console.log('User list to disconnect:'.green, userList);
