@@ -6,7 +6,11 @@ const load = document.querySelector('.loading');
 socket.emit('remote-screencast-opened')
 
 socket.on('screencast-ended', () => {
-    window.close();
+    alert('Remote user closed the connection.')
+
+    setTimeout(() => {
+        window.close();
+    }, 2000)
 })
 
 socket.on('update-remote-screencast', ({image, buffer}) => {

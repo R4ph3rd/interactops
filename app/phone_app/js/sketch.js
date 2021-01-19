@@ -7,6 +7,7 @@ let mode = true;
 let feedbackAction = undefined;
 let clearFeedbackAction;
 let altClutch = true;
+let localScreencastBounce = false;
 // const dahsboard = document.querySelector('')
 
 function setup(){
@@ -45,7 +46,15 @@ function draw() {
             socket.emit('alt-tab')
             altClutch = !altClutch;
           }
+        } else if (touches.length == 3){
+          if (!localScreencastBounce){
+            socket.emit('screencast-companion-request');
+            localScreencastBounce = !localScreencastBounce;
+          }
         } else {
+          if (localScreencastBounce){
+            localScreencastBounce = !localScreencastBounce;
+          }
           clear()
         }
     }
@@ -95,11 +104,12 @@ function touchEnded(){
   }
 }
 
-function deviceShaken() {
-  if (touches.length == 1 ){
-    socket.emit('change-control-mode')
-  }
-}
+// TODO : check if it is ok
+// function deviceShaken() {
+//   if (touches.length == 1 ){
+//     socket.emit('change-control-mode')
+//   }
+// }
 
 /* Acceleration and rotation test
 gets a TypeError in the p5 Editor because

@@ -36,11 +36,7 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
                     shareCollaboratorAccess();
                     break;
                 case '/access-viewer':
-                    if (store.mode == 'remote'){
-                        requestAccess();
-                    } else {
-                        shareViewerAccess();
-                    }
+                    shareViewerAccess();
                     break;
                 case '/request-access':
                     if (store.mode == ('dashboard' || 'remote')){
@@ -65,5 +61,7 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
         filters.lastRecognizedGesture = undefined;
     }
 
-    io.in('companion').emit('action-ok', action);
+    if (action && store.controlMode || (!store.controlMode && action == '/change-control-mode' )){
+        io.in('companion').emit('action-ok', action);
+    }
 }

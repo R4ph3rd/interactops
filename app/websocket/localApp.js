@@ -32,12 +32,6 @@ module.exports = function(){
       socket.join('companion');
     })
 
-    socket.on('remote-screencast-opened', () => {
-      socket.join('remote');
-      console.log('  Remote screencast is connected  '.bgGreen.black);
-      mutations.toggleCast(true);
-    })
-
     socket.emit('request-mode');
       
 		socket.on('sensors-data', data => {
@@ -110,11 +104,19 @@ module.exports = function(){
     })
 
 
-    socket.on('request-screencast', async () => {
-      screenshot().then((buffer) => {
-        console.log('-- Image buffer initialized -- '.green);
+    ///////////////   SCREENCAST   ////////////////////////
 
-        socket.emit('update-screencast', { image: true, buffer });
+    socket.on('screencast-companion-request', async () => {
+      screenshot().then((buffer) => {
+        console.log('-- Image buffer initialized for companion -- '.green);
+
+        socket.emit('cool')
+        io.in('dashboard').emit('cool')
+
+        io.in('dashboard').emit('update-local-screencast', { image: true, buffer });
+        socket.emit('update-local-screencast', { image: true, buffer});
+        io.in('companion').emit('action-ok', 'screencast');
+
       }).catch((err) => {
         console.error(err)
       })
@@ -125,6 +127,12 @@ module.exports = function(){
       if (store.remote.token && store.remote.socket && store.remoteCastIsOpen){
         access.requestCast();
       }
+    })
+
+    socket.on('remote-screencast-opened', () => {
+      socket.join('remote');
+      console.log('  Remote screencast is connected  '.bgGreen.black);
+      mutations.toggleCast(true);
     })
 
     socket.on('disconnect', () => {

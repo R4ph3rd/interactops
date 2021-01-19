@@ -10,7 +10,7 @@ const mapRange = (value, x1, y1, x2, y2) => {
 }
 
 const rangeX = [65, 17]; //left, right
-const rangeZ = [165, 65]; // front , back
+const rangeZ = [165, 75]; // front , back
 // let basePos = [0, 0];
 
 

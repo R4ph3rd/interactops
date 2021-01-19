@@ -1,7 +1,18 @@
 const screencast = document.getElementById('screencast');
-console.log('screencast:', mode);
+const fullscreen = document.querySelector('.fullscreen');
 
-socket.on('update-screencast', ({image, buffer}) => {
+let whoCast = undefined;
+
+socket.on('update-screencast', ({image, buffer, who}) => {
+
+    console.log('update screencast !')
+
+    if (fullscreen && fullscreen.classList.includes('hidden')){
+        fullscreen.classList.remove('hidden');
+    }
+
+    whoCast = who;
+
     console.log(image, buffer)
     if(image){
         const arrayBufferView = new Uint8Array(buffer);
@@ -17,21 +28,23 @@ socket.on('update-screencast', ({image, buffer}) => {
 })
 
 if(screencast){
-    if (mode == 'dashboard'){
+    if (document.URL.includes('dashboard')){
         screencast.addEventListener('click', () => {
             socket.emit('request-screencast');
             console.log('request screencast');
             screencast.style.border = '6px red solid'
     
         })
-    } else if (mode == 'presentation'){
-        socket.emit('request-screencast');
-        console.log('request screencast');
     }
 
     screencast.onload = () => {
         console.log('image loaded');
-        socket.emit('request-screencast');
+
+        if (who == "local"){
+            socket.emit('screencast-companion-request');            
+        } else {
+            socket.emit('request-remote-screencast');
+        }
 
         screencast.style.border = '6px green solid'
     }
