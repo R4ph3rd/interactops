@@ -1,6 +1,7 @@
 const { mouse } = require("@nut-tree/nut-js");
 const store = require(".")
 const {clearRemoteAccess} = require('../websocket/sendings')
+const { io } = require('../server');
 
 function generateToken() {
     let r = Math.random().toString(36);
@@ -19,7 +20,8 @@ module.exports = {
     },
     toggleControlMode: () => {
         store.controlMode = !store.controlMode
-        console.log('------- Toggle control mode ---------')
+        console.log('------- Toggle control mode ---------');
+        io.in('companion').emit('toggle-mode');
     },
     toggleCast: (value) => {
         store.remoteCastIsOpen = value || !store.remoteCastIsOpen;

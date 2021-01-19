@@ -4,24 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactops Phone app</title>
-    <link rel="stylesheet" href="css/style_app.css">
+    <link rel="stylesheet" href="../css/style_app.css">
+    <style>
+        canvas{
+            z-index:1000;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100vw;
+            height:100vh;
+        }
+    </style>
 </head>
-
 <body>
-
     <h1>Interactops companion app</h1>
 
-    <ul class="menu">
-        <li><a href="./pages/dashboard.html">Dashboard/Debug mode</a></li>
-        <li><a href="./pages/presentation.html">Presentation mode</a></li>
-        <li><a href="./pages/control.html">Desktop control mode</a></li>
-        <li><a href="./pages/remote.html">Remote connection mode</a></li>
-        <!-- <li><a href="./pages/train.html">Train model</a></li> -->
-    </ul>
-    
+    <section id="data">
+        <h2>Desktop control</h2>
+
+        <h3>Accelerometer</h3>
+        <p id="accel"></p>
+
+        <h3>Rotation</h3>
+        <p id="rot"></p>
+
+        <div class="fullscreen hidden">
+            <p>Loading screencast...</p>
+            <img src="" id="screencast" ></img>
+        </div>
+    </section>    
 </body>
 <script src="./lib/p5.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="js/socket.js"></script>
-<script src="js/screencast.js"></script>
+<script src="./socket.io/socket.io.js"></script>
+<script src="./js/sketch.js"></script>
+<script src="./js/socket.js"></script>
 </html>

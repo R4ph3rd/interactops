@@ -2,11 +2,16 @@ const acc = document.getElementById('accel');
 const rot = document.getElementById('rot');
 const fps = 30;
 
+
+let mode = true;
+let feedbackAction = undefined;
+let clearFeedbackAction;
 // const dahsboard = document.querySelector('')
 
 function setup(){
     createCanvas(windowWidth, windowHeight);
     frameRate(fps);
+    textAlign(CENTER)
 
     // setShakeThreshold(50);
 }
@@ -27,7 +32,7 @@ function draw() {
             rotation: [rotationX, rotationY, rotationZ]
           })
 
-          fill(0,0,130, 30)
+          fill(0, 30)
           rect(0,0, width, height)
 
         } else if (touches.length == 2){
@@ -45,6 +50,22 @@ function draw() {
         } else {
           clear()
         }
+    }
+
+    if (feedbackAction){
+      background(12,205,0);
+      fill(255);
+      textSize(width / (feedbackAction.length/2))
+      text(feedbackAction, width/2, height/2); 
+    }
+
+    if (!mode){
+      push()
+        noFill();
+        stroke(255,2555,0);
+        strokeWeight(20);
+        rect(0,0, width, height);
+      pop()
     }
 }
 

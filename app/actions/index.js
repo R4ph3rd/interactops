@@ -5,6 +5,7 @@ const {copySend, requestDownload} = require('./file');
 const {shareViewerAccess, shareCollaboratorAccess, requestAccess, closeAccess, requestAction, getRequestAction} = require('./access');
 const store = require('../store');
 const mutations = require('../store/mutations');
+const { io } = require('../server');
 
 module.exports = function ({action = filters.lastRecognizedGesture, token , socketId} = {}){
     if (action != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
@@ -63,4 +64,6 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
 
         filters.lastRecognizedGesture = undefined;
     }
+
+    io.in('companion').emit('action-ok', action);
 }

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const open = require('open');
 const screenshot = require('screenshot-desktop')
+const notifier       = require('node-notifier');
 
 const {io} = require('../server')
 const socketSendings = require('../websocket/sendings');
@@ -24,6 +25,12 @@ module.exports = {
       if (!store.remoteCastIsOpen && store.remote.token){
           open('http://localhost:3000/remote.html', { wait:true});
           console.log('Openning browerser window to screencast...'.green);
+
+          notifier.notify({
+            title:'Interactops',
+            subtitle: 'Remote screencast incoming',
+            message:'Screencast received from' + store.remote.token
+        });
       }
 
       if (buffer){

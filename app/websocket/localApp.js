@@ -27,8 +27,8 @@ module.exports = function(){
       if (!companionIsConnected){
         companionIsConnected = !companionIsConnected;
         companionID = socket.id;
-        socket.join('companion');
       }
+      socket.join('companion');
     })
 
     socket.on('remote-screencast-opened', () => {

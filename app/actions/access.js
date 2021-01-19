@@ -1,6 +1,7 @@
 const open = require('open');
 const socketSendings = require('../websocket/sendings');
 const {io} = require('../server')
+const notifier       = require('node-notifier');
 
 const store = require('../store');
 const mutations = require('../store/mutations');
@@ -19,6 +20,12 @@ module.exports = {
         } else {
             socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
             console.log('Sharing viewer access'.green)
+            
+            notifier.notify({
+                title:'Interactops',
+                subtitle: 'Sharing viewer acces',
+                message:'You shared your viewer access token to the network.'
+            });
         }
     },
     shareCollaboratorAccess: () => {
@@ -28,6 +35,12 @@ module.exports = {
         } else {
             socketSendings.shareAccess({token: store.tokens.collaborator, rights: 'collaborator'});
             console.log('Sharing collaborator access'.green)
+
+            notifier.notify({
+                title:'Interactops',
+                subtitle: 'Sharing collaborator acces',
+                message:'You shared your collaboration access token to the network.'
+            });
         }
     },
     requestAccess: () => {
@@ -65,13 +78,31 @@ module.exports = {
         if (rights == 'viewer'){
             screen.getCast();
         }
+
+        notifier.notify({
+            title:'Interactops',
+            subtitle: 'Received token access',
+            message: `You received ${rights} access token from ${remoteSocket}`
+        });
     },
     closeAccess: (which) => {
         if (which){
             mutations.setTokens();
+
+            notifier.notify({
+                title:'Interactops',
+                subtitle: 'Close access',
+                message: `You ended your access to your computer`
+            });
         } else {
             mutations.clearRemote();
             mutations.toggleCast();
+
+            notifier.notify({
+                title:'Interactops',
+                subtitle: 'Close remote access',
+                message: `You closed your remote connection`
+            });
         }
     },
     middleware({action, token, socketId}){
