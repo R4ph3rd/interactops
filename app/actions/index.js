@@ -7,8 +7,11 @@ const store = require('../store');
 const mutations = require('../store/mutations');
 const { io } = require('../server');
 
+
+const forbidenRemoteActions = ['/close-access', '/access-collaborator', '/access-viewer']
+
 module.exports = function ({action = filters.lastRecognizedGesture, token , socketId} = {}){
-    if (action != '/close-access' && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
+    if (!forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
         requestAction(action);
     } else {
         if ((store.controlMode && !filters.bounce() && action ) || (token && socketId && getRequestAction({action, token, socketId}))){

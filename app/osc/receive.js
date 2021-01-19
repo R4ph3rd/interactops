@@ -13,7 +13,12 @@ module.exports = () => {
 
       if (store.altTab && msg[0] == ('/swipe-left' || 'swipe-right')){
         console.log('Alt tab : '.yellow , msg[0])
-        filters.lastRecognizedGesture = msg[0];
+
+        if (filters.lastRecognizedGesture == '/access-collaborator' && msg[0] == '/swipe-right'){
+          return;
+        } else {
+          filters.lastRecognizedGesture = msg[0];
+        }
 
       } else if(!store.altTab && msg.length < 2){   
         console.log('Recognized gesture : '.yellow , msg[0])

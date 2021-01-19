@@ -45,7 +45,7 @@ module.exports = {
         }
     },
     shareCollaboratorAccess: () => {
-        if (store.remote.token && store.remoteCastIsOpen){
+        if (store.remote.token){
             mutations.clearRemote();
             console.log('Remote tokens and connection cleared.'.green)
         } else {
@@ -54,7 +54,7 @@ module.exports = {
 
             notifier.notify({
                 title:'Interactops',
-                subtitle: 'Sharing collaborator acces',
+                subtitle: 'Sharing collaborator access',
                 message:'You shared your collaboration access token to the network.',
                 icon: path.join(__dirname, '../store/assets/icons/collab_send.svg'),
                 timeout: 3
