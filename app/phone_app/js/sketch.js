@@ -6,6 +6,7 @@ const fps = 30;
 let mode = true;
 let feedbackAction = undefined;
 let clearFeedbackAction;
+let altClutch = true;
 // const dahsboard = document.querySelector('')
 
 function setup(){
@@ -35,14 +36,15 @@ function draw() {
           fill(0, 30)
           rect(0,0, width, height)
 
+          if (!altClutch){
+            altClutch = !altClutch;
+          }
+
         } else if (touches.length == 2){
-          
-          socket.emit('alt-tab', {
-            rotation : [rotationX, rotationY, rotationZ],
-            pRotation: [pRotationX, pRotationY, pRotationZ]
-          })
-          
-          
+          if (altClutch){
+            socket.emit('alt-tab')
+            altClutch = !altClutch;
+          }
         } else {
           clear()
         }

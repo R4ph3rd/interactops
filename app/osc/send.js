@@ -19,6 +19,6 @@ module.exports = function(data){
         // console.log('message', message)
         client.send(message);
     } else {
-        console.warn('Data format exported from the companion is not correct. Please provide acceleration & rotation datas.')
+        console.error('Data format exported from the companion is not correct. Please provide acceleration & rotation datas.')
     }
 }

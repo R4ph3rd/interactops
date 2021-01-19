@@ -11,16 +11,7 @@ module.exports = function ({action = filters.lastRecognizedGesture, token , sock
     if (action != '/close-access' && (store.mode == 'remote' || store.mode == 'dashboard') && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
         requestAction(action);
     } else {
-        if (store.altTab){
-            switch (action){
-                case '/swipe-right':
-                    right();
-                    break;
-                case '/swipe-left':
-                    left();
-                    break;
-            }
-        } else if ((store.controlMode && !filters.bounce() && action ) || (token && socketId && getRequestAction({action, token, socketId}))){
+        if ((store.controlMode && !filters.bounce() && action ) || (token && socketId && getRequestAction({action, token, socketId}))){
             console.log('Perfomed gesture:'.yellow, action.bgYellow.black)
             switch (action){
                 case '/swipe-right':

@@ -63,20 +63,17 @@ module.exports = function(){
     })
 
     socket.on('alt-tab', () => {
-      keyboard.altTab();
+      mutations.toggleAltTab();
 
-      if (!store.altTab){
-        mutations.toggleAltTab();
+      if (store.altTab){
+        keyboard.altTab();
+      } else {
+        keyboard.closeAltTab();
       }
     })
     
     socket.on('end-sending-data', () => {
       console.log('-------------- end ---------------\n'.yellow);
-
-      if (store.altTab){
-        mutations.toggleAltTab();
-      }
-
       setTimeout(() => {
         filters.toggleBounce(false);
 
@@ -87,7 +84,7 @@ module.exports = function(){
 
         if (filters.clicks >= 2 && !store.controlMode){
           mouseAction.click();
-        }
+        }         
 
         actions();
       }, 50)
