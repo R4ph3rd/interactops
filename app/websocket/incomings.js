@@ -6,6 +6,7 @@ const screen = require('../actions/screen')
 const actions = require('../actions');
 const store = require('../store');
 const mutations = require('../store/mutations');
+const {io} = require('../server')
 
 let mySocketId ;
 
@@ -105,6 +106,8 @@ module.exports = function(){
 	})
 
 	socket.on('clear-access', () => {
+		console.log(`  ${store.remote.socket} has closed the connection.  `.black.bgMagenta);
+		io.emit('screencast-ended');
 		mutations.clearRemote();
 	})
 }
