@@ -13,6 +13,9 @@ module.exports = {
             mutations.toggleCast(false);
 
             io.emit('screencast-ended');
+
+        } else if (store.remote.isCasting){
+            mutations.setTokens();
         } else {
             socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
             console.log('Sharing viewer access'.green)
@@ -75,6 +78,10 @@ module.exports = {
         mutations.registerRequest({action, token, socketId});
         if (token == store.tokens.viewer && store.viewerRights.includes(action)){
             console.log('Viewer"s request authorized'.green)
+
+            if (!store.remote.isCasting){
+                mutations.toggleCastSharing(true);
+            }
             return true;
         } else if (token == store.tokens.collaborator && store.collaboratorRights.includes(action)){
             console.log('Collaborator"s request authorized'.green)

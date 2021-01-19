@@ -16,6 +16,7 @@ module.exports = {
         token: null,
         socket: null,
         rights: null,
+        isCasting: false,
         requests: {},
         archived: []
     },
