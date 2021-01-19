@@ -30,6 +30,7 @@ module.exports = function(){
         companionID = socket.id;
       }
       socket.join('companion');
+      socket.emit('companion-recognized')
     })
 
     socket.emit('request-mode');
@@ -108,14 +109,10 @@ module.exports = function(){
 
     socket.on('screencast-companion-request', async () => {
       screenshot().then((buffer) => {
-        console.log('-- Image buffer initialized for companion -- '.green);
+        console.log('-- Image buffer initialized for companion -- '.green, buffer);
 
-        socket.emit('cool')
-        io.in('dashboard').emit('cool')
-
-        io.in('dashboard').emit('update-local-screencast', { image: true, buffer });
-        socket.emit('update-local-screencast', { image: true, buffer});
         io.in('companion').emit('action-ok', 'screencast');
+        io.in('companion').emit('update-local-screencast', { image: true, buffer });
 
       }).catch((err) => {
         console.error(err)

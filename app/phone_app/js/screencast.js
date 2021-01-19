@@ -7,7 +7,7 @@ socket.on('update-screencast', ({image, buffer, who}) => {
 
     console.log('update screencast !')
 
-    if (fullscreen && fullscreen.classList.includes('hidden')){
+    if (fullscreen && Array.from(fullscreen.classList).includes('hidden')){
         fullscreen.classList.remove('hidden');
     }
 
