@@ -1,12 +1,13 @@
-const fs = require('fs');
-const open = require('open');
+const fs         = require('fs');
+const path       = require('path'); 
+const open       = require('open');
 const screenshot = require('screenshot-desktop')
-const notifier       = require('node-notifier');
+const notifier   = require('node-notifier');
 
-const {io} = require('../server')
+const {io}           = require('../server')
 const socketSendings = require('../websocket/sendings');
-const store = require('../store');
-const mutations = require('../store/mutations')
+const store          = require('../store');
+const mutations      = require('../store/mutations')
 
 module.exports = {
     sendScreen: async ({to}) => {

@@ -1,11 +1,12 @@
-const open = require('open');
+const open           = require('open');
+const path           = require('path'); 
 const socketSendings = require('../websocket/sendings');
-const {io} = require('../server')
+const {io}           = require('../server')
 const notifier       = require('node-notifier');
 
-const store = require('../store');
+const store     = require('../store');
 const mutations = require('../store/mutations');
-const screen = require('./screen')
+const screen    = require('./screen')
 
 module.exports = {
     shareViewerAccess: () => {
