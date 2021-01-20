@@ -109,10 +109,10 @@ module.exports = function(){
 
     socket.on('screencast-companion-request', async () => {
       screenshot().then((buffer) => {
-        console.log('-- Image buffer initialized for companion -- '.green, buffer);
+        console.log('-- Image buffer initialized for companion -- '.green);
 
         io.in('companion').emit('action-ok', 'screencast');
-        io.in('companion').emit('update-local-screencast', { image: true, buffer });
+        io.in('companion').emit('update-screencast', { image: true, buffer, who: 'local'});
 
       }).catch((err) => {
         console.error(err)

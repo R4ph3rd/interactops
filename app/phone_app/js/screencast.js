@@ -30,7 +30,7 @@ socket.on('update-screencast', ({image, buffer, who}) => {
 if(screencast){
     if (document.URL.includes('dashboard')){
         screencast.addEventListener('click', () => {
-            socket.emit('request-screencast');
+            socket.emit('request-screencast');local
             console.log('request screencast');
             screencast.style.border = '6px red solid'
     
@@ -39,8 +39,11 @@ if(screencast){
 
     screencast.onload = () => {
         console.log('image loaded');
+        screencast.removeChild(
+            Array.from(screencast.children).find(child => child.localName == 'p')
+        )
 
-        if (who == "local"){
+        if (whoCast == "local"){
             socket.emit('screencast-companion-request');            
         } else {
             socket.emit('request-remote-screencast');
