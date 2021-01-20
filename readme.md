@@ -97,10 +97,68 @@ node index.js
 4. Open your browser (Chrome or Firefox preferred) on your mobile companion and type this url.
 5. The Interactops companion web-app shoud be enabled.
 
-### Enable gesture recognition using Wekinator
+## Enable gesture recognition using Wekinator
 1. Open [Wekinator](http://www.wekinator.org/) and load project file in ``wekinator / interactops / interactops-[last one]`` in Wekinator.
 2. Check that Wekinator listens the same port as your app is sending (should be ``6448``). The ``OSC in`` pin should be green when it is fine.
 3. Hit ``Run`` button to enable gesture recognition. The ``OSC out`` pin should be green when messages are send.
+
+## Implemented gestures
+To perform a gesture, you'll need to connect to the companion adress url, and **touch the screen to enable gesture detection**.
+Following namespaces of the gestures will be send by Wekinator when one of them is recognized. You can check it either on Wekinator's GUI, either in the console, either on your companion app.
+
+### Share-throw
+This will copy the selected content (either text or file, folders aren't implemented yet) on your computer and send it to the server for one person. Your collaborator will be able to get it by executing a ``share-get``.
+
+![share-throw](./vendors/gifs/share-throw.gif)
+
+### Share-multi
+This will copy the selected content on your computer and send it to the server. Yours collaborators will be able to get it by executing a ``share-get`` gesture.
+
+![share-multi](./vendors/gifs/share-multi.gif)
+
+### Share-get
+This will store the shared content in your PC's clipboard, waiting for paste it somewhere. If it is a file, it will be downloaded in the ``store/assets`` folder.
+
+![share-get](./vendors/gifs/share-get.gif)
+
+### Access-viewer
+Share your viewer token to the server if you are the first to perform the gesture. If it is executed in second or more, it will download the shared tokens if no more action if provided. If the gesture is performed another time, it will override the shared token. While you are sharing or casting your computer, it will close the connection.
+
+![access-viewer](./vendors/gifs/access-viewer.gif)
+
+#### Access-collaborator
+Same as viewer but for collaboration. When you got access to another computer, you can perform every action except : ``acces-viewer``, ``access-collabortor``.
+
+![access-collaborator](./vendors/gifs/access-collaborator.gif)
+
+### Access-collaborator
+Same as viewer but for collaboration. When you got access to another computer, you can perform every action except : ``acces-viewer``, ``access-collabortor``.
+
+![access-collaborator](./vendors/gifs/access-collaborator.gif)
+
+### Swipe-right
+Fake a arrow-right press.
+
+![swipe-right](./vendors/gifs/swipe-right.gif)
+
+### Swipe-left
+Fake a arrow-left press.
+
+![swipe-left](./vendors/gifs/swipe-left.gif)
+
+### Change-control-mode
+Toggle mode between gesture detection and mouse control. Once mouse mode is activated, you can control mouse by rotating on the X and Z axis. A double tap on screen will fake a click. </br>
+While you controlling the mouse, other gestures are disabled to avoid fake-positives.
+
+![change-control-mode](./vendors/gifs/change-control-mode.gif)
+
+### Changing window
+**Double tap** on phone's screen to clutch, and perform a ``swipe`` gesture to change current window. Double tap to end.
+
+### Casting your computer screen
+You can also cast your computer (or remote paired computer) on your phone by **triple-tap** on your screen.
+
+
 
 
 ## Principle diagram
