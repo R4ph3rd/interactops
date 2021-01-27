@@ -113,7 +113,9 @@ Before changing slides, the participant must follow these steps:
 
 > After testing all the gestures given to the testers, we asked them to complete a survey and also to compare now their own movements for each gestures to the ones given by the team. 
 
-The team and the participants have a discussion comparing which is the most suitable movement and if they (the participants) would change anything in the gestures proposed by the team, also adding a voting system between which one is the best gesture between the ones done by the participants and the ones given by the team. Following this voting process, the team takes this information and tries to improve, if possible, the already made gestures.
+The team and the participants have a discussion to evaluate each gestures and the global system proposed during the test. Any remarks for improvements or about the test itself are welcomed at this step.
+
+![gesture evaluation](./images/gesture-evaluation.jpg)
 
 ##  Debriefing
 
