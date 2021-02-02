@@ -2,7 +2,7 @@
 const socket = io();
 const url = document.URL.split('/');
 
-let control = false;
+let controlMode = false;
 
 
 socket.emit('companion-paired')
@@ -33,9 +33,6 @@ socket.on('action-ok', action => {
 
     if (document.URL.includes('dashboard')){
         if (action == 'change-control-mode'){
-            console.log('coool', action)
-            control = !control;
-
             if (control){
                 document.querySelector('body').style.border = '5px solid yellow';
             } else {

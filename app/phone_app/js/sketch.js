@@ -33,35 +33,38 @@ function draw() {
       rot.innerHTML = `<strong>X: </strong> ${rotationX} </br> <strong>Y: </strong>${rotationY} </br> <strong>Z: </strong> ${rotationZ}`
     }
 
-    if (touches.length == 1){
-      socket.emit('sensors-data', {
-        acceleration : [accelerationX, accelerationY, accelerationZ],
-        rotation: [rotationX, rotationY, rotationZ]
-      })
-
-      fill(0, 30)
-      rect(0,0, width, height)
-
-      if (!altClutch){
-        altClutch = !altClutch;
+    if ((!mode && document.URL.includes('dashboard')) || !document.URL.includes('dashboard')){
+      if (touches.length == 1){
+        socket.emit('sensors-data', {
+          acceleration : [accelerationX, accelerationY, accelerationZ],
+          rotation: [rotationX, rotationY, rotationZ]
+        })
+  
+        fill(0, 30)
+        rect(0,0, width, height)
+  
+        if (!altClutch){
+          altClutch = !altClutch;
+        }
+  
+      } else if (touches.length == 2){
+        if (altClutch){
+          socket.emit('alt-tab')
+          altClutch = !altClutch;
+        }
+      } else if (touches.length == 3){
+        if (!localScreencastBounce){
+          socket.emit('screencast-companion-request');
+          localScreencastBounce = !localScreencastBounce;
+        }
+      } else {
+        if (localScreencastBounce){
+          localScreencastBounce = !localScreencastBounce;
+        }
+        clear()
       }
-
-    } else if (touches.length == 2){
-      if (altClutch){
-        socket.emit('alt-tab')
-        altClutch = !altClutch;
-      }
-    } else if (touches.length == 3){
-      if (!localScreencastBounce){
-        socket.emit('screencast-companion-request');
-        localScreencastBounce = !localScreencastBounce;
-      }
-    } else {
-      if (localScreencastBounce){
-        localScreencastBounce = !localScreencastBounce;
-      }
-      clear()
     }
+    
 
     if (feedbackAction){
       background(12,205,0);
