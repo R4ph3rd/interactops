@@ -9,7 +9,7 @@ const { networkInterfaces } = require('os');
 const mutations = require('./store/mutations')
 
 // patterns & host declaration
-const appPort           = process.env.APP_PORT || 3000;
+const appPort           = process.env.APP_PORT || 4040;
 
 require('./osc/receive.js')();
 require('./websocket/index.js')(io);
@@ -30,7 +30,7 @@ app.get('/companion', function (req, res) {
 
 // Hosts the page on port [freePort]
 fp(appPort, function(err, freePort){
-    http.listen(freePort, async function(){
+    http.listen(freePort, '0.0.0.0', async function(){
         for (let adress in ip()){
             console.log('---------------------------------------------------------------------------------------------------------------------\n\n',)
             console.log('Interactops'.rainbow.bold)

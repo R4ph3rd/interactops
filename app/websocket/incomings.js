@@ -85,7 +85,7 @@ module.exports = function(){
 		
 	})
 
-	socket.on('request-action', ({socketId, action, token}) => {
+	socket.on('request-action', ({socketId = '', action = '', token = ''}) => {
 		console.log(`${socketId.magenta} request an action on your PC : `.magenta + action.green + ' with following token : '.magenta + token)
 
 		actions({action, token, socketId});
