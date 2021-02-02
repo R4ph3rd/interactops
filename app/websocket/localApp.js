@@ -90,8 +90,33 @@ module.exports = function(){
     socket.on('fake-action', action => {
       if (!antiBounce){
         antiBounce = !antiBounce;
-        actions({action});
-        console.log('Fake gesture : '.green, action)
+
+        switch (action) {
+          case 'alt-tab':
+            mutations.toggleAltTab();
+            console.log('-Recognized gesture : '.green, action)
+
+            if (store.altTab){
+              keyboard.altTab();
+            } else {
+              keyboard.closeAltTab();
+            }
+
+            break;
+          case 'click':
+            if(!store.controlMode){
+              mouseAction.click();
+            }
+            break;
+          case 'control-mouse':
+            if(!store.controlMode){
+              mouseAction.control({rot: data.rotation, pRot: data.pRotation});
+            }
+            break;
+          default:
+            console.log('-Recognized gesture : '.green, action)
+            actions({action});
+        }
         
         setTimeout(() => {
           antiBounce = !antiBounce;

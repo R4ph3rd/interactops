@@ -9,12 +9,19 @@ function left(){
     socket.emit('fake-action', '/swipe-left');
 }
 
-function up(){
-    console.log('up !')
+function changeWindow(){
+    console.log('change window !')
+    socket.emit('fake-action', 'alt-tab')
 }
 
-function down(){
-    console.log('down !')
+function clickMouse(){
+    console.log('click !')
+    socket.emit('fake-action', 'click')
+}
+
+function changeMode(){
+    console.log('toggle mouse !')
+    socket.emit('fake-action', '/change-control-mode');
 }
 
 

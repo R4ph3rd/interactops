@@ -2,7 +2,6 @@ const acc = document.getElementById('accel');
 const rot = document.getElementById('rot');
 const fps = 30;
 
-
 let mode = true;
 let feedbackAction = undefined;
 let clearFeedbackAction;
@@ -11,7 +10,15 @@ let localScreencastBounce = false;
 // const dahsboard = document.querySelector('')
 
 function setup(){
-    createCanvas(windowWidth, windowHeight);
+    if (document.URL.includes('dashboard')){
+      console.log('dashboard !')
+      let control = document.getElementById('control');
+      let cnv = createCanvas(control.getBoundingClientRect().width, control.getBoundingClientRect().height);
+      cnv.parent(control)
+    } else {
+      createCanvas(windowWidth, windowHeight);
+    }
+
     frameRate(fps);
     textAlign(CENTER)
 
@@ -26,37 +33,34 @@ function draw() {
       rot.innerHTML = `<strong>X: </strong> ${rotationX} </br> <strong>Y: </strong>${rotationY} </br> <strong>Z: </strong> ${rotationZ}`
     }
 
-    if(!document.URL.includes('dashboard')){
+    if (touches.length == 1){
+      socket.emit('sensors-data', {
+        acceleration : [accelerationX, accelerationY, accelerationZ],
+        rotation: [rotationX, rotationY, rotationZ]
+      })
 
-        if (touches.length == 1){
-          socket.emit('sensors-data', {
-            acceleration : [accelerationX, accelerationY, accelerationZ],
-            rotation: [rotationX, rotationY, rotationZ]
-          })
+      fill(0, 30)
+      rect(0,0, width, height)
 
-          fill(0, 30)
-          rect(0,0, width, height)
+      if (!altClutch){
+        altClutch = !altClutch;
+      }
 
-          if (!altClutch){
-            altClutch = !altClutch;
-          }
-
-        } else if (touches.length == 2){
-          if (altClutch){
-            socket.emit('alt-tab')
-            altClutch = !altClutch;
-          }
-        } else if (touches.length == 3){
-          if (!localScreencastBounce){
-            socket.emit('screencast-companion-request');
-            localScreencastBounce = !localScreencastBounce;
-          }
-        } else {
-          if (localScreencastBounce){
-            localScreencastBounce = !localScreencastBounce;
-          }
-          clear()
-        }
+    } else if (touches.length == 2){
+      if (altClutch){
+        socket.emit('alt-tab')
+        altClutch = !altClutch;
+      }
+    } else if (touches.length == 3){
+      if (!localScreencastBounce){
+        socket.emit('screencast-companion-request');
+        localScreencastBounce = !localScreencastBounce;
+      }
+    } else {
+      if (localScreencastBounce){
+        localScreencastBounce = !localScreencastBounce;
+      }
+      clear()
     }
 
     if (feedbackAction){

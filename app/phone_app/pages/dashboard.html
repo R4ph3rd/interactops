@@ -31,17 +31,19 @@
         <div class="actions">
             <button onclick="left()">Left</button>
             <button onclick="right()">Right</button>
-            <button onclick="up()">Up</button>
-            <button onclick="down()">Down</button>
+            <button onclick="changeWindow()">Change window</button>
+            <button onclick="changeMode()">Change-control-mode</button>
+            <!-- <button onclick="clickMouse()">Click</button> -->
+            <div id="control"></div>
         </div>
     </section>
     
     <section id="data_sharing">
         <h2>Data sharing</h2>
         <div class="actions">
-            <button onclick="copySend(false)">Copy & send to one</button>
-            <button onclick="copySend(true)">Copy & send to many</button>
-            <button onclick="download()">Download</button>
+            <button onclick="copySend(false)">Share-throw</button>
+            <button onclick="copySend(true)">Share-many</button>
+            <button onclick="download()">Share-get</button>
         </div>
     </section>
 
@@ -50,8 +52,6 @@
         <div class="actions">
             <button onclick="access(true)">Share collaborator access <p class="pin">0</p></button>
             <button onclick="access(false)">Share viewer access <p class="pin">0</p></button>
-            <button onclick="requestAccess()">Request access</button>
-            <button onclick="closeAccess()">Close access</button>
         </div>
     </section>
 

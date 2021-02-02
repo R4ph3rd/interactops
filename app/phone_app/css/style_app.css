@@ -41,8 +41,8 @@ h3 + p + h3{
 }
 
 .actions{
-    /* display: flex; */
-    justify-content: center;
+    display: flex;
+    /* justify-content: center; */
     flex-wrap: wrap;
 }
 
@@ -166,4 +166,19 @@ video{
     left:45%;
     text-align: center;
     z-index:10000;
+}
+
+#control{
+    display: inline-block;
+    width:100px;
+    height:auto;
+    margin-bottom:12px;
+    margin-right:12px;
+    background:grey;
+    overflow:hidden;
+}
+
+#control canvas{
+    width:100% !important;
+    height:100% !important;
 }

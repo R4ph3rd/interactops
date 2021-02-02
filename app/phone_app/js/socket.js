@@ -1,5 +1,9 @@
+
 const socket = io();
 const url = document.URL.split('/');
+
+let control = false;
+
 
 socket.emit('companion-paired')
 socket.on('companion-recognized', () => {
@@ -26,4 +30,17 @@ socket.on('action-ok', action => {
     clearFeedbackAction = setTimeout(() => {
         feedbackAction = undefined;
     }, 1000)
+
+    if (document.URL.includes('dashboard')){
+        if (action == 'change-control-mode'){
+            console.log('coool', action)
+            control = !control;
+
+            if (control){
+                document.querySelector('body').style.border = '5px solid yellow';
+            } else {
+                document.querySelector('body').style.border = '';
+            }
+        }
+    }
 })
