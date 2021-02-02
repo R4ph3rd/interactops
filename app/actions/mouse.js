@@ -27,7 +27,10 @@ module.exports = {
         // }
     },
     click: async () => {
-        await mouse.setPosition(store.startingPos);
+        if (store.startingPos != null){
+            console.log('set starting position position', store.startingPos)
+            await mouse.setPosition(store.startingPos);
+        }
         await mouse.leftClick();
         console.log('Click !'.yellow)
     },

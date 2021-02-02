@@ -9,7 +9,7 @@ const { networkInterfaces } = require('os');
 const mutations = require('./store/mutations')
 
 // patterns & host declaration
-const appPort           = process.env.APP_PORT || 4040;
+const appPort           = process.env.APP_PORT || 8080;
 
 require('./osc/receive.js')();
 require('./websocket/index.js')(io);

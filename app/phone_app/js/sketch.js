@@ -25,6 +25,10 @@ function setup(){
     // setShakeThreshold(50);
 }
 
+function doubleClicked(){
+  socket.emit('fake-action', 'click')
+}
+
 function draw() {
     if  (acc){
       acc.innerHTML = `<strong>X: </strong> ${accelerationX} </br> <strong>Y:</strong>${accelerationY} </br> <strong>Z: </strong> ${accelerationZ}`
@@ -93,7 +97,7 @@ function draw() {
 
 function touchStarted(){
 
-  if (touches[0].x > windowWidth * .9 && touches[0].y < windowHeight * .1){
+  if (touches[0].x > windowWidth * .9 && touches[0].y < windowHeight * .1){ // avoid to enable this feature with the hand on the broder of the screen
     window.location.href = '/companion'
   }
   if (!document.URL.includes('dashboard')){
