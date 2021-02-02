@@ -127,7 +127,7 @@ Share your viewer token to the server if you are the first to perform the gestur
 ![access-viewer](./vendors/gifs/access-viewer.gif)
 
 ### Access-collaborator
-Same as viewer but for collaboration. When you got access to another computer, you can perform every action except : ``acces-viewer``, ``access-collabortor``.
+Same as viewer but for collaboration. When you got access to another computer, you can perform every action except : ``acces-viewer``, ``access-collaborator``.
 
 ![access-collaborator](./vendors/gifs/access-collaborator.gif)
 
