@@ -1,9 +1,9 @@
 const screencast = document.getElementById('screencast');
 const fullscreen = document.querySelector('.fullscreen');
 
-let whoCast = undefined;
+let whoCast = 'local';
 
-socket.on('update-screencast', ({image, buffer, who}) => {
+socket.on('update-screencast', ({image, buffer, who = 'local'}) => {
 
     console.log('update screencast !')
 
@@ -30,7 +30,11 @@ socket.on('update-screencast', ({image, buffer, who}) => {
 if(screencast){
     if (document.URL.includes('dashboard')){
         screencast.addEventListener('click', () => {
-            socket.emit('request-screencast');local
+            if (whoCast == "local"){
+                socket.emit('screencast-companion-request');            
+            } else {
+                socket.emit('request-remote-screencast');
+            }
             console.log('request screencast');
             screencast.style.border = '6px red solid'
     
@@ -38,17 +42,20 @@ if(screencast){
     }
 
     screencast.onload = () => {
-        console.log('image loaded');
-        screencast.removeChild(
-            Array.from(screencast.children).find(child => child.localName == 'p')
-        )
+        if (!document.URL.includes('dashboard')){
+            console.log('image loaded', Array.from(screencast.parentElement.children));
+            screencast.removeChild(
+                Array.from(screencast.parentElement.children).find(child => child.localName == 'p')
+            )
+        }
 
         if (whoCast == "local"){
-            socket.emit('screencast-companion-request');            
+            socket.emit('screencast-companion-request'); 
+            screencast.style.border = '6px green solid'           
         } else {
             socket.emit('request-remote-screencast');
         }
 
-        screencast.style.border = '6px green solid'
+        
     }
 }

@@ -32,6 +32,8 @@ module.exports = {
                 message:'You closed your viewing access to remote users.',
                 icon: path.join(__dirname, '../store/assets/icons/view_end.svg'),
             });
+        } else if (Object.keys(store.remote.requests).length >= 1){
+            module.exports.closeAccess(false);
         } else {
             socketSendings.shareAccess({token: store.tokens.viewer, rights: 'viewer'});
             console.log('Sharing viewer access'.green)
@@ -48,6 +50,8 @@ module.exports = {
         if (store.remote.token){
             mutations.clearRemote();
             console.log('Remote tokens and connection cleared.'.green)
+        } else if (Object.keys(store.remote.requests).length >= 1){
+            module.exports.closeAccess(true);
         } else {
             socketSendings.shareAccess({token: store.tokens.collaborator, rights: 'collaborator'});
             console.log('Sharing collaborator access'.green)
@@ -105,6 +109,7 @@ module.exports = {
         });
     },
     closeAccess: (which) => {
+        console.log('Close access !')
         if (which){
             mutations.setTokens();
 

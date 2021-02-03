@@ -93,19 +93,27 @@ module.exports = function(){
 
         switch (action) {
           case 'alt-tab':
-            mutations.toggleAltTab();
-            console.log('-Recognized gesture : '.green, action)
-
-            if (store.altTab){
-              keyboard.altTab();
+            if (!forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
+              requestAction(action);
             } else {
-              keyboard.closeAltTab();
+              mutations.toggleAltTab();
+              console.log('-Recognized gesture : '.green, action)
+
+              if (store.altTab){
+                keyboard.altTab();
+              } else {
+                keyboard.closeAltTab();
+              }
             }
 
             break;
           case 'click':
-            if(!store.controlMode){
-              mouseAction.click();
+            if (!forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
+              requestAction(action);
+            } else {
+              if(!store.controlMode){
+                mouseAction.click();
+              }
             }
             break;
           case 'control-mouse':
@@ -133,6 +141,7 @@ module.exports = function(){
     ///////////////   SCREENCAST   ////////////////////////
 
     socket.on('screencast-companion-request', async () => {
+      console.log('companion screencast equest'.green)
       screenshot().then((buffer) => {
         console.log('-- Image buffer initialized for companion -- '.green);
 
