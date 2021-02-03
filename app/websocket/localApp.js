@@ -93,7 +93,7 @@ module.exports = function(){
 
         switch (action) {
           case 'alt-tab':
-            if (!forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
+            if (!store.forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
               requestAction(action);
             } else {
               mutations.toggleAltTab();

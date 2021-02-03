@@ -2,6 +2,7 @@ module.exports = {
     mode: null,
     screenSize: {x: 0, y: 0},
     controlMode: true,
+    forbidenRemoteActions: ['/close-access', '/access-collaborator', '/access-viewer'],
     viewerRights : ['screencast'],
     collaboratorRights : [
         '/top', '/down', '/right', '/left', 
