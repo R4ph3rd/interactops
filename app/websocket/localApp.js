@@ -94,7 +94,7 @@ module.exports = function(){
         switch (action) {
           case 'alt-tab':
             if (!store.forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
-              requestAction(action);
+              access.requestAction(action);
             } else {
               mutations.toggleAltTab();
               console.log('-Recognized gesture : '.green, action)
@@ -109,7 +109,7 @@ module.exports = function(){
             break;
           case 'click':
             if (!forbidenRemoteActions.includes(action) && store.remote.token != null && store.remote.socket != null && store.remote.rights == 'collaborator'){
-              requestAction(action);
+              access.requestAction(action);
             } else {
               if(!store.controlMode){
                 mouseAction.click();
