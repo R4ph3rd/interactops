@@ -112,6 +112,7 @@ module.exports = {
         console.log('Close access !')
         if (which){
             mutations.setTokens();
+            mutations.clearRemote();
 
             notifier.notify({
                 title:'Interactops',
