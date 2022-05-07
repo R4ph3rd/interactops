@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactops Phone app</title>
+    <link rel="stylesheet" href="../css/style_app.css">
+</head>
+<body>
+    <a href="/companion" class="gridMenu">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </a>
+
+    <h1>Interactops companion app</h1>
+
+    <section id="data">
+        <h2>Dashboard/Debug Mode</h2>
+
+        <h3>Accelerometer</h3>
+        <p id="accel"></p>
+
+        <h3>Rotation</h3>
+        <p id="rot"></p>
+    </section>
+
+    <section id="desktop_automation">
+        <h2>Desktop automation</h2>
+        <div class="actions">
+            <button onclick="left()">Left</button>
+            <button onclick="right()">Right</button>
+            <button onclick="changeWindow()">Change window</button>
+            <button onclick="changeMode()">Change-control-mode</button>
+            <!-- <button onclick="clickMouse()">Click</button> -->
+            <div id="control"></div>
+        </div>
+    </section>
+    
+    <section id="data_sharing">
+        <h2>Data sharing</h2>
+        <div class="actions">
+            <button onclick="copySend(false)">Share-throw</button>
+            <button onclick="copySend(true)">Share-many</button>
+            <button onclick="download()">Share-get</button>
+        </div>
+    </section>
+
+    <section id="collaboration">
+        <h2>Collaboration</h2>
+        <div class="actions">
+            <button onclick="access(true)">Share collaborator access <p class="pin">0</p></button>
+            <button onclick="access(false)">Share viewer access <p class="pin">0</p></button>
+        </div>
+    </section>
+
+    <section id="screen">
+        <img src="" alt="" id="screencast">
+    </section>
+    
+</body>
+<script src="../lib/p5.min.js"></script>
+<script src="../socket.io/socket.io.js"></script>
+<script src="../js/socket.js"></script>
+<script src="../js/screencast.js"></script>
+<script src="../js/fakeActions.js"></script>
+<script src="../js/sketch.js"></script>
+</html>
