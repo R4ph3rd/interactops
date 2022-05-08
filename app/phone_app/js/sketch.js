@@ -13,7 +13,7 @@ function setup() {
     if (document.URL.includes('dashboard')) {
         console.log('dashboard !')
         let control = document.getElementById('control');
-        let cnv = createCanvas(control.getBoundingClientRect().width, control.getBoundingClientRect().height);
+        let cnv = createCanvas(10, 10);
         cnv.parent(control)
     } else {
         createCanvas(windowWidth, windowHeight);
@@ -54,23 +54,6 @@ function draw() {
         } else {
             clear()
         }
-    }
-
-
-    if (feedbackAction) {
-        background(12, 205, 0);
-        fill(255);
-        textSize(width / (feedbackAction.length / 2))
-        text(feedbackAction, width / 2, height / 2);
-    }
-
-    if (!mode) {
-        push()
-        noFill();
-        stroke(255, 2555, 0);
-        strokeWeight(20);
-        rect(0, 0, width, height);
-        pop()
     }
 }
 
