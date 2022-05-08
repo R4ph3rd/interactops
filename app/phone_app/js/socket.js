@@ -34,7 +34,7 @@ socket.on('action-gesture', action => {
         case '/swipeLeft':
             prevScreen();
             break;
-        case 'vocal':
+        case '/vocal':
             startVocal();
             break;
         case '/balise':

@@ -8,7 +8,6 @@ module.exports = () => {
 
     wekinatorServer.on('message', async function(msg, info) {
         // here I get an array where msg[0] == "/[gesture]", and others are confidence value of each model
-
         if (msg.length < 2) {
             filters.lastRecognizedGesture = msg[0];
             console.log('Recognized gesture : '.yellow, msg[0])
